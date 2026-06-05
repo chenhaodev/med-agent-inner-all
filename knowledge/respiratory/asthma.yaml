@@ -6,7 +6,7 @@ source: 《西氏内科学精要》（中文版）
 entries:
 - id: ASTHMA_DEF
   title: 支气管哮喘定义
-  source_page: 240
+  source_page: 252
   evidence_level: 未注明
   recommendation: 未注明
   key_points:
@@ -14,7 +14,7 @@ entries:
   - 与慢阻肺不同，哮喘的气流受限通常是可逆的，且常与过敏原有关。
 - id: ASTHMA_SYMPTOM
   title: 哮喘典型症状
-  source_page: 241
+  source_page: 253
   evidence_level: 未注明
   recommendation: 未注明
   key_points:
@@ -22,7 +22,7 @@ entries:
   - 症状可能由环境诱因（如花粉、尘螨、冷空气）触发。
 - id: ASTHMA_DIAG
   title: 哮喘诊断方法
-  source_page: 241
+  source_page: 253
   evidence_level: 未注明
   recommendation: 未注明
   key_points:
@@ -31,7 +31,7 @@ entries:
   - 一氧化碳弥散量（DLCO）正常或升高，有助于与慢阻肺鉴别。
 - id: ASTHMA_TRIGGER
   title: 哮喘常见诱因
-  source_page: 240
+  source_page: 253
   evidence_level: 未注明
   recommendation: 未注明
   key_points:
@@ -39,7 +39,7 @@ entries:
   - 避免已知诱因可减少哮喘发作频率和严重程度。
 - id: ASTHMA_LIFESTYLE
   title: 哮喘生活方式管理
-  source_page: 241
+  source_page: 254
   evidence_level: 未注明
   recommendation: 未注明
   key_points:
@@ -48,7 +48,7 @@ entries:
   - 适度锻炼（如散步、游泳）可改善肺功能，但需避免剧烈运动诱发发作。
 - id: ASTHMA_MEDICATION
   title: 哮喘药物管理注意事项
-  source_page: 241
+  source_page: 254
   evidence_level: 未注明
   recommendation: 未注明
   key_points:
@@ -57,7 +57,7 @@ entries:
   - 缓解性药物仅用于急性发作时，频繁使用提示控制不佳，需就医调整方案。
 - id: ASTHMA_ACUTE
   title: 哮喘急性加重处理
-  source_page: 241
+  source_page: 254
   evidence_level: 未注明
   recommendation: 未注明
   key_points:
@@ -66,7 +66,7 @@ entries:
   - 避免自行增加药物剂量，尤其是口服激素，需医生指导。
 - id: ASTHMA_COMPLICATION
   title: 哮喘并发症预防
-  source_page: 241
+  source_page: 254
   evidence_level: 未注明
   recommendation: 未注明
   key_points:
@@ -75,7 +75,7 @@ entries:
   - 接种流感疫苗和肺炎疫苗可减少感染诱发的哮喘加重。
 - id: ASTHMA_WHEN_TO_SEEK
   title: 哮喘何时就医
-  source_page: 241
+  source_page: 253
   evidence_level: 未注明
   recommendation: 未注明
   key_points:

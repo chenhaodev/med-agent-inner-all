@@ -42,7 +42,7 @@ entries:
   - 控制胃酸是治疗溃疡的重要环节。
 - id: SYMPTOMS_WARN
   title: 何时就医警示
-  source_page: 453
+  source_page: 456
   evidence_level: 未注明
   recommendation: 强推荐
   key_points:

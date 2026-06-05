@@ -47,17 +47,17 @@ entries:
   - 医生通过问诊、听诊和颈静脉检查评估。
   - 心脏超声可测射血分数，区分收缩或舒张性心衰。
 - id: HF_LIFESTYLE
-  title: 生活方式管理
-  source_page: 80
+  title: 生活方式管理（非药物治疗）
+  source_page: 86
   evidence_level: 未注明
   recommendation: 未注明
   key_points:
-  - 每日称体重，若2天内增加2公斤以上需就医。
-  - 低盐饮食，避免腌制食品和加工零食。
-  - 适度活动，避免劳累，但不要完全卧床。
+  - 钠摄入应限制在约2 g/天；液体摄入也应适当限制，以避免低钠血症。
+  - 肥胖患者减轻体重有助于减轻衰竭心脏的负荷。
+  - 科学的心血管锻炼可减轻心力衰竭症状、改善心功能；教材未给出具体运动方式、频率或强度，需由医生评估病情后制定。
 - id: HF_MEDICATION
   title: 药物管理注意事项
-  source_page: 80
+  source_page: 86
   evidence_level: 未注明
   recommendation: 未注明
   key_points:
@@ -66,7 +66,7 @@ entries:
   - 遵医嘱服药，勿自行增减剂量。
 - id: HF_COMPLICATION
   title: 并发症预防
-  source_page: 80
+  source_page: 86
   evidence_level: 未注明
   recommendation: 未注明
   key_points:
@@ -75,7 +75,7 @@ entries:
   - 定期复查心脏功能，监测心律失常。
 - id: HF_WHEN_TO_SEEK
   title: 何时就医
-  source_page: 80
+  source_page: 83
   evidence_level: 未注明
   recommendation: 未注明
   key_points:
