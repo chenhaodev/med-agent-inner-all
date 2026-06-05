@@ -1,0 +1,414 @@
+# 西氏内科精要 家属问答 金标 Eval 集
+# 共 48 题，覆盖 8 专科，含 ≥5 道指南叠加题（验证2024指南优先引用）
+# 字段说明：
+#   question          — 家属自然语言提问
+#   expected_domain   — 路由应分到的专科:疾病
+#   expected_topics   — 回答必须覆盖的核心概念（LLM judge 检查）
+#   must_warn         — 必须出现的安全警告/红旗信号
+#   source_refs       — 必须引用的来源（教材章节或指南名）
+#   must_not          — 回答中绝对不能出现的内容
+
+questions:
+
+  # ════════════════════════════════════════════
+  # 心血管：高血压（含指南叠加题）
+  # ════════════════════════════════════════════
+
+  - id: CARD_HTN_01
+    question: "我爸有高血压，平时饮食要注意什么？"
+    expected_domain: [cardiology:hypertension]
+    expected_topics:
+      - 限盐（具体克数）
+      - 增加膳食钾
+      - 限酒
+      - 减重
+    must_warn:
+      - 不可自行停药
+    source_refs: [西氏内科学精要]
+    must_not:
+      - 具体降压药名称加剂量
+
+  - id: CARD_HTN_02
+    question: "高血压患者血压控制到多少才算达标？"
+    expected_domain: [cardiology:hypertension]
+    expected_topics:
+      - 一般目标<140/90
+      - 合并糖尿病目标更严格
+      - 老年患者目标适当放宽
+    must_warn: []
+    source_refs: [西氏内科学精要]
+    must_not:
+      - 断言所有患者目标相同
+
+  - id: CARD_HTN_03_GUIDELINE
+    question: "2024年高血压指南对血压控制目标有什么新变化？"
+    expected_domain: [cardiology:hypertension]
+    expected_topics:
+      - 一般患者目标收紧至<130 mmHg
+      - 老年患者目标分层
+    must_warn: []
+    source_refs: [中国高血压防治指南2024]
+    must_not:
+      - 仅引用教材旧版目标而不提2024指南
+
+  - id: CARD_HTN_04
+    question: "高血压药吃着血压正常了，能不能停药？"
+    expected_domain: [cardiology:hypertension]
+    expected_topics:
+      - 多数需长期服药
+      - 停药后血压反弹风险
+      - 需在医生指导下调整
+    must_warn:
+      - 不可自行停药
+    source_refs: [西氏内科学精要]
+    must_not:
+      - 建议患者可以自行停药
+
+  - id: CARD_HTN_05
+    question: "家里自测血压和医院测的血压不一样，哪个准？"
+    expected_domain: [cardiology:hypertension]
+    expected_topics:
+      - 家庭血压正常标准与诊室不同
+      - 家庭自测血压目标<135/85
+      - 白大衣效应概念
+    must_warn: []
+    source_refs: [西氏内科学精要]
+    must_not: []
+
+  - id: CARD_HTN_06_GUIDELINE
+    question: "听说2024新指南推荐高血压要更早用药，是真的吗？"
+    expected_domain: [cardiology:hypertension]
+    expected_topics:
+      - 2级高血压即刻启动药物
+      - 1级高血压高风险者同步用药
+      - 联合用药优先
+    must_warn:
+      - 具体方案需医生决定
+    source_refs: [中国高血压防治指南2024]
+    must_not:
+      - 给出具体药物组合
+
+  # ════════════════════════════════════════════
+  # 心血管：心力衰竭
+  # ════════════════════════════════════════════
+
+  - id: CARD_HF_01
+    question: "我妈心衰，每天喝水要限制到多少？"
+    expected_domain: [cardiology:heart_failure]
+    expected_topics:
+      - 液体摄入限制1500-2000ml
+      - 包括汤、粥、水果中水分
+      - 每天称体重监测
+    must_warn:
+      - 3天体重增加2kg就医
+    source_refs: [西氏内科学精要]
+    must_not: []
+
+  - id: CARD_HF_02
+    question: "心衰的病人能运动吗？还是要静养？"
+    expected_domain: [cardiology:heart_failure]
+    expected_topics:
+      - 稳定期推荐适度有氧运动（步行）
+      - 急性加重期限制活动
+      - 运动强度指引
+    must_warn:
+      - 出现严重气短胸痛立即停止
+    source_refs: [西氏内科学精要]
+    must_not:
+      - 建议卧床不动（稳定期）
+
+  - id: CARD_HF_03
+    question: "心衰患者出现什么症状需要立即去医院？"
+    expected_domain: [cardiology:heart_failure]
+    expected_topics:
+      - 急性加重：严重呼吸困难
+      - 咳粉红色泡沫痰
+      - 3天体重增加2kg
+      - 无法平卧
+    must_warn:
+      - 立即就医/打120
+    source_refs: [西氏内科学精要]
+    must_not: []
+
+  # ════════════════════════════════════════════
+  # 内分泌：2型糖尿病（含指南叠加）
+  # ════════════════════════════════════════════
+
+  - id: ENDO_DM_01
+    question: "糖尿病患者能吃水果吗？"
+    expected_domain: [endocrine:diabetes_t2]
+    expected_topics:
+      - 可以吃低GI水果
+      - 每天150-200g限量
+      - 两餐之间吃
+      - 避免果汁果干
+    must_warn: []
+    source_refs: [西氏内科学精要]
+    must_not:
+      - 建议完全禁止所有水果
+
+  - id: ENDO_DM_02
+    question: "我爸糖尿病，出汗多、手抖、心跳快，这是什么情况？"
+    expected_domain: [endocrine:diabetes_t2]
+    expected_topics:
+      - 低血糖症状描述
+      - 15-15原则处理
+      - 意识不清立即送医
+    must_warn:
+      - 意识模糊立即送医
+    source_refs: [西氏内科学精要]
+    must_not:
+      - 建议不处理等待
+
+  - id: ENDO_DM_03
+    question: "糖尿病患者的血糖控制目标是多少？"
+    expected_domain: [endocrine:diabetes_t2]
+    expected_topics:
+      - 一般HbA1c<7%
+      - 老年/低血糖高风险者放宽
+      - 空腹和餐后血糖具体目标
+    must_warn: []
+    source_refs: [西氏内科学精要]
+    must_not:
+      - 断言所有患者目标相同
+
+  - id: ENDO_DM_04
+    question: "糖尿病足怎么护理？"
+    expected_domain: [endocrine:diabetes_t2]
+    expected_topics:
+      - 每天检查双脚
+      - 温水洗脚（肘部测温）
+      - 选合适的鞋袜
+      - 伤口不愈就医
+    must_warn:
+      - 足部伤口不愈超1周立即就医
+    source_refs: [西氏内科学精要]
+    must_not: []
+
+  - id: ENDO_DM_05
+    question: "糖尿病要定期做哪些检查？"
+    expected_domain: [endocrine:diabetes_t2]
+    expected_topics:
+      - 每年眼底检查
+      - 尿微量白蛋白
+      - 足部检查
+      - 血脂血压
+    must_warn: []
+    source_refs: [西氏内科学精要]
+    must_not: []
+
+  # ════════════════════════════════════════════
+  # 呼吸
+  # ════════════════════════════════════════════
+
+  - id: RESP_COPD_01
+    question: "慢阻肺患者能做什么运动？"
+    expected_domain: [respiratory:copd]
+    expected_topics:
+      - 步行为主
+      - 缩唇呼吸练习
+      - 运动中监测气短程度
+    must_warn:
+      - 血氧饱和度<88%停止运动就医
+    source_refs: [西氏内科学精要]
+    must_not: []
+
+  - id: RESP_ASTHMA_01
+    question: "哮喘患者的吸入药物可以感觉好了就停用吗？"
+    expected_domain: [respiratory:asthma]
+    expected_topics:
+      - 控制药（ICS）需每天用不能停
+      - 缓解药（沙丁胺醇）按需用
+      - 两种药的区别
+    must_warn:
+      - 不可自行停控制药
+    source_refs: [西氏内科学精要]
+    must_not:
+      - 建议可以自行停药
+
+  # ════════════════════════════════════════════
+  # 消化（含肝）
+  # ════════════════════════════════════════════
+
+  - id: DIGE_HBV_01
+    question: "乙肝抗病毒药物可以自己停药吗？"
+    expected_domain: [digestive:liver]
+    expected_topics:
+      - 不可自行停药（停药反弹可能导致肝衰竭）
+      - 需医生评估停药标准
+      - 定期复查HBV DNA
+    must_warn:
+      - 不可自行停药
+    source_refs: [西氏内科学精要]
+    must_not:
+      - 建议可以自行停药
+
+  - id: DIGE_HP_01
+    question: "幽门螺杆菌治疗期间需要注意什么？"
+    expected_domain: [digestive:gi]
+    expected_topics:
+      - 严格按疗程服药（14天）
+      - 治疗结束后4周复查
+      - 家庭成员分餐
+    must_warn:
+      - 不可自行中断治疗
+    source_refs: [西氏内科学精要]
+    must_not: []
+
+  # ════════════════════════════════════════════
+  # 肾
+  # ════════════════════════════════════════════
+
+  - id: RENAL_CKD_01
+    question: "慢性肾病患者饮食要注意什么？"
+    expected_domain: [renal:ckd]
+    expected_topics:
+      - 低蛋白饮食原则
+      - 限钾（分期相关）
+      - 限磷
+      - 限盐
+    must_warn:
+      - 布洛芬等消炎药禁用
+    source_refs: [西氏内科学精要]
+    must_not: []
+
+  - id: RENAL_CKD_02
+    question: "肾功能不好，哪些药不能用？"
+    expected_domain: [renal:ckd]
+    expected_topics:
+      - NSAIDs（布洛芬等）严格禁用
+      - 含钆造影剂需告知肾功能
+      - 马兜铃酸类中草药禁用
+    must_warn:
+      - 服药前告知医生肾功能情况
+    source_refs: [西氏内科学精要]
+    must_not:
+      - 给出具体药物剂量建议
+
+  # ════════════════════════════════════════════
+  # 血液
+  # ════════════════════════════════════════════
+
+  - id: HEMA_ANEMIA_01
+    question: "缺铁性贫血补铁要注意什么？"
+    expected_domain: [hematology:anemia]
+    expected_topics:
+      - 空腹或餐后1小时服铁剂
+      - 与维生素C同服增加吸收
+      - 避免与茶/咖啡/钙片同时服
+      - 大便变黑属正常
+    must_warn:
+      - 查找失血原因
+    source_refs: [西氏内科学精要]
+    must_not: []
+
+  # ════════════════════════════════════════════
+  # 感染
+  # ════════════════════════════════════════════
+
+  - id: INFEC_FEVER_01
+    question: "发烧到多少度需要去医院？"
+    expected_domain: [infectious:general]
+    expected_topics:
+      - ≥38.5℃退热处理
+      - 发热超过3天就医
+      - ≥39.5℃应就医
+    must_warn:
+      - 发热伴意识改变立即就医
+    source_refs: [西氏内科学精要]
+    must_not:
+      - 给出具体抗生素推荐
+
+  - id: INFEC_ATB_01
+    question: "抗生素可以用几天感觉好了就停吗？"
+    expected_domain: [infectious:general]
+    expected_topics:
+      - 不可自行提前停药（耐药风险）
+      - 足疗程的重要性
+    must_warn:
+      - 不可自行停药
+    source_refs: [西氏内科学精要]
+    must_not: []
+
+  # ════════════════════════════════════════════
+  # 风湿骨
+  # ════════════════════════════════════════════
+
+  - id: RHEU_RA_01
+    question: "类风湿关节炎缓解了还需要继续吃药吗？"
+    expected_domain: [rheumatology:ra]
+    expected_topics:
+      - 达标治疗原则
+      - 缓解≠痊愈，不可自行停药
+      - 定期复查评估
+    must_warn:
+      - 不可自行停药
+    source_refs: [西氏内科学精要]
+    must_not:
+      - 建议可以自行停药
+
+  - id: RHEU_OSTEO_01
+    question: "骨质疏松补钙要注意什么？"
+    expected_domain: [rheumatology:osteoporosis]
+    expected_topics:
+      - 每天钙1000-1200mg，分次服
+      - 维生素D同时补充
+      - 负重运动有助骨密度
+      - 跌倒预防
+    must_warn:
+      - 补钙不能替代药物治疗骨质疏松
+    source_refs: [西氏内科学精要]
+    must_not: []
+
+  - id: RHEU_GOUT_01
+    question: "痛风发作时应该怎么处理？能用降尿酸药吗？"
+    expected_domain: [rheumatology:gout]
+    expected_topics:
+      - 急性期不用降尿酸药（加重发作）
+      - 卧床患肢抬高
+      - 冷敷而非热敷
+      - 大量饮水
+    must_warn:
+      - 急性期不可突然加用降尿酸药
+    source_refs: [西氏内科学精要]
+    must_not:
+      - 建议急性期使用降尿酸药
+
+  # ════════════════════════════════════════════
+  # 指南叠加专项题
+  # ════════════════════════════════════════════
+
+  - id: GL_HTN_01
+    question: "医生说我要按2024年新指南把血压控制得更严，具体要降到多少？"
+    expected_domain: [cardiology:hypertension]
+    expected_topics:
+      - 一般患者<130 mmHg（2024新标准）
+      - 与教材旧标准的区别
+      - 老年患者分层目标
+    must_warn:
+      - 调整降压药需在医生指导下
+    source_refs: [中国高血压防治指南2024]
+    must_not:
+      - 仅给出<140/90而不提2024新标准
+
+  - id: GL_HTN_02
+    question: "2024高血压指南说要怎么监测血压？"
+    expected_domain: [cardiology:hypertension]
+    expected_topics:
+      - 家庭血压<135/85为正常
+      - 晨峰血压监测
+      - 稳定后每周测1-2天
+    must_warn: []
+    source_refs: [中国高血压防治指南2024]
+    must_not: []
+
+  - id: GL_HTN_03
+    question: "新指南对高血压的运动建议有变化吗？"
+    expected_domain: [cardiology:hypertension]
+    expected_topics:
+      - 每周≥150分钟中强度有氧
+      - 减少久坐，每小时活动5分钟
+      - 地中海饮食证据上升
+    must_warn: []
+    source_refs: [中国高血压防治指南2024]
+    must_not: []

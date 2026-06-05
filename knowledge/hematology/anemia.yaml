@@ -1,0 +1,86 @@
+specialty: hematology
+specialty_zh: 血液
+disease: anemia
+disease_zh: 贫血
+source: 《西氏内科学精要》（中文版）
+entries:
+- id: ANEMIA_DEFINITION
+  title: 贫血的定义与症状
+  source_page: 558
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 贫血是红细胞数量减少，常见症状包括乏力、活动后气短和心悸。
+  - 严重贫血可能引发心绞痛，需及时就医评估。
+- id: ANEMIA_CAUSES
+  title: 贫血的常见原因
+  source_page: 558
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 贫血可由营养缺乏、失血、溶血或骨髓疾病引起。
+  - 急性失血或溶血可能导致休克，需紧急处理。
+- id: IRON_DEFICIENCY_CAUSES
+  title: 缺铁性贫血的原因
+  source_page: 561
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 缺铁最常见原因是隐性失血，男性和绝经后女性需排查胃肠道出血。
+  - 月经量过多或妊娠是育龄女性缺铁的常见原因。
+- id: IRON_DEFICIENCY_DIAGNOSIS
+  title: 缺铁性贫血的诊断检查
+  source_page: 561
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 诊断需查血清铁、总铁结合力和铁蛋白，铁蛋白低于12ng/ml提示缺铁。
+  - 铁蛋白在炎症时可能升高，但高于100ng/ml通常可排除缺铁。
+- id: IRON_DEFICIENCY_TREATMENT
+  title: 缺铁性贫血的治疗建议
+  source_page: 561
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 口服铁剂是主要治疗，需坚持至贫血纠正后数月以补足储存铁。
+  - 铁剂可能引起便秘或腹泻，可从小剂量开始逐渐加量。
+- id: B12_DEFICIENCY_CAUSES
+  title: 维生素B12缺乏的原因
+  source_page: 562
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 最常见原因是恶性贫血，一种自身免疫病导致内因子缺乏。
+  - 胃切除、回肠疾病或长期素食也可能导致B12缺乏。
+- id: B12_DEFICIENCY_SYMPTOMS
+  title: 维生素B12缺乏的症状
+  source_page: 563
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 除贫血外，B12缺乏可导致神经症状，如手脚麻木、行走不稳或记忆力下降。
+  - 神经症状可能单独出现，需及时检查B12水平。
+- id: FOLATE_DEFICIENCY
+  title: 叶酸缺乏的原因与预防
+  source_page: 562
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 叶酸缺乏常见于饮食中新鲜蔬果摄入不足者。
+  - 妊娠、溶血或透析患者需额外补充叶酸。
+- id: MACROCYTIC_ANEMIA
+  title: 大细胞性贫血的常见类型
+  source_page: 561
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 大细胞性贫血分为巨幼细胞性和非巨幼细胞性，前者与B12或叶酸缺乏有关。
+  - 肝病或甲状腺功能减退也可引起大细胞性贫血。
+- id: WHEN_TO_SEEK_CARE
+  title: 贫血患者何时就医
+  source_page: 558
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 出现严重乏力、呼吸困难、心绞痛或黄疸时需立即就医。
+  - 不明原因的贫血或治疗后无改善，应进一步检查病因。

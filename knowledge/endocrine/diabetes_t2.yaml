@@ -1,0 +1,96 @@
+specialty: endocrine
+specialty_zh: 内分泌代谢
+disease: diabetes_t2
+disease_zh: 2型糖尿病
+source: 《西氏内科学精要》（中文版）
+entries:
+- id: DM_DIAGNOSIS
+  title: 糖尿病诊断标准
+  source_page: 99
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 空腹血糖≥126mg/dl或随机血糖≥200mg/dl可诊断糖尿病。
+  - 糖化血红蛋白≥6.5%也作为诊断标准之一。
+  - 无高血糖症状时需重复检测一次确认。
+- id: PREDIABETES
+  title: 糖尿病前期识别
+  source_page: 99
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 糖化血红蛋白5.7%-6.4%或空腹血糖100-125mg/dl为糖尿病前期。
+  - 每年约6%的糖尿病前期患者会进展为糖尿病。
+  - 糖尿病前期患者心血管疾病风险增加。
+- id: GDM_DIAGNOSIS
+  title: 妊娠期糖尿病诊断
+  source_page: 100
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 妊娠24-28周行75g糖耐量试验筛查。
+  - 空腹血糖≥92mg/dl或1小时血糖≥180mg/dl可诊断。
+  - 未治疗的妊娠期糖尿病增加胎儿畸形和分娩风险。
+- id: T1DM_CAUSE
+  title: 1型糖尿病病因
+  source_page: 101
+  evidence_level: 中
+  recommendation: 未注明
+  key_points:
+  - 1型糖尿病是胰岛素分泌细胞被自身免疫破坏导致。
+  - 遗传因素和环境因素共同作用，如感染或化学物质。
+  - 家族中兄弟姐妹患病风险约5%，父亲患病后代风险6%。
+- id: T1DM_SYMPTOMS
+  title: 1型糖尿病症状
+  source_page: 102
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 典型症状包括多尿、多饮、体重减轻和乏力。
+  - 儿童可能表现为尿床或白天尿失禁。
+  - 约25%的患者以酮症酸中毒起病，需紧急就医。
+- id: T1DM_TREATMENT
+  title: 1型糖尿病治疗原则
+  source_page: 103
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 1型糖尿病必须依赖外源胰岛素治疗。
+  - 治疗目标为糖化血红蛋白控制在7%以下。
+  - 需多学科团队包括医生、教育者和营养师共同管理。
+- id: T1DM_INSULIN
+  title: 胰岛素治疗方案
+  source_page: 103
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 常用基础-餐时方案：长效胰岛素每日1-2次，速效胰岛素餐前注射。
+  - 胰岛素泵可提供更灵活的剂量调整。
+  - 自我血糖监测对调整胰岛素剂量至关重要。
+- id: T2DM_FEATURES
+  title: 2型糖尿病特点
+  source_page: 100
+  evidence_level: 高
+  recommendation: 未注明
+  key_points:
+  - 2型糖尿病占所有糖尿病的90%以上，起病缓慢。
+  - 多数患者伴有肥胖，存在胰岛素抵抗。
+  - 与1型糖尿病不同，不易发生酮症酸中毒。
+- id: DM_COMPLICATIONS
+  title: 糖尿病并发症预防
+  source_page: 103
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 控制血糖可减少视网膜、肾脏和神经并发症。
+  - 需定期检查足部、眼底和肾功能。
+  - 同时控制血脂和血压以降低心血管风险。
+- id: WHEN_TO_SEEK_CARE
+  title: 何时就医
+  source_page: 102
+  evidence_level: 中
+  recommendation: 强推荐
+  key_points:
+  - 出现多尿、多饮、体重减轻等典型症状时需就医。
+  - 血糖明显升高伴恶心、呕吐或意识改变需紧急处理。
+  - 妊娠期发现血糖异常应尽快咨询医生。

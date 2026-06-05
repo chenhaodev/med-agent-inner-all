@@ -1,0 +1,93 @@
+specialty: cardiology
+specialty_zh: 心血管
+disease: heart_failure
+disease_zh: 心力衰竭
+source: 《西氏内科学精要》（中文版）
+entries:
+- id: HF_DEFINITION
+  title: 心力衰竭定义
+  source_page: 79
+  evidence_level: 未注明
+  recommendation: 未注明
+  key_points:
+  - 心力衰竭是心脏泵血功能下降，无法满足身体需要。
+  - 常见症状包括乏力、呼吸困难、水肿。
+- id: HF_CAUSES
+  title: 心力衰竭病因
+  source_page: 79
+  evidence_level: 未注明
+  recommendation: 未注明
+  key_points:
+  - 冠心病、高血压、心肌梗死是常见原因。
+  - 酒精、可卡因、某些化疗药也可导致。
+  - 家族遗传性心肌病需关注三代亲属。
+- id: HF_CLASSIFICATION
+  title: 心功能分级
+  source_page: 79
+  evidence_level: 未注明
+  recommendation: 未注明
+  key_points:
+  - NYHA分级：I级日常活动无不适，IV级休息时也气短。
+  - ACCF/AHA分期：A期有危险因素，D期难治性。
+- id: HF_SYMPTOMS
+  title: 心力衰竭症状
+  source_page: 83
+  evidence_level: 未注明
+  recommendation: 未注明
+  key_points:
+  - 呼吸困难、乏力最常见，平卧加重提示端坐呼吸。
+  - 夜间突然憋醒可能是阵发性呼吸困难。
+  - 脚踝或腿部水肿提示体液潴留。
+- id: HF_DIAGNOSIS
+  title: 诊断检查
+  source_page: 83
+  evidence_level: 未注明
+  recommendation: 未注明
+  key_points:
+  - 医生通过问诊、听诊和颈静脉检查评估。
+  - 心脏超声可测射血分数，区分收缩或舒张性心衰。
+- id: HF_LIFESTYLE
+  title: 生活方式管理
+  source_page: 80
+  evidence_level: 未注明
+  recommendation: 未注明
+  key_points:
+  - 每日称体重，若2天内增加2公斤以上需就医。
+  - 低盐饮食，避免腌制食品和加工零食。
+  - 适度活动，避免劳累，但不要完全卧床。
+- id: HF_MEDICATION
+  title: 药物管理注意事项
+  source_page: 80
+  evidence_level: 未注明
+  recommendation: 未注明
+  key_points:
+  - 利尿剂帮助排水，但需监测体重和电解质。
+  - ACEI/ARB和β受体阻滞剂是基础用药，不可随意停。
+  - 遵医嘱服药，勿自行增减剂量。
+- id: HF_COMPLICATION
+  title: 并发症预防
+  source_page: 80
+  evidence_level: 未注明
+  recommendation: 未注明
+  key_points:
+  - 控制高血压、糖尿病和肥胖可延缓心衰进展。
+  - 避免感染，如感冒可诱发心衰加重。
+  - 定期复查心脏功能，监测心律失常。
+- id: HF_WHEN_TO_SEEK
+  title: 何时就医
+  source_page: 80
+  evidence_level: 未注明
+  recommendation: 未注明
+  key_points:
+  - 呼吸困难加重、夜间憋醒、体重快速增加需就医。
+  - 出现胸痛、晕厥或意识模糊立即急诊。
+  - 脚踝水肿加重或尿量减少提示病情恶化。
+- id: HF_RISK_FACTORS
+  title: 危险因素
+  source_page: 81
+  evidence_level: 未注明
+  recommendation: 未注明
+  key_points:
+  - 年龄越大风险越高，65岁以上更常见。
+  - 男性、黑人、有冠心病或高血压者风险高。
+  - 糖尿病和肥胖也增加心衰风险。

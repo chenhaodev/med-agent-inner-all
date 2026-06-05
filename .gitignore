@@ -1,0 +1,6 @@
+pdfs/
+source/
+.env
+eval/results/*.json
+__pycache__/
+*.pyc

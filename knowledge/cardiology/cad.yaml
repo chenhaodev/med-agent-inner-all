@@ -1,0 +1,78 @@
+specialty: cardiology
+specialty_zh: 心血管
+disease: cad
+disease_zh: 冠心病
+source: 《西氏内科学精要》（中文版）
+entries:
+- id: CAD_RISK_FACTORS
+  title: 冠心病危险因素
+  source_page: 113
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 不可控因素包括年龄、性别和家族史，需定期监测。
+  - 可控因素如高血脂、高血压、糖尿病、吸烟等，应积极管理。
+  - 代谢综合征（腰围大、血脂异常等）增加风险，需综合干预。
+- id: CAD_SYMPTOMS
+  title: 心绞痛症状识别
+  source_page: 116
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 典型表现为胸骨后压迫感或紧缩感，可放射至手臂、喉部。
+  - 症状常由运动或情绪激动诱发，休息或含服硝酸甘油可缓解。
+  - 若症状持续超过20分钟，可能为心肌梗死，需立即就医。
+- id: CAD_DIAGNOSIS
+  title: 诊断检查方法
+  source_page: 117
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 心电图可发现心肌缺血导致的ST段改变。
+  - 负荷试验（如运动心电图）评估心脏在应激下的反应。
+  - 超声心动图或核素显像可观察室壁运动和心肌灌注。
+- id: CAD_LIFESTYLE
+  title: 生活方式管理
+  source_page: 114
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 规律有氧运动（如快走）可降低冠心病风险。
+  - 戒烟后2年内，冠心病事件风险可下降50%。
+  - 控制体重（BMI<30），减少腹型肥胖。
+- id: CAD_DIET
+  title: 饮食与饮酒建议
+  source_page: 114
+  evidence_level: 中
+  recommendation: 推荐
+  key_points:
+  - 少量饮酒（每日1-2盎司）可能有益，过量则增加风险。
+  - 高脂血症患者需低脂饮食，降低低密度脂蛋白。
+  - 控制三酰甘油和胆固醇水平，保护高密度脂蛋白。
+- id: CAD_MEDICATION
+  title: 药物管理注意事项
+  source_page: 117
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 稳定型心绞痛常用阿司匹林、硝酸甘油和他汀类药物。
+  - 不稳定型心绞痛需联合抗血小板药（如氯吡格雷）和肝素。
+  - 变异型心绞痛可用钙通道阻滞剂和硝酸酯类药物。
+- id: CAD_COMPLICATIONS
+  title: 并发症预防
+  source_page: 115
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 控制高血压和糖尿病可减少心肌梗死风险。
+  - 定期监测血脂和血糖，预防斑块破裂。
+  - 避免情绪紧张和寒冷刺激，减少心绞痛发作。
+- id: CAD_WHEN_TO_SEEK
+  title: 何时就医
+  source_page: 116
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 心绞痛发作频率增加或静息时出现，需立即就医。
+  - 症状持续超过20分钟或含服硝酸甘油无效，警惕心肌梗死。
+  - 伴有呼吸困难、出汗或恶心，提示严重缺血。
