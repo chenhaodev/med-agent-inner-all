@@ -39,6 +39,37 @@ DRUG_SUFFIX = (
 )
 DRUG_RE = re.compile(r'[一-龥]{2,6}' + DRUG_SUFFIX)
 
+# Words that match DRUG_RE but are clearly not drug names — skip to avoid false ✗
+NON_DRUG_EXACT = frozenset({
+    # 素-ending non-drug words
+    '维生素', '激素', '因素', '元素', '色素', '毒素', '遗传因素',
+    '危险因素', '风险因素', '诱发因素', '可控因素', '环境因素',
+    '生物因素', '心理因素', '多种因素', '保护因素',
+    # 胺-ending non-drug phrases (multi-char prefix that includes a verb/connector)
+    '刺激多巴胺', '释放多巴胺',
+})
+
+# If the match ends with these sequences, it is almost certainly not a drug name
+NON_DRUG_SUFFIXES = ('因素', '因子', '维生素', '抗生素')
+
+# Non-drug single-char vocabulary that shouldn't appear as the sole prefix before a drug suffix
+NON_DRUG_VERBS = frozenset('是的和或等也向对为从在与及使用服用注射口服通过减少增加促进刺激释放抑制')
+
+
+def _is_likely_drug(word: str) -> bool:
+    """Return False for common words that match DRUG_RE but are not drug names."""
+    if word in NON_DRUG_EXACT:
+        return False
+    for sfx in NON_DRUG_SUFFIXES:
+        if word.endswith(sfx):
+            return False
+    # If every char in the 2-char prefix is a known non-drug verb/connector, skip
+    if len(word) >= 3:
+        prefix = word[:-1]  # everything except the last char (the suffix char itself)
+        if all(c in NON_DRUG_VERBS for c in prefix):
+            return False
+    return True
+
 
 # ── Chapter parsing ───────────────────────────────────────────────────────────
 
@@ -67,7 +98,9 @@ def collect_yaml_drugs(yaml_data: dict) -> set:
     for entry in yaml_data.get('entries', []):
         for text in entry.get('key_points', []) + entry.get('must_warn', []):
             for m in DRUG_RE.finditer(text):
-                drugs.add(m.group(0))
+                word = m.group(0)
+                if _is_likely_drug(word):
+                    drugs.add(word)
     return drugs
 
 
@@ -146,6 +179,8 @@ def verify_drug_claims(answer: str, chapter_text: str, yaml_drugs: set) -> list:
         if drug in seen:
             continue
         seen.add(drug)
+        if not _is_likely_drug(drug):
+            continue
 
         if drug in yaml_drugs:
             status = '✓'

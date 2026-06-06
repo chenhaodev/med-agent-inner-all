@@ -118,6 +118,11 @@ print(json.dumps(data[$i], ensure_ascii=False))
     error_count=$((error_count + 1))
     continue
   fi
+  # Retry once if response is suspiciously short (likely API truncation during long runs)
+  if [[ ${#MODEL_RESPONSE} -lt 200 ]]; then
+    MODEL_RESPONSE=$("$SCRIPT_DIR/build_prompt.sh" --mode "$EVAL_MODE" "$DOMAINS" "$QTEXT" | \
+      "$SCRIPT_DIR/call_deepseek.sh" 2>/dev/null) || true
+  fi
   export MODEL_RESPONSE
 
   JUDGE_INPUT=$(python3 - <<PYEOF

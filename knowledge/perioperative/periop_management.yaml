@@ -76,15 +76,19 @@ entries:
   - 已使用者继续用药，减少心脏并发症。
   - 血管手术患者无论有无危险因素均推荐使用。
   pdf_page: 314
-- id: ACEI_MANAGEMENT
-  title: ACEI/ARB停药建议
-  source_page: 293
-  evidence_level: 中
-  recommendation: 推荐
+- id: ANTIHYPERTENSIVE_PREOP_MGMT
+  title: 术前降压药管理原则
+  source_page: 291
+  evidence_level: 高
+  recommendation: 强推荐
   key_points:
-  - 非心脏手术前24小时停用ACEI/ARB。
-  - 避免麻醉后顽固性低血压。
-  pdf_page: 314
+  - 【核心原则】大多数降压药（β受体阻滞剂、钙通道阻滞剂、利尿剂等）手术当天应继续服用，不得擅自停药。
+  - β受体阻滞剂必须继续，突然停药会显著增加心脏事件和死亡风险。
+  - 例外：ACEI/ARB类药物（如依那普利、厄贝沙坦）通常在非心脏手术前24小时停用，以避免麻醉后顽固性低血压；术后恢复后可恢复使用。
+  - 降压药是否继续、如何调整，须在术前评估时由麻醉科和外科医生共同决定，患者不得自行判断。
+  must_warn:
+  - 不可将ACEI/ARB停药的规则推广到所有降压药——大多数降压药手术当天必须继续服用；混淆此规则可能导致围术期血压危机
+  pdf_page: 312
 - id: ANTIPLATELET_RISK
   title: 抗血小板药物管理
   source_page: 293
