@@ -2,5 +2,7 @@ pdfs/
 source/
 .env
 eval/results/*.json
+eval/results/*.txt
+example/
 __pycache__/
 *.pyc
