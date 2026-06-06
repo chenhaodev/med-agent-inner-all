@@ -80,7 +80,7 @@ entries:
   - 免疫抑制患者更易发生脑炎，需注意预防感染。
 - id: ENCEPHALITIS_SYMPTOM
   title: 脑炎临床表现
-  source_page: 926
+  source_page: 939
   evidence_level: 高
   recommendation: 强推荐
   key_points:
@@ -112,7 +112,7 @@ entries:
   - 危险因素包括中耳炎、鼻窦炎、心内膜炎、头部外伤。
 - id: ABSCESS_SYMPTOM
   title: 脑脓肿临床表现
-  source_page: 926
+  source_page: 939
   evidence_level: 中
   recommendation: 推荐
   key_points:
