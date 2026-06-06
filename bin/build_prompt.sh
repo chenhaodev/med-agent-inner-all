@@ -93,6 +93,8 @@ for entry in data.get('entries', []):
     lines.append(f'来源页：第 {entry.get(\"source_page\", \"?\")} 页 | 证据质量：{entry.get(\"evidence_level\", \"\")} | 推荐强度：{entry.get(\"recommendation\", \"\")}')
     for kp in entry.get('key_points', []):
         lines.append(f'- {kp}')
+    for mw in entry.get('must_warn', []):
+        lines.append(f'- ⚠ 必须告知：{mw}')
 print('\n'.join(lines))
 " "$DISEASE_YAML" 2>/dev/null)
       SECTIONS_CONTENT="${SECTIONS_CONTENT}
@@ -126,6 +128,8 @@ for entry in data.get('entries', []):
     lines.append(f'来源：{data.get(\"guideline_name\", \"\")} {data.get(\"year\", \"\")}年 | 证据级别：{entry.get(\"evidence_level\", \"\")} | 推荐强度：{entry.get(\"recommendation\", \"\")}')
     for kp in entry.get('key_points', []):
         lines.append(f'- {kp}')
+    for mw in entry.get('must_warn', []):
+        lines.append(f'- ⚠ 必须告知：{mw}')
 print('\n'.join(lines))
 " "$GL_FILE" "$DISEASE" 2>/dev/null) && \
         SECTIONS_CONTENT="${SECTIONS_CONTENT}
