@@ -747,6 +747,7 @@ questions:
   doctor_must_have_tags:
   - 证据等级
 - id: SUBS_ALCOHOL_01
+  mode: patient
   question: 家人酒精依赖，想戒酒但害怕戒断反应，怎么办？
   expected_domain:
   - substance_use:alcohol_drugs
@@ -761,8 +762,6 @@ questions:
   - 西氏内科学精要
   must_not:
   - 建议在家自行突然断酒
-  doctor_must_have_tags:
-  - 证据等级
 - id: SUBS_SMOKE_01
   question: 帮助家人戒烟，有哪些实用方法？
   expected_domain:
