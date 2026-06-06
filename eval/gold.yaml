@@ -1076,3 +1076,199 @@ questions:
   - 建议完全禁止所有蛋白质或脂肪摄入
   doctor_must_have_tags:
   - 证据等级
+- id: ILD_DAILY_01
+  question: 家人确诊了肺纤维化（ILD），日常要注意什么？
+  expected_domain:
+  - respiratory:ild
+  expected_topics:
+  - 避免加重因素（烟尘/有机粉尘/职业暴露）
+  - 戒烟对保护肺功能至关重要
+  - 流感和肺炎疫苗接种
+  - 肺康复训练改善呼吸功能
+  must_warn:
+  - 出现急性加重（呼吸骤然恶化）需立即就医
+  source_refs:
+  - 西氏内科学精要
+  must_not:
+  - 断言肺纤维化可以治愈
+  doctor_must_have_tags:
+  - 证据等级
+- id: ILD_BREATHLESS_01
+  question: 肺纤维化患者越来越喘，有什么实用方法改善？
+  expected_domain:
+  - respiratory:ild
+  expected_topics:
+  - 呼吸技巧（缩唇呼吸/腹式呼吸）
+  - 节能技巧减少活动耗氧
+  - 低氧血症患者需氧疗评估
+  - 肺康复项目改善运动耐量
+  must_warn:
+  - 呼吸困难突然加重需立即就医
+  source_refs:
+  - 西氏内科学精要
+  must_not:
+  - 建议完全卧床不动
+  doctor_must_have_tags:
+  - 证据等级
+- id: PANCREAS_DIET_01
+  question: 家人得了急性胰腺炎，出院后饮食怎么恢复？
+  expected_domain:
+  - digestive:pancreas
+  expected_topics:
+  - 从流质/低脂软食逐渐过渡到正常饮食
+  - 严格戒酒（酒精是重要病因）
+  - 低脂饮食减少胰腺分泌负担
+  - 少量多餐，避免暴饮暴食
+  must_warn:
+  - 腹痛复发/加重需立即就医
+  source_refs:
+  - 西氏内科学精要
+  must_not:
+  - 建议出院后立即恢复高脂饮食
+  doctor_must_have_tags:
+  - 证据等级
+- id: PANCREAS_ALCOHOL_01
+  question: 医生说胰腺炎和饮酒有关，戒酒能预防复发吗？
+  expected_domain:
+  - digestive:pancreas
+  expected_topics:
+  - 酒精是慢性和复发性胰腺炎的主要原因
+  - 戒酒可显著降低复发风险
+  - 戒酒困难者需专业干预
+  must_warn:
+  - 继续饮酒可导致慢性胰腺炎和胰腺外分泌功能不全
+  source_refs:
+  - 西氏内科学精要
+  must_not:
+  - 淡化酒精与胰腺炎的关系
+  doctor_must_have_tags:
+  - 证据等级
+- id: ELECTRO_HYPERK_01
+  question: 血钾很高（高钾血症），有什么危险？家属要注意什么？
+  expected_domain:
+  - renal:electrolytes
+  expected_topics:
+  - 高钾血症可导致致命性心律失常
+  - 严重高钾（>6.5 mmol/L）需紧急处理
+  - 症状包括肌无力/心悸/心电图异常
+  must_warn:
+  - 出现肌肉无力/心跳异常需立即就医/急诊
+  source_refs:
+  - 西氏内科学精要
+  must_not:
+  - 建议患者自行停钾补充剂而不就医
+  doctor_must_have_tags:
+  - 证据等级
+- id: ELECTRO_HYPONAT_01
+  question: 老人血钠很低（低钠血症），会有什么表现？
+  expected_domain:
+  - renal:electrolytes
+  expected_topics:
+  - 低钠血症可引起头痛/恶心/意识模糊/抽搐
+  - 老年人和肾功能差者更易发生
+  - 过快纠正低钠可导致脑桥脱髓鞘综合征（并发症）
+  must_warn:
+  - 意识改变/抽搐需立即急诊
+  source_refs:
+  - 西氏内科学精要
+  must_not:
+  - 建议大量补盐水快速纠正低钠
+  doctor_must_have_tags:
+  - 证据等级
+- id: LYMPHOMA_FAMILY_01
+  question: 家人确诊淋巴瘤，作为家属能做什么帮助？
+  expected_domain:
+  - hematology:lymphocyte
+  expected_topics:
+  - 陪同就诊和治疗（化疗期间需人陪护）
+  - 营养支持（保持体重和营养状态）
+  - 心理支持，防止患者抑郁
+  - 监测发热（化疗后免疫低下时危险信号）
+  must_warn:
+  - 化疗后发热（中性粒细胞减少性发热）需立即就医
+  source_refs:
+  - 西氏内科学精要
+  must_not:
+  - 建议用偏方代替正规化疗
+  doctor_must_have_tags:
+  - 证据等级
+- id: LYMPHOMA_SIGN_01
+  question: 淋巴结肿大，怎么判断是不是淋巴瘤？
+  expected_domain:
+  - hematology:lymphocyte
+  expected_topics:
+  - 无痛性持续性淋巴结肿大是警惕信号
+  - 伴有发热/盗汗/体重减轻（B症状）需高度警惕
+  - 需医院检查（活检）确诊
+  must_warn:
+  - 淋巴结肿大超过2周不消退需就医评估
+  source_refs:
+  - 西氏内科学精要
+  must_not:
+  - 建议等待观察超过1个月不就医
+  doctor_must_have_tags:
+  - 证据等级
+- id: SEPSIS_WARNING_01
+  question: 老人发烧多天，家属怎么判断是不是脓毒症？有哪些危险信号？
+  expected_domain:
+  - infectious:sepsis
+  expected_topics:
+  - 脓毒症征象：高热或低体温+心跳加快+呼吸急促
+  - 意识改变/血压下降提示感染性休克
+  - 老人可能仅表现为精神萎靡不振
+  must_warn:
+  - 意识改变/血压低/呼吸急促需立即急诊
+  source_refs:
+  - 西氏内科学精要
+  must_not:
+  - 建议在家观察发热超过3天
+  doctor_must_have_tags:
+  - 证据等级
+- id: SEPSIS_CARE_01
+  question: 家人ICU脓毒症治疗，家属需要了解什么？
+  expected_domain:
+  - infectious:sepsis
+  expected_topics:
+  - 脓毒症死亡率高，需重症监护
+  - 家属需配合医疗团队决策（可能需要各种有创操作）
+  - 康复期可能较长，需心理准备
+  must_warn:
+  - 器官支持治疗（透析/呼吸机）可能是必要的
+  source_refs:
+  - 西氏内科学精要
+  must_not:
+  - 承诺脓毒症肯定能治好
+  doctor_must_have_tags:
+  - 证据等级
+- id: CNS_MENINGITIS_01
+  question: 家人突然高烧头痛很严重，医生说要排除脑膜炎，有多严重？
+  expected_domain:
+  - infectious:cns_infection
+  expected_topics:
+  - 细菌性脑膜炎是医疗急症，死亡率高
+  - 颈项强直/畏光/剧烈头痛是典型表现
+  - 需立即就医，延误治疗预后差
+  must_warn:
+  - 怀疑脑膜炎应立即急诊，不要等待
+  source_refs:
+  - 西氏内科学精要
+  must_not:
+  - 建议在家服止痛药观察
+  doctor_must_have_tags:
+  - 证据等级
+- id: CNS_ENCEPH_01
+  question: 家人脑炎出院后，家属日常护理要注意什么？
+  expected_domain:
+  - infectious:cns_infection
+  expected_topics:
+  - 脑炎后可能有神经认知障碍需康复
+  - 癫痫是常见后遗症，需遵医嘱服用抗癫痫药
+  - 疲乏/认知下降/情绪变化需告知医生
+  must_warn:
+  - 出现癫痫发作需立即就医
+  source_refs:
+  - 西氏内科学精要
+  must_not:
+  - 建议自行停用抗癫痫药物
+  doctor_must_have_tags:
+  - 证据等级

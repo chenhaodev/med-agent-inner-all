@@ -51,6 +51,7 @@ KW_ENDOCRINE_GENERAL="内分泌|激素|代谢|肾上腺|垂体|胰腺"
 KW_RESPIRATORY_COPD="慢阻肺|COPD|慢性阻塞性肺疾病|肺气肿|慢性支气管炎|气流受限|肺功能下降"
 KW_RESPIRATORY_ASTHMA="哮喘|支气管哮喘|气喘|喘息|过敏性哮喘|哮喘发作|吸入激素"
 KW_RESPIRATORY_PNEUMONIA="肺炎|肺部感染|社区获得性肺炎|医院获得性|肺炎球菌|肺部阴影"
+KW_RESPIRATORY_ILD="间质性肺病|ILD|肺纤维化|特发性肺纤维化|IPF|结节病|过敏性肺炎|肺间质病变"
 KW_RESPIRATORY_GENERAL="咳嗽|咳痰|呼吸困难|气短|气急|肺|呼吸|支气管|氧饱和度"
 
 # 消化含肝
@@ -58,24 +59,29 @@ KW_DIGESTIVE_LIVER="肝炎|乙肝|丙肝|肝硬化|肝功能|肝纤维化|转氨
 KW_DIGESTIVE_IBD="炎症性肠病|克罗恩|溃疡性结肠炎|肠炎|肠道炎症|IBD"
 KW_DIGESTIVE_GI="胃炎|消化性溃疡|胃溃疡|十二指肠溃疡|幽门螺杆菌|HP感染|反流|胃食管反流|GERD|消化不良"
 KW_DIGESTIVE_BILIARY="胆囊结石|胆结石|胆囊炎|急性胆囊炎|胆道|胆绞痛|胆石症|胆总管结石|胆囊息肉|胆管炎|胆囊"
+KW_DIGESTIVE_PANCREAS="胰腺炎|急性胰腺炎|慢性胰腺炎|胰腺|胰腺外分泌|淀粉酶|脂肪酶.*胰"
 KW_DIGESTIVE_GENERAL="消化|肠道|胃肠|腹泻|便秘|腹痛|腹胀|大便|肠胃"
 
 # 肾
 KW_RENAL_CKD="慢性肾病|CKD|慢性肾功能不全|肾功能减退|肌酐升高|肾小球滤过率|GFR|蛋白尿"
 KW_RENAL_NEPHRITIS="肾炎|肾小球肾炎|IgA肾病|膜性肾病"
 KW_RENAL_AKI="急性肾损伤|AKI|急性肾衰|急性肾功能|肌酐突然|少尿.*肾|无尿.*肾|肾功能突然"
+KW_RENAL_ELECTROLYTES="高钾血症|低钾血症|高钠血症|低钠血症|低钠|高钾|电解质紊乱|水电解质|低镁|高钙|低钙.*血|低磷"
 KW_RENAL_GENERAL="肾|尿蛋白|血尿|肾功能|尿毒症|肾脏病"
 
 # 血液
 KW_HEMATOLOGY_ANEMIA="贫血|血红蛋白低|缺铁性贫血|恶性贫血|溶血性贫血|地中海贫血|再生障碍性贫血"
 KW_HEMATOLOGY_BLEEDING="ITP|免疫性血小板减少|血小板减少性紫癜|血友病|出血性疾病|凝血因子缺乏|血小板减少.*出血|皮肤瘀斑.*血小板"
 KW_HEMATOLOGY_THROMBOSIS="深静脉血栓|DVT|静脉血栓|血栓形成|抗凝治疗|华法林.*血栓|血栓.*预防|易栓|低分子肝素.*血栓"
-KW_HEMATOLOGY_GENERAL="血液病|白血病|淋巴瘤|骨髓瘤|血小板减少|白细胞低|血细胞|骨髓"
+KW_HEMATOLOGY_LYMPHOMA="淋巴瘤|霍奇金淋巴瘤|非霍奇金淋巴瘤|淋巴结肿大.*恶性|淋巴细胞性白血病|CLL|淋巴细胞增多"
+KW_HEMATOLOGY_GENERAL="血液病|白血病|骨髓瘤|血小板减少|白细胞低|血细胞|骨髓"
 
 # 感染
 KW_INFECTIOUS_HIV="HIV|艾滋|人类免疫缺陷病毒|获得性免疫缺陷综合征|AIDS|抗病毒治疗.*HIV|CD4"
 KW_INFECTIOUS_UTI="尿路感染|膀胱炎|肾盂肾炎|尿痛|尿频.*感染|尿道炎|泌尿道感染|菌尿"
-KW_INFECTIOUS_GENERAL="感染|发烧|发热|细菌感染|病毒感染|抗生素|抗感染|败血症|脓毒症|结核|TB|梅毒"
+KW_INFECTIOUS_SEPSIS="脓毒症|败血症|感染性休克|菌血症|脓毒血症|多器官衰竭.*感染|脓毒"
+KW_INFECTIOUS_CNS="脑膜炎|脑炎|颅内感染|中枢神经感染|细菌性脑膜炎|病毒性脑炎|脑脓肿"
+KW_INFECTIOUS_GENERAL="感染|发烧|发热|细菌感染|病毒感染|抗生素|抗感染|结核|TB|梅毒"
 
 # 风湿骨
 KW_RHEUMATOLOGY_RA="类风湿|类风湿关节炎|RA|关节肿胀|晨僵|抗CCP|类风湿因子|RF"
@@ -149,22 +155,28 @@ check "endocrine:dyslipidemia"     "$KW_ENDOCRINE_LIPID"
 check "respiratory:copd"           "$KW_RESPIRATORY_COPD"
 check "respiratory:asthma"         "$KW_RESPIRATORY_ASTHMA"
 check "respiratory:pneumonia"      "$KW_RESPIRATORY_PNEUMONIA"
+check "respiratory:ild"            "$KW_RESPIRATORY_ILD"
 
 check "digestive:liver"            "$KW_DIGESTIVE_LIVER"
 check "digestive:ibd"              "$KW_DIGESTIVE_IBD"
 check "digestive:gi"               "$KW_DIGESTIVE_GI"
 check "digestive:biliary"          "$KW_DIGESTIVE_BILIARY"
+check "digestive:pancreas"         "$KW_DIGESTIVE_PANCREAS"
 
 check "renal:ckd"                  "$KW_RENAL_CKD"
 check "renal:nephritis"            "$KW_RENAL_NEPHRITIS"
 check "renal:aki"                  "$KW_RENAL_AKI"
+check "renal:electrolytes"         "$KW_RENAL_ELECTROLYTES"
 
 check "hematology:anemia"          "$KW_HEMATOLOGY_ANEMIA"
 check "hematology:bleeding_disorders" "$KW_HEMATOLOGY_BLEEDING"
 check "hematology:thrombosis"      "$KW_HEMATOLOGY_THROMBOSIS"
+check "hematology:lymphocyte"      "$KW_HEMATOLOGY_LYMPHOMA"
 
 check "infectious:hiv"             "$KW_INFECTIOUS_HIV"
 check "infectious:uti"             "$KW_INFECTIOUS_UTI"
+check "infectious:sepsis"          "$KW_INFECTIOUS_SEPSIS"
+check "infectious:cns_infection"   "$KW_INFECTIOUS_CNS"
 check "infectious:general"         "$KW_INFECTIOUS_GENERAL"
 
 check "rheumatology:ra"            "$KW_RHEUMATOLOGY_RA"
