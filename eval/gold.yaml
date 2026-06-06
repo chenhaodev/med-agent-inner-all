@@ -176,8 +176,8 @@ questions:
   - endocrine:diabetes_t2
   expected_topics:
   - 一般HbA1c<7%
-  - 老年/低血糖高风险者放宽
-  - 空腹和餐后血糖具体目标
+  - 老年/低血糖高风险者放宽（可个体化至8%或更高）
+  - 强化血糖控制可减少微血管并发症和心血管疾病风险
   must_warn: []
   source_refs:
   - 西氏内科学精要
@@ -438,16 +438,16 @@ questions:
   doctor_must_have_tags:
   - 证据等级
 - id: GL_HTN_03
-  question: 新指南对高血压的运动建议有变化吗？
+  question: 高血压患者的生活方式干预有哪些循证依据？DASH饮食和有氧锻炼的效果如何？
   expected_domain:
   - cardiology:hypertension
   expected_topics:
-  - 每周≥150分钟中强度有氧
-  - 减少久坐，每小时活动5分钟
-  - 地中海饮食证据上升
+  - DASH饮食已被研究证实可以降压（富含新鲜水果蔬菜和低脂食物）
+  - 限盐：将钠摄入从10g/d减至6g/d
+  - 减重、戒烟、限酒及规律有氧锻炼均有助于降压
   must_warn: []
   source_refs:
-  - 中国高血压防治指南2024
+  - 西氏内科学精要
   must_not: []
   doctor_must_have_tags:
   - 证据等级
@@ -1176,6 +1176,7 @@ questions:
   doctor_must_have_tags:
   - 证据等级
 - id: LYMPHOMA_FAMILY_01
+  mode: patient
   question: 家人确诊淋巴瘤，作为家属能做什么帮助？
   expected_domain:
   - hematology:lymphocyte
@@ -1190,8 +1191,6 @@ questions:
   - 西氏内科学精要
   must_not:
   - 建议用偏方代替正规化疗
-  doctor_must_have_tags:
-  - 证据等级
 - id: LYMPHOMA_SIGN_01
   question: 淋巴结肿大，怎么判断是不是淋巴瘤？
   expected_domain:
@@ -1521,8 +1520,8 @@ questions:
   expected_topics:
   - 吸入性支气管扩张剂包括β2受体激动剂（拟交感药物）
   - 沙丁胺醇是最常用的速效β2受体激动剂
-  - 维持治疗使用长效β2受体激动剂
-  - 阶梯式治疗流程（图16-4急诊治疗流程）
+  - 维持治疗：ICS是基础，LABA可与ICS联用但不可单药使用
+  - 升级时机与降级时机的评估标准（控制水平评估）
   must_warn:
   - 严重急性支气管痉挛可危及生命，需紧急处理
   source_refs:
@@ -1530,7 +1529,7 @@ questions:
   must_not: []
   doctor_must_have_tags:
   - 证据等级
-  - 具体治疗分级
+  - ICS
 - id: DIGE_LIVER_DR_01
   mode: doctor
   question: 肝硬化患者如何评估预后，MELD 评分如何指导临床决策？
