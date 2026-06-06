@@ -5,6 +5,7 @@
 #
 # 可选参数：
 #   --debug         打印路由和 payload 信息（写入 stderr）
+#   --deep          原子声明 grep 核验 + 必要时回炉自纠（降低幻觉率）
 #   --domain XXX    强制指定领域，跳过自动路由（例如 --domain cardiology:hypertension）
 
 set -euo pipefail
@@ -14,6 +15,7 @@ ROOT_DIR="$(dirname "$SCRIPT_DIR")"
 
 # ─── 参数解析 ────────────────────────────────────────────────
 DEBUG=false
+DEEP=false
 FORCE_DOMAIN=""
 QUESTION=""
 
@@ -21,6 +23,10 @@ while [[ $# -gt 0 ]]; do
   case "$1" in
     --debug)
       DEBUG=true
+      shift
+      ;;
+    --deep)
+      DEEP=true
       shift
       ;;
     --domain)
@@ -40,6 +46,7 @@ if [[ -z "$QUESTION" ]]; then
   echo "" >&2
   echo "可选参数：" >&2
   echo "  --debug           打印路由调试信息" >&2
+  echo "  --deep            开启原子声明核验 + 回炉自纠（降低幻觉率）" >&2
   echo "  --domain DOMAIN   强制使用指定领域（跳过自动路由）" >&2
   exit 1
 fi
@@ -112,6 +119,85 @@ RESPONSE=$(echo "$PAYLOAD" | "$SCRIPT_DIR/call_deepseek.sh") || {
   echo "错误：API 调用失败。" >&2
   exit 1
 }
+
+# ─── 3b. --deep: 原子声明 grep 核验 + 必要时回炉 ────────────
+if [[ "$DEEP" == "true" ]]; then
+  # 定位首个 domain 对应的章节文件
+  FIRST_DOMAIN=$(echo "$DOMAINS" | awk '{print $1}')
+  FIRST_SP="${FIRST_DOMAIN%%:*}"
+  FIRST_DS="${FIRST_DOMAIN##*:}"
+  CHAPTER_FILE="$ROOT_DIR/source/chapters/${FIRST_SP}/${FIRST_DS}.md"
+  YAML_FILE="$ROOT_DIR/knowledge/${FIRST_SP}/${FIRST_DS}.yaml"
+
+  [[ "$DEBUG" == "true" ]] && \
+    echo "[DEBUG --deep] 核验文件: ${FIRST_SP}/${FIRST_DS}" >&2
+
+  # C. 运行 verify_claims.py
+  set +e
+  VERIFY_JSON=$(python3 "$SCRIPT_DIR/verify_claims.py" \
+    --chapter "$CHAPTER_FILE" \
+    --yaml "$YAML_FILE" \
+    --answer "$RESPONSE")
+  VERIFY_EXIT=$?
+  set -e
+
+  if [[ "$DEBUG" == "true" ]]; then
+    FAIL_COUNT=$(echo "$VERIFY_JSON" | python3 -c \
+      "import json,sys; d=json.load(sys.stdin); print(d.get('fail_count',0))" 2>/dev/null || echo "?")
+    echo "[DEBUG --deep] 核验完成，✗ 声明数: $FAIL_COUNT" >&2
+    echo "$VERIFY_JSON" | python3 -c "
+import json, sys
+d = json.load(sys.stdin)
+for c in d.get('claims', []):
+    print(f'  {c[\"status\"]} [{c[\"kind\"]}] {c[\"claim\"]} — {c[\"evidence\"]}')
+" >&2 2>/dev/null || true
+  fi
+
+  # D. 有 ✗ → 回炉一次
+  if [[ "$VERIFY_EXIT" == "1" ]]; then
+    [[ "$DEBUG" == "true" ]] && echo "[DEBUG --deep] 发现 ✗ 声明，启动回炉..." >&2
+
+    export _VERIFY_JSON="$VERIFY_JSON"
+
+    set +e
+    REROLL_RESPONSE=$(
+      "$SCRIPT_DIR/build_prompt.sh" --reroll "$DOMAINS" "$QUESTION" \
+      | "$SCRIPT_DIR/call_deepseek.sh"
+    )
+    REROLL_EXIT=$?
+    set -e
+
+    if [[ "$REROLL_EXIT" == "0" && -n "$REROLL_RESPONSE" ]]; then
+      RESPONSE="$REROLL_RESPONSE"
+      [[ "$DEBUG" == "true" ]] && echo "[DEBUG --deep] 回炉完成" >&2
+    else
+      [[ "$DEBUG" == "true" ]] && echo "[DEBUG --deep] 回炉失败，保留首轮回答" >&2
+      # Annotate residual failures in debug output
+      echo "[DEBUG --deep] RESIDUAL_UNVERIFIED: 首轮核验有 ✗ 但回炉失败，请人工复查。" >&2
+    fi
+  fi
+
+  # Naive 对照（--debug --deep 时才运行，不影响最终答案）
+  if [[ "$DEBUG" == "true" ]]; then
+    echo "[DEBUG --deep] 运行 naive 对照（不注入知识库）..." >&2
+    set +e
+    NAIVE_RESPONSE=$(
+      "$SCRIPT_DIR/build_prompt.sh" --naive "$DOMAINS" "$QUESTION" \
+      | "$SCRIPT_DIR/call_deepseek.sh" 2>/dev/null
+    )
+    NAIVE_EXIT=$?
+    set -e
+
+    if [[ "$NAIVE_EXIT" == "0" && -n "$NAIVE_RESPONSE" ]]; then
+      echo "" >&2
+      echo "[DEBUG --deep] ══════ 【naive vs 接地】差异（- naive / + 接地）══════" >&2
+      diff <(echo "$NAIVE_RESPONSE") <(echo "$RESPONSE") >&2 || true
+      echo "[DEBUG --deep] ═════════════════════════════════════════════════════" >&2
+    else
+      echo "[DEBUG --deep] naive 调用失败，跳过 diff。" >&2
+    fi
+  fi
+fi
 
 # ─── 4. 后处理：校验结构 ─────────────────────────────────────
 VALIDATED=$(echo "$RESPONSE" | "$SCRIPT_DIR/postprocess.sh") || {
