@@ -1512,7 +1512,7 @@ questions:
   must_not: []
   doctor_must_have_tags:
   - 证据等级
-  - 具体临床指征
+  - 无创
 - id: RESP_ASTHMA_DR_01
   mode: doctor
   question: 哮喘患者如何进行阶梯式治疗，何时升级或降级治疗方案？
@@ -1548,7 +1548,7 @@ questions:
   must_not: []
   doctor_must_have_tags:
   - 证据等级
-  - 评分数值
+  - 肝移植
 - id: DIGE_GI_DR_01
   mode: doctor
   question: 上消化道出血患者内镜下如何评估再出血风险，何时行内镜下止血治疗？
@@ -1691,7 +1691,7 @@ questions:
   must_not: []
   doctor_must_have_tags:
   - 证据等级
-  - 疗效数据
+  - 不到50%
 - id: SUBS_ALC_DR_01
   mode: doctor
   question: 酒精戒断患者如何评估严重程度，苯二氮䓬类药物如何使用？
