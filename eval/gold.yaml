@@ -205,11 +205,11 @@ questions:
     question: "慢阻肺患者能做什么运动？"
     expected_domain: [respiratory:copd]
     expected_topics:
-      - 步行为主
-      - 缩唇呼吸练习
-      - 运动中监测气短程度
+      - 肺康复计划可改善生活质量和减轻呼吸困难
+      - 步行等有氧活动改善运动耐量
+      - 运动时如呼吸困难明显加重应停止
     must_warn:
-      - 血氧饱和度<88%停止运动就医
+      - 呼吸困难急性加重时应暂停运动并及时就医
     source_refs: [西氏内科学精要]
     must_not: []
 
