@@ -30,6 +30,7 @@ if [[ -z "$QUESTION" ]]; then
 fi
 
 # ─── 关键词路由表（专科:疾病 粒度）──────────────────────────
+# v2：扩展至全书 18 专科
 
 # 心血管
 KW_CARDIOLOGY_HYPERTENSION="高血压|血压高|降压|血压控制|收缩压|舒张压|高压|低压|降压药"
@@ -74,7 +75,47 @@ KW_INFECTIOUS_GENERAL="感染|发烧|发热|细菌感染|病毒感染|抗生素|
 KW_RHEUMATOLOGY_RA="类风湿|类风湿关节炎|RA|关节肿胀|晨僵|抗CCP|类风湿因子|RF"
 KW_RHEUMATOLOGY_SLE="系统性红斑狼疮|SLE|蝴蝶斑|狼疮肾炎"
 KW_RHEUMATOLOGY_OSTEOPOROSIS="骨质疏松|骨密度|骨折风险|钙|维生素D|双膦酸盐|T值"
-KW_RHEUMATOLOGY_GENERAL="风湿|关节炎|关节痛|骨关节炎|痛风性关节|脊柱关节炎|强直性脊柱炎"
+KW_RHEUMATOLOGY_GENERAL="风湿|关节炎|关节痛|骨关节炎|痛风性关节|脊柱关节炎|强直性脊柱炎|干燥综合征|系统性硬化|血管炎"
+
+# 肿瘤（科普级别，不含化疗方案）
+KW_ONCOLOGY_LUNG="肺癌|肺部肿瘤|非小细胞肺癌|小细胞肺癌|肺结节.*恶性"
+KW_ONCOLOGY_GI="肠癌|结直肠癌|胃癌|食管癌|胰腺癌|肝癌"
+KW_ONCOLOGY_BREAST="乳腺癌|乳腺肿瘤"
+KW_ONCOLOGY_LYMPHOMA="淋巴瘤|霍奇金淋巴瘤|非霍奇金"
+KW_ONCOLOGY_GENERAL="肿瘤|癌症|癌|靶向治疗副作用|化疗副作用|化疗后.*恶心|化疗后.*疲乏|肿瘤营养|肿瘤患者.*饮食|癌症患者"
+
+# 神经内科
+KW_NEUROLOGY_STROKE="脑卒中|脑梗|脑出血|中风|偏瘫|失语|吞咽困难.*脑|脑梗康复|脑血管"
+KW_NEUROLOGY_PARKINSON="帕金森|帕金森病|震颤|运动迟缓|肌强直|帕金森康复"
+KW_NEUROLOGY_DEMENTIA="痴呆|阿尔茨海默|老年痴呆|记忆障碍|认知障碍|血管性痴呆"
+KW_NEUROLOGY_EPILEPSY="癫痫|癫痫发作|抗癫痫|惊厥"
+KW_NEUROLOGY_HEADACHE="偏头痛|头痛|紧张型头痛|丛集性头痛"
+KW_NEUROLOGY_SLEEP="失眠|睡眠障碍|睡不着|入睡困难|睡眠呼吸暂停"
+KW_NEUROLOGY_GENERAL="神经|肌无力|麻木|感觉异常|眩晕|头晕|意识障碍|运动障碍|神经病变"
+
+# 精神/心理（归入神经科路由）
+KW_NEUROLOGY_PSYCH="抑郁症|抑郁|焦虑症|焦虑|双相情感障碍|躁郁症|精神分裂|心理健康|情绪障碍"
+
+# 妇科健康
+KW_WOMENS_HEALTH="月经不调|痛经|更年期|绝经|围绝经期|多囊卵巢|宫颈|卵巢|乳腺健康|女性健康|骨盆底"
+
+# 男性健康
+KW_MENS_HEALTH="前列腺|ED|勃起功能|男性健康|睾酮|男性性功能|前列腺增生"
+
+# 骨代谢矿物质
+KW_BONE_MINERAL="骨代谢|维生素D缺乏|甲状旁腺|钙代谢|磷代谢|代谢性骨病|佝偻病|骨软化"
+
+# 老年医学
+KW_GERIATRICS="老年患者|老年人用药|老年综合评估|衰弱|跌倒.*老人|老年痴呆.*管理|多重用药"
+
+# 姑息治疗
+KW_PALLIATIVE="姑息治疗|缓和医疗|临终关怀|安宁疗护|终末期|疼痛控制.*癌症|生命末期"
+
+# 物质滥用
+KW_SUBSTANCE="酗酒|酒精依赖|戒酒|酒精性.*肝|戒烟|尼古丁|药物滥用|成瘾"
+
+# 围术期
+KW_PERIOPERATIVE="术前评估|围手术期|围术期管理|手术前.*内科|手术风险.*内科"
 
 # ─── 匹配逻辑 ────────────────────────────────────────────────
 matched=()
@@ -117,6 +158,30 @@ check "rheumatology:ra"            "$KW_RHEUMATOLOGY_RA"
 check "rheumatology:sle"           "$KW_RHEUMATOLOGY_SLE"
 check "rheumatology:osteoporosis"  "$KW_RHEUMATOLOGY_OSTEOPOROSIS"
 
+# 肿瘤
+check "oncology:lung_cancer"       "$KW_ONCOLOGY_LUNG"
+check "oncology:gi_cancer"         "$KW_ONCOLOGY_GI"
+check "oncology:breast_cancer"     "$KW_ONCOLOGY_BREAST"
+check "oncology:lymphocyte"        "$KW_ONCOLOGY_LYMPHOMA"
+
+# 神经（含精神科症状）
+check "neurology:stroke"           "$KW_NEUROLOGY_STROKE"
+check "neurology:movement_disorders" "$KW_NEUROLOGY_PARKINSON"
+check "neurology:dementia"         "$KW_NEUROLOGY_DEMENTIA"
+check "neurology:epilepsy"         "$KW_NEUROLOGY_EPILEPSY"
+check "neurology:headache_pain"    "$KW_NEUROLOGY_HEADACHE"
+check "neurology:sleep_disorders"  "$KW_NEUROLOGY_SLEEP"
+check "neurology:mood_behavior"    "$KW_NEUROLOGY_PSYCH"
+
+# 其他专科
+check "womens_health:womens_health" "$KW_WOMENS_HEALTH"
+check "mens_health:mens_health"     "$KW_MENS_HEALTH"
+check "bone_mineral:osteoporosis"   "$KW_BONE_MINERAL"
+check "geriatrics:elderly_care"     "$KW_GERIATRICS"
+check "palliative:palliative_care"  "$KW_PALLIATIVE"
+check "substance_use:alcohol_drugs" "$KW_SUBSTANCE"
+check "perioperative:periop_management" "$KW_PERIOPERATIVE"
+
 # 专科级兜底（如果疾病级未命中）
 if [[ ${#matched[@]} -eq 0 ]]; then
   check "cardiology:general"    "$KW_CARDIOLOGY_GENERAL"
@@ -126,6 +191,8 @@ if [[ ${#matched[@]} -eq 0 ]]; then
   check "renal:general"         "$KW_RENAL_GENERAL"
   check "hematology:general"    "$KW_HEMATOLOGY_GENERAL"
   check "rheumatology:general"  "$KW_RHEUMATOLOGY_GENERAL"
+  check "oncology:general"      "$KW_ONCOLOGY_GENERAL"
+  check "neurology:general"     "$KW_NEUROLOGY_GENERAL"
 fi
 
 # ─── DeepSeek 兜底分类 ──────────────────────────────────────
@@ -135,7 +202,7 @@ if [[ ${#matched[@]} -eq 0 ]]; then
   fi
 
   if [[ -n "${DEEPSEEK_API_KEY:-}" ]]; then
-    DOMAINS_LIST="cardiology:hypertension, cardiology:heart_failure, cardiology:cad, cardiology:arrhythmia, endocrine:diabetes_t2, endocrine:thyroid, endocrine:dyslipidemia, endocrine:gout, respiratory:copd, respiratory:asthma, digestive:liver, digestive:gi, renal:ckd, hematology:anemia, infectious:general, rheumatology:ra, rheumatology:osteoporosis"
+    DOMAINS_LIST="cardiology:hypertension, cardiology:heart_failure, cardiology:cad, cardiology:arrhythmia, cardiology:valve_disease, endocrine:diabetes_t2, endocrine:thyroid, endocrine:dyslipidemia, endocrine:gout, endocrine:obesity, respiratory:copd, respiratory:asthma, respiratory:pneumonia, respiratory:ild, digestive:liver, digestive:gi, digestive:ibd, digestive:hepatitis, renal:ckd, renal:nephritis, renal:aki, hematology:anemia, hematology:bleeding_disorders, infectious:general, infectious:hiv, infectious:sepsis, rheumatology:ra, rheumatology:sle, rheumatology:osteoporosis, rheumatology:gout, oncology:lung_cancer, oncology:gi_cancer, oncology:breast_cancer, oncology:tumor_complications, neurology:stroke, neurology:movement_disorders, neurology:dementia, neurology:epilepsy, neurology:headache_pain, neurology:sleep_disorders, neurology:mood_behavior, womens_health:womens_health, mens_health:mens_health, bone_mineral:osteoporosis, geriatrics:elderly_care, palliative:palliative_care, substance_use:alcohol_drugs, perioperative:periop_management"
 
     CLASSIFY_PAYLOAD=$(python3 -c "
 import json, sys
@@ -155,7 +222,7 @@ print(json.dumps(payload))
 
     if [[ -n "$CLASSIFY_PAYLOAD" ]]; then
       CLASSIFIED=$(echo "$CLASSIFY_PAYLOAD" | "$SCRIPT_DIR/call_deepseek.sh" 2>/dev/null | tr -s ' ' | xargs) || true
-      VALID_TAGS="cardiology:hypertension cardiology:heart_failure cardiology:cad cardiology:arrhythmia cardiology:general endocrine:diabetes_t2 endocrine:thyroid endocrine:obesity endocrine:gout endocrine:dyslipidemia endocrine:general respiratory:copd respiratory:asthma respiratory:pneumonia respiratory:general digestive:liver digestive:ibd digestive:gi digestive:general renal:ckd renal:nephritis renal:general hematology:anemia hematology:general infectious:general rheumatology:ra rheumatology:sle rheumatology:osteoporosis rheumatology:general"
+      VALID_TAGS="cardiology:hypertension cardiology:heart_failure cardiology:cad cardiology:arrhythmia cardiology:valve_disease cardiology:pericardial cardiology:congenital_hd cardiology:other_cardiac cardiology:general endocrine:diabetes_t2 endocrine:thyroid endocrine:obesity endocrine:gout endocrine:dyslipidemia endocrine:pituitary endocrine:adrenal endocrine:nutrition endocrine:general respiratory:copd respiratory:asthma respiratory:pneumonia respiratory:ild respiratory:pulmonary_vascular respiratory:sleep_breathing respiratory:pleural respiratory:lung_tumor respiratory:critical_care respiratory:general digestive:liver digestive:ibd digestive:gi digestive:hepatitis digestive:esophagus digestive:pancreas digestive:biliary digestive:jaundice digestive:general renal:ckd renal:nephritis renal:aki renal:electrolytes renal:renal_vascular renal:general hematology:anemia hematology:myeloid_clonal hematology:lymphocyte hematology:bleeding_disorders hematology:thrombosis hematology:general infectious:fever infectious:sepsis infectious:hiv infectious:uti infectious:lower_resp_infection infectious:cns_infection infectious:skin_soft_tissue infectious:general rheumatology:ra rheumatology:sle rheumatology:osteoporosis rheumatology:gout rheumatology:oa rheumatology:vasculitis rheumatology:spa rheumatology:systemic_sclerosis rheumatology:general oncology:lung_cancer oncology:gi_cancer oncology:breast_cancer oncology:gu_cancer oncology:other_solid_tumors oncology:tumor_complications oncology:tumor_treatment_principles oncology:general neurology:stroke neurology:movement_disorders neurology:dementia neurology:epilepsy neurology:headache_pain neurology:sleep_disorders neurology:mood_behavior neurology:dizziness neurology:consciousness neurology:general womens_health:womens_health mens_health:mens_health bone_mineral:osteoporosis bone_mineral:mineral_disorders bone_mineral:metabolic_bone geriatrics:elderly_care palliative:palliative_care substance_use:alcohol_drugs perioperative:periop_management"
       VALID_RESULT=""
       for d in $CLASSIFIED; do
         if echo "$VALID_TAGS" | grep -qw "$d"; then
