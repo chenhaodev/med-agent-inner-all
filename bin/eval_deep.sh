@@ -45,7 +45,11 @@ if [[ -z "${DEEPSEEK_API_KEY:-}" ]]; then
 fi
 
 GOLD_FILE="$ROOT_DIR/eval/gold.yaml"
-JUDGE_PROMPT_FILE="$ROOT_DIR/eval/judge_prompt.md"
+if [[ "$EVAL_MODE" == "doctor" ]]; then
+  JUDGE_PROMPT_FILE="$ROOT_DIR/eval/judge_prompt_doctor.md"
+else
+  JUDGE_PROMPT_FILE="$ROOT_DIR/eval/judge_prompt.md"
+fi
 RESULTS_DIR="$ROOT_DIR/eval/results"
 mkdir -p "$RESULTS_DIR"
 

@@ -14,6 +14,8 @@ questions:
   - 西氏内科学精要
   must_not:
   - 具体降压药名称加剂量
+  doctor_must_have_tags:
+  - 证据等级
 - id: CARD_HTN_02
   question: 高血压患者血压控制到多少才算达标？
   expected_domain:
@@ -27,6 +29,8 @@ questions:
   - 西氏内科学精要
   must_not:
   - 断言所有患者目标相同
+  doctor_must_have_tags:
+  - 证据等级
 - id: CARD_HTN_03_GUIDELINE
   question: 2024年高血压指南对血压控制目标有什么新变化？
   expected_domain:
@@ -39,6 +43,8 @@ questions:
   - 中国高血压防治指南2024
   must_not:
   - 仅引用教材旧版目标而不提2024指南
+  doctor_must_have_tags:
+  - 证据等级
 - id: CARD_HTN_04
   question: 高血压药吃着血压正常了，能不能停药？
   expected_domain:
@@ -53,6 +59,8 @@ questions:
   - 西氏内科学精要
   must_not:
   - 建议患者可以自行停药
+  doctor_must_have_tags:
+  - 证据等级
 - id: CARD_HTN_05
   question: 家里自测血压和医院测的血压不一样，哪个准？
   expected_domain:
@@ -65,6 +73,8 @@ questions:
   source_refs:
   - 西氏内科学精要
   must_not: []
+  doctor_must_have_tags:
+  - 证据等级
 - id: CARD_HTN_06_GUIDELINE
   question: 听说2024新指南推荐高血压要更早用药，是真的吗？
   expected_domain:
@@ -79,6 +89,8 @@ questions:
   - 中国高血压防治指南2024
   must_not:
   - 给出具体药物组合
+  doctor_must_have_tags:
+  - 证据等级
 - id: CARD_HF_01
   question: 我妈心衰，每天喝水要限制到多少？
   expected_domain:
@@ -92,6 +104,8 @@ questions:
   source_refs:
   - 西氏内科学精要
   must_not: []
+  doctor_must_have_tags:
+  - 证据等级
 - id: CARD_HF_02
   question: 心衰的病人能运动吗？还是要静养？
   expected_domain:
@@ -106,6 +120,8 @@ questions:
   - 西氏内科学精要
   must_not:
   - 建议卧床不动（稳定期）
+  doctor_must_have_tags:
+  - 证据等级
 - id: CARD_HF_03
   question: 心衰患者出现什么症状需要立即去医院？
   expected_domain:
@@ -120,6 +136,8 @@ questions:
   source_refs:
   - 西氏内科学精要
   must_not: []
+  doctor_must_have_tags:
+  - 证据等级
 - id: ENDO_DM_01
   question: 糖尿病患者能吃水果吗？
   expected_domain:
@@ -134,6 +152,8 @@ questions:
   - 西氏内科学精要
   must_not:
   - 建议完全禁止所有水果
+  doctor_must_have_tags:
+  - 证据等级
 - id: ENDO_DM_02
   question: 我爸糖尿病，出汗多、手抖、心跳快，这是什么情况？
   expected_domain:
@@ -148,6 +168,8 @@ questions:
   - 西氏内科学精要
   must_not:
   - 建议不处理等待
+  doctor_must_have_tags:
+  - 证据等级
 - id: ENDO_DM_03
   question: 糖尿病患者的血糖控制目标是多少？
   expected_domain:
@@ -161,6 +183,8 @@ questions:
   - 西氏内科学精要
   must_not:
   - 断言所有患者目标相同
+  doctor_must_have_tags:
+  - 证据等级
 - id: ENDO_DM_04
   question: 糖尿病足怎么护理？
   expected_domain:
@@ -175,6 +199,8 @@ questions:
   source_refs:
   - 西氏内科学精要
   must_not: []
+  doctor_must_have_tags:
+  - 证据等级
 - id: ENDO_DM_05
   question: 糖尿病要定期做哪些检查？
   expected_domain:
@@ -188,6 +214,8 @@ questions:
   source_refs:
   - 西氏内科学精要
   must_not: []
+  doctor_must_have_tags:
+  - 证据等级
 - id: RESP_COPD_01
   question: 慢阻肺患者能做什么运动？
   expected_domain:
@@ -201,6 +229,8 @@ questions:
   source_refs:
   - 西氏内科学精要
   must_not: []
+  doctor_must_have_tags:
+  - 证据等级
 - id: RESP_ASTHMA_01
   question: 哮喘患者的吸入药物可以感觉好了就停用吗？
   expected_domain:
@@ -215,6 +245,8 @@ questions:
   - 西氏内科学精要
   must_not:
   - 建议可以自行停药
+  doctor_must_have_tags:
+  - 证据等级
 - id: DIGE_HBV_01
   question: 乙肝抗病毒药物可以自己停药吗？
   expected_domain:
@@ -229,6 +261,8 @@ questions:
   - 西氏内科学精要
   must_not:
   - 建议可以自行停药
+  doctor_must_have_tags:
+  - 证据等级
 - id: DIGE_HP_01
   question: 幽门螺杆菌治疗期间需要注意什么？
   expected_domain:
@@ -243,9 +277,9 @@ questions:
   - 西氏内科学精要
   must_not: []
   doctor_must_have_tags:
+  - 证据等级
   - 低级别证据
   - 临床常用
-  - 证据等级
 - id: RENAL_CKD_01
   question: 慢性肾病患者饮食要注意什么？
   expected_domain:
@@ -260,6 +294,8 @@ questions:
   source_refs:
   - 西氏内科学精要
   must_not: []
+  doctor_must_have_tags:
+  - 证据等级
 - id: RENAL_CKD_02
   question: 肾功能不好，哪些药不能用？
   expected_domain:
@@ -274,6 +310,8 @@ questions:
   - 西氏内科学精要
   must_not:
   - 给出具体药物剂量建议
+  doctor_must_have_tags:
+  - 证据等级
 - id: HEMA_ANEMIA_01
   question: 缺铁性贫血补铁要注意什么？
   expected_domain:
@@ -288,6 +326,8 @@ questions:
   source_refs:
   - 西氏内科学精要
   must_not: []
+  doctor_must_have_tags:
+  - 证据等级
 - id: INFEC_FEVER_01
   question: 发烧到多少度需要去医院？
   expected_domain:
@@ -302,6 +342,8 @@ questions:
   - 西氏内科学精要
   must_not:
   - 给出具体抗生素推荐
+  doctor_must_have_tags:
+  - 证据等级
 - id: INFEC_ATB_01
   question: 抗生素可以用几天感觉好了就停吗？
   expected_domain:
@@ -314,6 +356,8 @@ questions:
   source_refs:
   - 西氏内科学精要
   must_not: []
+  doctor_must_have_tags:
+  - 证据等级
 - id: RHEU_RA_01
   question: 类风湿关节炎缓解了还需要继续吃药吗？
   expected_domain:
@@ -328,6 +372,8 @@ questions:
   - 西氏内科学精要
   must_not:
   - 建议可以自行停药
+  doctor_must_have_tags:
+  - 证据等级
 - id: RHEU_OSTEO_01
   question: 骨质疏松补钙要注意什么？
   expected_domain:
@@ -342,6 +388,8 @@ questions:
   source_refs:
   - 西氏内科学精要
   must_not: []
+  doctor_must_have_tags:
+  - 证据等级
 - id: RHEU_GOUT_01
   question: 痛风发作时应该怎么处理？能用降尿酸药吗？
   expected_domain:
@@ -357,6 +405,8 @@ questions:
   - 西氏内科学精要
   must_not:
   - 建议急性期使用降尿酸药
+  doctor_must_have_tags:
+  - 证据等级
 - id: GL_HTN_01
   question: 医生说我要按2024年新指南把血压控制得更严，具体要降到多少？
   expected_domain:
@@ -371,6 +421,8 @@ questions:
   - 中国高血压防治指南2024
   must_not:
   - 仅给出<140/90而不提2024新标准
+  doctor_must_have_tags:
+  - 证据等级
 - id: GL_HTN_02
   question: 2024高血压指南说要怎么监测血压？
   expected_domain:
@@ -383,6 +435,8 @@ questions:
   source_refs:
   - 中国高血压防治指南2024
   must_not: []
+  doctor_must_have_tags:
+  - 证据等级
 - id: GL_HTN_03
   question: 新指南对高血压的运动建议有变化吗？
   expected_domain:
@@ -395,6 +449,8 @@ questions:
   source_refs:
   - 中国高血压防治指南2024
   must_not: []
+  doctor_must_have_tags:
+  - 证据等级
 - id: ONCO_NAUSEA_01
   question: 爸爸化疗后一直恶心呕吐，在家怎么帮他缓解？
   expected_domain:
@@ -410,6 +466,8 @@ questions:
   - 西氏内科学精要
   must_not:
   - 给出具体止吐药名称和剂量
+  doctor_must_have_tags:
+  - 证据等级
 - id: ONCO_CANCER_PAIN_01
   question: 妈妈晚期癌症疼痛很厉害，止痛药可以多吃一点吗？
   expected_domain:
@@ -424,6 +482,8 @@ questions:
   - 西氏内科学精要
   must_not:
   - 建议自行加量
+  doctor_must_have_tags:
+  - 证据等级
 - id: ONCO_LIFESTYLE_01
   question: 得了肺癌还能运动吗？
   expected_domain:
@@ -437,6 +497,8 @@ questions:
   source_refs:
   - 西氏内科学精要
   must_not: []
+  doctor_must_have_tags:
+  - 证据等级
 - id: NEURO_STROKE_01
   question: 脑梗急救时有什么要注意的？家里人能做什么？
   expected_domain:
@@ -452,6 +514,8 @@ questions:
   - 西氏内科学精要
   must_not:
   - 建议等"看看再说"或先服药
+  doctor_must_have_tags:
+  - 证据等级
 - id: NEURO_PD_01
   question: 帕金森病人跌倒风险大，家里要怎么防？
   expected_domain:
@@ -466,6 +530,8 @@ questions:
   source_refs:
   - 西氏内科学精要
   must_not: []
+  doctor_must_have_tags:
+  - 证据等级
 - id: NEURO_DEMENTIA_01
   question: 奶奶老年痴呆，晚上总是乱走乱叫，怎么办？
   expected_domain:
@@ -518,9 +584,9 @@ questions:
   - 阻力训练
   - 骑车
   doctor_must_have_tags:
+  - 证据等级
   - 低级别证据
   - 临床常用
-  - 证据等级
 - id: BONE_OSTEO_01
   question: 妈妈骨质疏松，打喷嚏后腰很痛，需要去医院吗？
   expected_domain:
@@ -535,6 +601,8 @@ questions:
   - 西氏内科学精要
   must_not:
   - 建议在家观察不用就医
+  doctor_must_have_tags:
+  - 证据等级
 - id: BONE_BISPHOSPHO_01
   question: 医生开了阿仑膦酸钠治骨质疏松，怎么正确服用？
   expected_domain:
@@ -549,6 +617,8 @@ questions:
   source_refs:
   - 西氏内科学精要
   must_not: []
+  doctor_must_have_tags:
+  - 证据等级
 - id: GERI_POLY_01
   question: 老人吃的药很多，家里人担心药物相互作用，怎么处理？
   expected_domain:
@@ -563,6 +633,8 @@ questions:
   - 西氏内科学精要
   must_not:
   - 给出具体哪些药可以停
+  doctor_must_have_tags:
+  - 证据等级
 - id: GERI_FALL_01
   question: 老人走路越来越不稳，怎么预防跌倒？
   expected_domain:
@@ -577,6 +649,8 @@ questions:
   source_refs:
   - 西氏内科学精要
   must_not: []
+  doctor_must_have_tags:
+  - 证据等级
 - id: PALL_COMFORT_01
   question: 爸爸晚期癌症，医生说要转安宁疗护，这是放弃治疗吗？
   expected_domain:
@@ -591,6 +665,8 @@ questions:
   - 西氏内科学精要
   must_not:
   - 暗示安宁疗护意味着停止所有治疗
+  doctor_must_have_tags:
+  - 证据等级
 - id: PALL_PAIN_01
   question: 家人在安宁疗护阶段，疼痛控制用吗啡会上瘾吗？
   expected_domain:
@@ -604,6 +680,8 @@ questions:
   - 西氏内科学精要
   must_not:
   - 夸大成瘾风险导致患者忍痛
+  doctor_must_have_tags:
+  - 证据等级
 - id: WOME_MENO_01
   question: 妈妈更年期潮热出汗很严重，有什么办法？
   expected_domain:
@@ -618,6 +696,8 @@ questions:
   - 西氏内科学精要
   must_not:
   - 建议自行购买激素补充
+  doctor_must_have_tags:
+  - 证据等级
 - id: WOME_BONE_01
   question: 女性绝经后为什么更容易骨质疏松？需要补什么？
   expected_domain:
@@ -631,6 +711,8 @@ questions:
   source_refs:
   - 西氏内科学精要
   must_not: []
+  doctor_must_have_tags:
+  - 证据等级
 - id: MENS_BPH_01
   question: 爸爸前列腺增生，夜里要起来小便四五次，有什么方法改善？
   expected_domain:
@@ -645,6 +727,8 @@ questions:
   source_refs:
   - 西氏内科学精要
   must_not: []
+  doctor_must_have_tags:
+  - 证据等级
 - id: MENS_ED_01
   question: 老公有糖尿病，最近出现性功能问题，和糖尿病有关系吗？
   expected_domain:
@@ -660,6 +744,8 @@ questions:
   - 西氏内科学精要
   must_not:
   - 推荐具体的PDE5抑制剂或剂量
+  doctor_must_have_tags:
+  - 证据等级
 - id: SUBS_ALCOHOL_01
   question: 家人酒精依赖，想戒酒但害怕戒断反应，怎么办？
   expected_domain:
@@ -675,6 +761,8 @@ questions:
   - 西氏内科学精要
   must_not:
   - 建议在家自行突然断酒
+  doctor_must_have_tags:
+  - 证据等级
 - id: SUBS_SMOKE_01
   question: 帮助家人戒烟，有哪些实用方法？
   expected_domain:
@@ -689,6 +777,8 @@ questions:
   - 西氏内科学精要
   must_not:
   - 推荐具体处方戒烟药（需医生）
+  doctor_must_have_tags:
+  - 证据等级
 - id: PERI_PREOP_01
   question: 妈妈要做手术，有高血压糖尿病，术前降压药和降糖药要停吗？
   expected_domain:
@@ -703,6 +793,8 @@ questions:
   - 西氏内科学精要
   must_not:
   - 建议自行停所有慢性病药物
+  doctor_must_have_tags:
+  - 证据等级
 - id: PERI_POSTOP_01
   question: 手术后腿肿起来了，是正常的吗？
   expected_domain:
@@ -717,3 +809,5 @@ questions:
   - 西氏内科学精要
   must_not:
   - 断言腿肿是完全正常的术后反应
+  doctor_must_have_tags:
+  - 证据等级

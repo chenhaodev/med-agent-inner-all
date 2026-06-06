@@ -111,10 +111,16 @@ def build_patient_blacklist(source_text: str, low_entries: list) -> list:
 
 
 def build_doctor_must_have_tags(low_entries: list) -> list:
-    """Tags doctor output must contain when low-evidence entries exist."""
-    if not low_entries:
-        return []
-    return ["低级别证据", "临床常用", "证据等级"]
+    """Tags doctor output must contain.
+
+    '证据等级' is universal — doctor schema requires evidence-level annotations on
+    every management point.  Low-evidence entries additionally require the
+    fine-grained labels so the deterministic check fires.
+    """
+    tags = ["证据等级"]
+    if low_entries:
+        tags += ["低级别证据", "临床常用"]
+    return tags
 
 
 def process_question(q: dict, apply: bool) -> dict:
@@ -124,12 +130,12 @@ def process_question(q: dict, apply: bool) -> dict:
     source_text = load_source_text(domains)
     low_entries = load_low_evidence_entries(domains)
 
+    blacklist = build_patient_blacklist(source_text, low_entries) if low_entries else []
+    must_have = build_doctor_must_have_tags(low_entries)  # always at least ['证据等级']
+
     if not low_entries:
         return {"id": qid, "has_low_evidence": False,
-                "patient_must_not_phrases": [], "doctor_must_have_tags": []}
-
-    blacklist = build_patient_blacklist(source_text, low_entries)
-    must_have = build_doctor_must_have_tags(low_entries)
+                "patient_must_not_phrases": [], "doctor_must_have_tags": must_have}
 
     return {
         "id": qid,
@@ -142,7 +148,7 @@ def process_question(q: dict, apply: bool) -> dict:
 
 def print_result(r: dict) -> None:
     if not r["has_low_evidence"]:
-        print(f"  [{r['id']}] 无低证据条目，跳过")
+        print(f"  [{r['id']}] 无低证据条目  doctor_tags={r['doctor_must_have_tags']}")
         return
     print(f"\n  [{r['id']}]  低证据条目: {', '.join(r['low_evidence_entry_ids'])}")
     print(f"  patient_must_not_phrases ({len(r['patient_must_not_phrases'])} 条):")
@@ -156,7 +162,7 @@ def apply_to_gold(results: list) -> None:
     text = EVAL_GOLD.read_text(encoding="utf-8")
     data = yaml.safe_load(text)
     questions = data.get("questions", [])
-    by_id = {r["id"]: r for r in results if r["has_low_evidence"]}
+    by_id = {r["id"]: r for r in results}  # include all questions, not only low-evidence
 
     changed = 0
     for q in questions:
@@ -214,9 +220,10 @@ def main() -> int:
         results.append(r)
         if r["has_low_evidence"]:
             low_count += 1
-            print_result(r)
+        print_result(r)
 
     print(f"\n汇总：{low_count}/{len(questions)} 道题含低证据条目（幻觉高风险区）")
+    print(f"全部 {len(questions)} 道题将写入 doctor_must_have_tags=['证据等级', ...]")
 
     if apply_flag:
         print("\n写入 gold.yaml...")

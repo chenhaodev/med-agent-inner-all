@@ -40,7 +40,11 @@ if [[ -z "${DEEPSEEK_API_KEY:-}" ]]; then
 fi
 
 GOLD_FILE="$ROOT_DIR/eval/gold.yaml"
-JUDGE_PROMPT_FILE="$ROOT_DIR/eval/judge_prompt.md"
+if [[ "$EVAL_MODE" == "doctor" ]]; then
+  JUDGE_PROMPT_FILE="$ROOT_DIR/eval/judge_prompt_doctor.md"
+else
+  JUDGE_PROMPT_FILE="$ROOT_DIR/eval/judge_prompt.md"
+fi
 RESULTS_DIR="$ROOT_DIR/eval/results"
 mkdir -p "$RESULTS_DIR"
 
@@ -118,8 +122,9 @@ print(json.dumps(data[$i], ensure_ascii=False))
     error_count=$((error_count + 1))
     continue
   fi
-  # Retry once if response is suspiciously short (likely API truncation during long runs)
-  if [[ ${#MODEL_RESPONSE} -lt 200 ]]; then
+  # Retry once if response is suspiciously short (doctor needs 5 sections, patient shorter)
+  MIN_RESP_LEN=200; [[ "$EVAL_MODE" == "doctor" ]] && MIN_RESP_LEN=800
+  if [[ ${#MODEL_RESPONSE} -lt $MIN_RESP_LEN ]]; then
     MODEL_RESPONSE=$("$SCRIPT_DIR/build_prompt.sh" --mode "$EVAL_MODE" "$DOMAINS" "$QTEXT" | \
       "$SCRIPT_DIR/call_deepseek.sh" 2>/dev/null) || true
   fi
