@@ -1573,7 +1573,7 @@ questions:
   expected_domain:
   - hematology:anemia
   expected_topics:
-  - 网织红细胞计数用于区分骨髓衰竭与外周破坏/失血
+  - 转铁蛋白饱和度：缺铁时降至10%以下，慢性炎症性贫血（ACD）通常保持≥20%
   - 小细胞性贫血（MCV 降低）见于缺铁性贫血和慢性病
   - 两者可共存，铁蛋白是区分关键指标
   must_warn:
@@ -1583,7 +1583,7 @@ questions:
   must_not: []
   doctor_must_have_tags:
   - 证据等级
-  - 鉴别诊断要点
+  - 转铁蛋白
 - id: RHEU_RA_DR_01
   mode: doctor
   question: 类风湿关节炎的治疗策略是什么，甲氨蝶呤在 RA 治疗中处于什么地位？
@@ -1637,7 +1637,7 @@ questions:
   must_not: []
   doctor_must_have_tags:
   - 证据等级
-  - 启动时机
+  - 别嘌呤醇
 - id: NEURO_STROKE_DR_01
   mode: doctor
   question: 缺血性卒中患者溶栓治疗的时间窗和主要适应证是什么？
