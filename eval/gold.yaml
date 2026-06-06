@@ -489,11 +489,11 @@ questions:
   expected_domain:
   - oncology:tumor_complications
   expected_topics:
-  - 稳定期可进行适度运动（步行）
+  - 稳定期可进行适度运动（步行、太极、瑜伽）
   - 运动有助于改善疲劳和生活质量
-  - 化疗期间疲劳期不强迫运动
+  - 化疗或放疗期间运动强度需根据体力和副作用动态调整（血小板低或发热时暂停）
   must_warn:
-  - 运动方案需与主治医生确认
+  - 运动方案需与医师确认，化疗期间不强迫运动
   source_refs:
   - 西氏内科学精要
   must_not: []
