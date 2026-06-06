@@ -12,7 +12,7 @@
   - **doctor**：面向临床医生，证据档案式 5 段结构（定义与流行病学/循证管理/红旗症状/证据等级汇总/参考），每条建议带证据等级标注
 - **指南叠加**：`knowledge/<专科>/guidelines/` 放入指南 YAML 即可叠加，教材与指南冲突以最新指南为准
 - **越界保护（5 类 action-based）**：确定性拦截外科手术决策（A）/ 化疗剂量方案（B）/ 诊断红线（C）/ 调药红线（D）/ 无关任务（E）；doctor 模式放宽鉴别诊断框架，红线仍生效
-- **可量化评估**：patient 77 题 38.8/40（98.7%）；doctor 77 题 37.8/40（92.2%）；gold.yaml 扩至 103 题（支持 mode 过滤）；OOB 双模式拦截率/无幻觉率 100%
+- **可量化评估**：patient 90 题 38.9/40（96.6%）；doctor 90 题 37.0/40（85.5%）；gold.yaml 103 题（支持 mode 过滤）；OOB 双模式拦截率/无幻觉率 100%
 
 ## 快速开始
 
@@ -211,16 +211,17 @@ knowledge/cardiology/guidelines/心衰指南2024.yaml
 
 | 测试集 | 模式 | 题数 | 指标 | 结果 |
 |--------|------|------|------|------|
-| in-scope | patient | 77 | 平均分 / 40 | 38.8（97.0%）✓ |
-| in-scope | patient | 77 | 通过率（≥34/40）| 98.7% ✓ |
-| in-scope | doctor | 77 | 平均分 / 40 | 37.8（temperature 0.2）✓ |
-| in-scope | doctor | 77 | 通过率（≥34/40）| 92.2% ✓ |
+| in-scope | patient | 90 | 平均分 / 40 | 38.9 ✓ |
+| in-scope | patient | 90 | 通过率（≥34/40）| 96.6% ✓ |
+| in-scope | doctor | 90 | 平均分 / 40 | 37.0 ✓ |
+| in-scope | doctor | 90 | 通过率（≥34/40）| 85.5% ✓ |
 | OOB | patient | 30 | 拦截准确率 | 100% ✓ |
 | OOB | patient | 30 | 无幻觉率 | 100% ✓ |
 | OOB | doctor | 30 | 拦截准确率 | 100% ✓ |
 | OOB | doctor | 30 | 无幻觉率 | 100% ✓ |
 
 v2 目标：in-scope 平均 ≥85%（34/40），OOB 双模式拦截 100%，grounding ≥90%。
+gold.yaml：103 题（77 both + 13 patient-only + 13 doctor-only），eval 各模式见 90 题。
 
 ## 依赖
 
