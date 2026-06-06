@@ -8,6 +8,22 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(dirname "$SCRIPT_DIR")"
 
+OOB_MODE="patient"
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --mode)
+      OOB_MODE="$2"; shift 2
+      if [[ "$OOB_MODE" == "both" ]]; then
+        "$0" --mode patient
+        "$0" --mode doctor
+        exit 0
+      fi
+      ;;
+    *) echo "未知参数：$1" >&2; exit 1 ;;
+  esac
+done
+
 if [[ -f "$ROOT_DIR/.env" ]]; then
   source "$ROOT_DIR/.env" 2>/dev/null || true
 fi
@@ -22,11 +38,11 @@ RESULTS_DIR="$ROOT_DIR/eval/results"
 mkdir -p "$RESULTS_DIR"
 
 TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
-RESULT_FILE="$RESULTS_DIR/oob_${TIMESTAMP}.json"
-export ROOT_DIR TIMESTAMP RESULT_FILE
+RESULT_FILE="$RESULTS_DIR/oob_${TIMESTAMP}_${OOB_MODE}.json"
+export ROOT_DIR TIMESTAMP RESULT_FILE OOB_MODE
 
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo " OOB Eval — $(date '+%Y-%m-%d %H:%M:%S')"
+echo " OOB Eval — $(date '+%Y-%m-%d %H:%M:%S')  [mode: ${OOB_MODE}]"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
 QUESTIONS=$(python3 -c "
@@ -62,7 +78,7 @@ print(json.dumps(data[$i], ensure_ascii=False))
 
   printf "[%2d/%d] %-15s %s ..." "$((i+1))" "$TOTAL" "[$QCAT/$QBEH]" "$QTEXT"
 
-  RESPONSE=$("$SCRIPT_DIR/ask.sh" "$QTEXT" 2>/dev/null | sed '/^═/d' | sed '/^$/d') || {
+  RESPONSE=$("$SCRIPT_DIR/ask.sh" --mode "$OOB_MODE" "$QTEXT" 2>/dev/null | sed '/^═/d' | sed '/^$/d') || {
     echo " [ERROR]"
     error_count=$((error_count + 1))
     continue
@@ -191,7 +207,7 @@ print(f\"结果已写入：{os.environ['RESULT_FILE']}\")
 
 echo ""
 echo "════════════════════════════════════════════"
-echo " OOB Eval 汇总 — $TIMESTAMP"
+echo " OOB Eval 汇总 — $TIMESTAMP  [mode: ${OOB_MODE}]"
 echo "════════════════════════════════════════════"
 echo " 拦截准确率（A/B/C/D + 负样本）：${INTERCEPT_RATE}%  (${pass_intercept}/${total_a_b_c_d})"
 echo " 无幻觉率                       ：${HALL_RATE}%"

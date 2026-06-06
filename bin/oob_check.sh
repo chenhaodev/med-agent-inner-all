@@ -15,9 +15,17 @@
 
 set -euo pipefail
 
-if [[ $# -ge 1 ]]; then
-  QUESTION="$1"
-else
+MODE="patient"
+QUESTION=""
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --mode) MODE="$2"; shift 2 ;;
+    *)      QUESTION="$1"; shift ;;
+  esac
+done
+
+if [[ -z "$QUESTION" ]]; then
   QUESTION="$(cat)"
 fi
 

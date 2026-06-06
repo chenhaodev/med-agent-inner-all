@@ -59,17 +59,20 @@ if [[ -z "$QUESTION" ]]; then
 fi
 
 # ─── 0. 越界检测（确定性拦截）────────────────────────────────
-OOB_RESULT=$("$SCRIPT_DIR/oob_check.sh" "$QUESTION" 2>/dev/null || echo "in_scope")
+OOB_RESULT=$("$SCRIPT_DIR/oob_check.sh" --mode "$MODE" "$QUESTION" 2>/dev/null || echo "in_scope")
 [[ "$DEBUG" == "true" ]] && echo "[DEBUG] OOB 检测 → $OOB_RESULT" >&2
 
 if [[ "$OOB_RESULT" != "in_scope" ]]; then
   OOB_TYPE=$(echo "$OOB_RESULT" | cut -d: -f2-)
-  export ROOT_DIR OOB_TYPE QUESTION
-
+  export ROOT_DIR OOB_TYPE QUESTION MODE
   OOB_REPLY=$(python3 - <<'PYEOF'
 import re, os, sys
 
-templates_file = os.path.join(os.environ["ROOT_DIR"], "prompts/oob_templates.md")
+mode = os.environ.get("MODE", "patient")
+if mode == "doctor":
+    templates_file = os.path.join(os.environ["ROOT_DIR"], "prompts/oob_templates_doctor.md")
+else:
+    templates_file = os.path.join(os.environ["ROOT_DIR"], "prompts/oob_templates.md")
 oob_type = os.environ["OOB_TYPE"]
 question = os.environ["QUESTION"]
 
