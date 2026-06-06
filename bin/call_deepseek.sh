@@ -51,11 +51,19 @@ while true; do
     CONTENT=$(echo "$HTTP_BODY" | python3 -c "
 import sys, json
 data = json.load(sys.stdin)
-print(data['choices'][0]['message']['content'])
+content = data['choices'][0]['message']['content']
+if not content or not content.strip():
+    print('错误：API 返回空 content', file=sys.stderr)
+    sys.exit(1)
+print(content)
 " 2>&1) || {
-      echo "错误：解析 API 响应失败。原始响应：" >&2
-      echo "$HTTP_BODY" >&2
-      exit 1
+      echo "错误：解析 API 响应失败或 content 为空，将重试。" >&2
+      if [[ $attempt -ge $DEEPSEEK_MAX_RETRIES ]]; then
+        echo "响应：$HTTP_BODY" >&2
+        exit 1
+      fi
+      sleep $((attempt * 2))
+      continue
     }
     echo "$CONTENT"
     exit 0

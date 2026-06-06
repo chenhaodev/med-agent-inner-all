@@ -103,6 +103,11 @@ print(json.dumps(data[$i], ensure_ascii=False))
     error_count=$((error_count + 1))
     continue
   }
+  if [[ -z "${MODEL_RESPONSE// /}" ]]; then
+    echo " [EMPTY RESPONSE — skipping]"
+    error_count=$((error_count + 1))
+    continue
+  fi
   export MODEL_RESPONSE
 
   JUDGE_INPUT=$(python3 - <<PYEOF
