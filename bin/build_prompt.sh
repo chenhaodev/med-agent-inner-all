@@ -204,7 +204,7 @@ else:
 
 payload = {
     "model": model,
-    "temperature": 0.3,
+    "temperature": 0.2 if mode == "doctor" else 0.3,
     "max_tokens": 2000 if mode == "doctor" else 1500,
     "messages": [
         {"role": "system", "content": system},
