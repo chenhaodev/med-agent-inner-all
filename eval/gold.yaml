@@ -678,7 +678,7 @@ questions:
 - id: SUBS_SMOKE_01
   question: 帮助家人戒烟，有哪些实用方法？
   expected_domain:
-  - substance_use:alcohol_drugs
+  - cardiology:cad
   expected_topics:
   - 尼古丁替代（贴片/口香糖）
   - 确定戒烟日期

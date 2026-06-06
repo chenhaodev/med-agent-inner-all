@@ -149,11 +149,11 @@ print(json.dumps(data[$i], ensure_ascii=False))
   total_verify_fails=$((total_verify_fails + VERIFY_FAILS))
   total_verify_warns=$((total_verify_warns + VERIFY_WARNS))
 
-  DID_REROLL="false"
+  export DID_REROLL="false"
   # ── D. 有 ✗ → 回炉一次 ──────────────────────────────────────
   if [[ "$VERIFY_EXIT" == "1" ]]; then
     reroll_count=$((reroll_count + 1))
-    DID_REROLL="true"
+    export DID_REROLL="true"
 
     export _VERIFY_JSON="$VERIFY_JSON"
     set +e
