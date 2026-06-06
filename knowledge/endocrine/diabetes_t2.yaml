@@ -6,91 +6,141 @@ source: 《西氏内科学精要》（中文版）
 entries:
 - id: DM_DIAGNOSIS
   title: 糖尿病诊断标准
-  source_page: 99
+  source_page: 709
   evidence_level: 高
   recommendation: 强推荐
   key_points:
-  - 空腹血糖≥126mg/dl或随机血糖≥200mg/dl可诊断糖尿病。
-  - 糖化血红蛋白≥6.5%也作为诊断标准之一。
-  - 无高血糖症状时需重复检测一次确认。
-- id: PREDIABETES
+  - 空腹血糖≥126mg/dl或随机血糖≥200mg/dl可诊断糖尿病
+  - 糖化血红蛋白≥6.5%也可诊断糖尿病
+  - 无高血糖症状时需重复检测一次确认
+  pdf_page: 99
+- id: DM_PREDIABETES
   title: 糖尿病前期识别
-  source_page: 99
+  source_page: 709
   evidence_level: 高
   recommendation: 强推荐
   key_points:
-  - 糖化血红蛋白5.7%-6.4%或空腹血糖100-125mg/dl为糖尿病前期。
-  - 每年约6%的糖尿病前期患者会进展为糖尿病。
-  - 糖尿病前期患者心血管疾病风险增加。
+  - 糖化血红蛋白5.7%-6.4%或空腹血糖100-125mg/dl为糖尿病前期
+  - 每年约6%的糖尿病前期患者会进展为糖尿病
+  - 糖尿病前期患者心血管疾病风险增加
+  pdf_page: 99
 - id: GDM_DIAGNOSIS
   title: 妊娠期糖尿病诊断
-  source_page: 100
+  source_page: 710
   evidence_level: 高
   recommendation: 强推荐
   key_points:
-  - 妊娠24-28周行75g糖耐量试验筛查。
-  - 空腹血糖≥92mg/dl或1小时血糖≥180mg/dl可诊断。
-  - 未治疗的妊娠期糖尿病增加胎儿畸形和分娩风险。
-- id: T1DM_CAUSE
-  title: 1型糖尿病病因
-  source_page: 101
+  - 妊娠期空腹血糖≥92mg/dl可诊断妊娠期糖尿病
+  - 妊娠24-28周需做75g糖耐量试验筛查
+  - 未治疗的妊娠期糖尿病可能增加胎儿畸形和分娩风险
+  pdf_page: 100
+- id: T1DM_EPIDEMIOLOGY
+  title: 1型糖尿病流行病学
+  source_page: 711
   evidence_level: 中
   recommendation: 未注明
   key_points:
-  - 1型糖尿病是胰岛素分泌细胞被自身免疫破坏导致。
-  - 遗传因素和环境因素共同作用，如感染或化学物质。
-  - 家族中兄弟姐妹患病风险约5%，父亲患病后代风险6%。
+  - 1型糖尿病发病年龄高峰为6-14岁，但约一半患者20岁后发病
+  - 兄弟姐妹患病风险约5%，父亲患病后代风险6%
+  - 同卵双胞胎患病一致性30%-50%，提示遗传和环境共同作用
+  pdf_page: 101
 - id: T1DM_SYMPTOMS
-  title: 1型糖尿病症状
-  source_page: 102
+  title: 1型糖尿病临床表现
+  source_page: 712
   evidence_level: 高
   recommendation: 强推荐
   key_points:
-  - 典型症状包括多尿、多饮、体重减轻和乏力。
-  - 儿童可能表现为尿床或白天尿失禁。
-  - 约25%的患者以酮症酸中毒起病，需紧急就医。
-- id: T1DM_TREATMENT
-  title: 1型糖尿病治疗原则
-  source_page: 103
+  - 典型症状包括多尿、多饮、体重减轻、乏力和嗜睡
+  - 儿童多尿可表现为尿床，成人表现为夜尿增多
+  - 约25%的患者以酮症酸中毒起病
+  pdf_page: 102
+- id: T1DM_TREATMENT_TEAM
+  title: 1型糖尿病治疗团队
+  source_page: 713
   evidence_level: 高
   recommendation: 强推荐
   key_points:
-  - 1型糖尿病必须依赖外源胰岛素治疗。
-  - 治疗目标为糖化血红蛋白控制在7%以下。
-  - 需多学科团队包括医生、教育者和营养师共同管理。
-- id: T1DM_INSULIN
-  title: 胰岛素治疗方案
-  source_page: 103
+  - 治疗需由医生、教育护士、营养师组成的团队共同管理
+  - 患者及家属需接受胰岛素注射、血糖监测、营养和运动教育
+  - 医疗建议和心理支持应持续、长期、个体化
+  pdf_page: 103
+- id: T1DM_BLOOD_GLUCOSE_CONTROL
+  title: 1型糖尿病血糖控制目标
+  source_page: 713
   evidence_level: 高
   recommendation: 强推荐
   key_points:
-  - 常用基础-餐时方案：长效胰岛素每日1-2次，速效胰岛素餐前注射。
-  - 胰岛素泵可提供更灵活的剂量调整。
-  - 自我血糖监测对调整胰岛素剂量至关重要。
-- id: T2DM_FEATURES
-  title: 2型糖尿病特点
-  source_page: 100
+  - 糖化血红蛋白控制目标一般为7%
+  - 对低血糖不敏感或肾衰竭患者目标可个体化至8%或更高
+  - 强化血糖控制可减少微血管并发症和心血管疾病风险
+  pdf_page: 103
+- id: T1DM_INSULIN_THERAPY
+  title: 1型糖尿病胰岛素治疗
+  source_page: 713
   evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 1型糖尿病患者绝对需要外源胰岛素治疗
+  - 常用方案为基础-餐时方案：长效胰岛素+餐时速效胰岛素
+  - 胰岛素泵可提供更灵活的剂量调整
+  pdf_page: 103
+- id: T1DM_SELF_MONITORING
+  title: 1型糖尿病自我血糖监测
+  source_page: 713
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 建议监测空腹、餐前、餐后2小时、睡前及凌晨血糖
+  - 记录血糖值、食物摄入、运动和症状有助于调整治疗
+  - 每3个月检测一次糖化血红蛋白
+  pdf_page: 103
+- id: T1DM_COMPLICATION_SCREENING
+  title: 1型糖尿病并发症筛查
+  source_page: 713
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 定期检查足部、外周神经功能、视网膜和肾脏功能
+  - 早期发现并发症可及时干预治疗
+  - 同时需控制血脂和血压水平
+  pdf_page: 103
+- id: T2DM_RISK_FACTORS
+  title: 2型糖尿病危险因素
+  source_page: 710
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 肥胖是2型糖尿病的主要危险因素（80%-90%患者肥胖）
+  - 久坐生活方式和年龄增长增加患病风险
+  - 既往妊娠期糖尿病史也是危险因素
+  pdf_page: 100
+- id: T2DM_DIAGNOSIS_FEATURES
+  title: 2型糖尿病诊断特点
+  source_page: 710
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 2型糖尿病起病缓慢，可经历数年甚至数十年
+  - 通常保留部分胰岛素分泌能力，不易发生酮症酸中毒
+  - 与1型糖尿病鉴别需检测自身抗体和C肽水平
+  pdf_page: 100
+- id: DM_LIFESTYLE_MANAGEMENT
+  title: 糖尿病生活方式管理
+  source_page: 713
+  evidence_level: 未注明
   recommendation: 未注明
   key_points:
-  - 2型糖尿病占所有糖尿病的90%以上，起病缓慢。
-  - 多数患者伴有肥胖，存在胰岛素抵抗。
-  - 与1型糖尿病不同，不易发生酮症酸中毒。
-- id: DM_COMPLICATIONS
-  title: 糖尿病并发症预防
-  source_page: 103
-  evidence_level: 高
-  recommendation: 强推荐
+  - 合理饮食和规律运动是血糖管理的基础
+  - 建议每餐固定摄入相同量的碳水化合物
+  - 运动前后需监测血糖，预防低血糖
+  pdf_page: 103
+- id: DM_WHEN_TO_SEEK_CARE
+  title: 糖尿病何时就医
+  source_page: 713
+  evidence_level: 未注明
+  recommendation: 未注明
   key_points:
-  - 控制血糖可减少视网膜、肾脏和神经并发症。
-  - 需定期检查足部、眼底和肾功能。
-  - 同时控制血脂和血压以降低心血管风险。
-- id: WHEN_TO_SEEK_CARE
-  title: 何时就医
-  source_page: 102
-  evidence_level: 中
-  recommendation: 强推荐
-  key_points:
-  - 出现多尿、多饮、体重减轻等典型症状时需就医。
-  - 血糖明显升高伴恶心、呕吐或意识改变需紧急处理。
-  - 妊娠期发现血糖异常应尽快咨询医生。
+  - 出现多尿、多饮、体重减轻等典型症状时应就医
+  - 血糖持续高于目标范围或出现酮症酸中毒症状需紧急就医
+  - 定期复查糖化血红蛋白和并发症筛查
+  pdf_page: 103

@@ -1,0 +1,159 @@
+specialty: mens_health
+specialty_zh: mens_health
+disease: mens_health
+disease_zh: mens_health
+source: 《西氏内科学精要》（中文版）
+entries:
+- id: ADULT_ANDROGEN_DEFICIENCY
+  title: 成年男性雄激素缺乏症
+  source_page: 774
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 低睾酮水平伴有性欲降低、勃起困难或嗜睡等症状可诊断。
+  - 40岁以上男性如有相关症状应检测早晨血清睾酮。
+  - 总睾酮低于200ng/dl且症状明显可确诊。
+  - 临界值需重复检测并测定游离睾酮。
+  - 急性疾病期间不应检测睾酮水平。
+  pdf_page: 163
+- id: TESTOSTERONE_REPLACEMENT_MONITORING
+  title: 睾酮替代治疗监测
+  source_page: 776
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 治疗开始后5-12周检测血清总睾酮水平。
+  - 每3-6个月检查红细胞比容，超过54%需停药。
+  - 如为改善骨质疏松，1-2年后评估骨密度。
+  - PSA异常或1年升高超0.75ng/ml应转诊泌尿外科。
+  - 治疗目标为总睾酮维持在400-600ng/dl。
+  pdf_page: 165
+- id: TESTOSTERONE_SIDE_EFFECTS
+  title: 睾酮治疗副作用
+  source_page: 776
+  evidence_level: 中
+  recommendation: 推荐
+  key_points:
+  - 睾酮治疗可导致精子减少和睾丸缩小。
+  - 可能引起红细胞增多症，需定期监测。
+  - 拟生育男性应避免睾酮治疗。
+  - 可加重睡眠呼吸暂停和心力衰竭。
+  - 口服剂型对肝脏有负面影响。
+  pdf_page: 165
+- id: TESTOSTERONE_AND_PROSTATE
+  title: 睾酮治疗与前列腺
+  source_page: 776
+  evidence_level: 中
+  recommendation: 可考虑
+  key_points:
+  - 有前列腺癌或乳腺癌病史者应避免睾酮治疗。
+  - 尚无证据表明睾酮治疗影响良性前列腺增生。
+  - 治疗前需检测PSA和直肠指诊评估前列腺。
+  pdf_page: 165
+- id: ERECTILE_DYSFUNCTION_DEFINITION
+  title: 勃起功能障碍定义
+  source_page: 776
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - ED指不能维持勃起完成满意性活动，不包括早泄。
+  - 40岁以上男性约52%受不同程度困扰。
+  - 年龄和健康状况是主要风险因素。
+  - 吸烟是最重要的生活方式风险因素。
+  pdf_page: 165
+- id: ED_CAUSES_CARDIOVASCULAR
+  title: ED心血管病因
+  source_page: 777
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 动脉硬化、高血脂、吸烟和高血压是常见病因。
+  - 内皮功能障碍是最常见机制。
+  - ED可能是心血管疾病的早期信号。
+  pdf_page: 166
+- id: ED_CAUSES_NEUROGENIC
+  title: ED神经源性病因
+  source_page: 777
+  evidence_level: 中
+  recommendation: 推荐
+  key_points:
+  - 大脑疾病如痴呆、帕金森病、脑卒中可导致ED。
+  - 脊髓损伤患者常需药物辅助性交。
+  - 前列腺根治术等手术可损伤神经引起ED。
+  pdf_page: 166
+- id: ED_CAUSES_ENDOCRINE
+  title: ED内分泌病因
+  source_page: 778
+  evidence_level: 中
+  recommendation: 推荐
+  key_points:
+  - 糖尿病是影响勃起最常见的内分泌疾病。
+  - 睾酮缺乏可降低性欲和勃起硬度。
+  - 甲状腺功能异常也可导致ED。
+  - 睾酮正常的ED患者不推荐睾酮补充。
+  pdf_page: 167
+- id: ED_DRUG_INDUCED
+  title: 药物诱导勃起功能障碍
+  source_page: 778
+  evidence_level: 中
+  recommendation: 推荐
+  key_points:
+  - 多种药物可引起或加重ED。
+  - 更换药物可能恢复勃起功能。
+  - 需咨询医生评估药物影响。
+  pdf_page: 167
+- id: ED_TREATMENT_APPROACH
+  title: ED治疗循序渐进
+  source_page: 778
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 治疗从口服PDE5抑制剂开始。
+  - 无效可过渡到尿道内或海绵体内注射。
+  - 负压装置和假体植入为最后选择。
+  - 患者知情选择对成功治疗至关重要。
+  pdf_page: 167
+- id: BENIGN_PROSTATIC_HYPERPLASIA
+  title: 良性前列腺增生
+  source_page: 773
+  evidence_level: 未注明
+  recommendation: 未注明
+  key_points:
+  - BPH是老年男性常见疾病，影响排尿。
+  - 诊断需结合症状、直肠指诊和PSA检测。
+  - 药物治疗可缓解症状，严重需手术。
+  - 如出现尿潴留或血尿应及时就医。
+  pdf_page: 162
+- id: TESTICULAR_CANCER
+  title: 睾丸癌
+  source_page: 773
+  evidence_level: 未注明
+  recommendation: 未注明
+  key_points:
+  - 睾丸癌多见于年轻男性，早期发现可治愈。
+  - 定期自我检查睾丸有无肿块或增大。
+  - 治疗包括手术、化疗和放疗。
+  - 任何睾丸异常应尽早就医。
+  pdf_page: 162
+- id: MALE_INFERTILITY
+  title: 男性不育
+  source_page: 773
+  evidence_level: 未注明
+  recommendation: 未注明
+  key_points:
+  - 不育需进行精液分析和病史评估。
+  - 生活方式如吸烟、饮酒可影响生育。
+  - 初始治疗包括改善生活习惯和药物。
+  - 拟生育男性应避免睾酮治疗。
+  pdf_page: 162
+- id: SCROTAL_BENIGN_DISEASES
+  title: 阴囊良性疾病
+  source_page: 773
+  evidence_level: 未注明
+  recommendation: 未注明
+  key_points:
+  - 精索静脉曲张可影响生育，需评估。
+  - 附睾囊肿通常无症状，无需处理。
+  - 急性附睾炎需抗生素治疗。
+  - 睾丸扭转是急症，需立即就医。
+  pdf_page: 162

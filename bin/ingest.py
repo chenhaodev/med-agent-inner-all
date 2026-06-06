@@ -1,14 +1,25 @@
 #!/usr/bin/env python3
 """
-ingest.py — PDF → 章节 Markdown（按专科切分，保留页码标注）
+ingest.py — PDF → 章节 Markdown（manifest-driven，依据 knowledge/chapters.yaml）
 
 用法：
   python3 bin/ingest.py --specialty cardiology
-  python3 bin/ingest.py --specialty all
-  python3 bin/ingest.py --list-specialties
+  python3 bin/ingest.py --chapter 16
+  python3 bin/ingest.py --all
+  python3 bin/ingest.py --list
 
-输出：source/chapters/{specialty}/{chapter_slug}.md
+输出：source/chapters/{specialty}/{slug}.md
       每段文字前标注 [p.{页码}]
+
+YAML 字段说明：
+  chapter_no      章节号（1-126）
+  pdf_page_start  PDF 物理页起始（1-based）
+  pdf_page_end    PDF 物理页结束（含）
+  volume          上/下（决定读哪个 PDF）
+  specialty       专科名（目录路径）
+  slug            病种 slug（文件名）
+  sub_slugs       可选，同一章生成多个 slug 文件（内容相同，extract.py 再细分）
+  patient_facing  false = 基础/方法章节，可跳过提取
 """
 
 import argparse
@@ -16,180 +27,139 @@ import re
 import sys
 from pathlib import Path
 
+try:
+    sys.path.insert(0, str(Path(__file__).parent))
+    from folio_map import extract_folio_from_page_text as _extract_folio
+except ImportError:
+    _extract_folio = None
+
 ROOT_DIR = Path(__file__).parent.parent
+CHAPTERS_YAML = ROOT_DIR / "knowledge" / "chapters.yaml"
+
+PDF_UPPER = ROOT_DIR / "pdfs" / "西氏内科学精要-上卷.pdf"
+PDF_LOWER = ROOT_DIR / "pdfs" / "西氏内科学精要-下卷.pdf"
 
 try:
-    import fitz  # PyMuPDF
+    import fitz
 except ImportError:
     print("错误：需要 pymupdf。运行 pip install pymupdf", file=sys.stderr)
     sys.exit(1)
 
-# ─── 专科→PDF 部分/页范围映射 ─────────────────────────────────────────────────
-# 根据《西氏内科学精要》（Cecil Essentials）上下卷目录实际页范围填写
-# 上卷：西氏内科学精要-上卷.pdf（约 637页，PDF页从1起）
-# 下卷：西氏内科学精要-下卷.pdf（约 632页）
-# 注：页码为 PDF 文件内页（非书页码），请根据实际目录调整
-
-CHAPTER_MAP = {
-    # 上卷各部分
-    "cardiology": {
-        "pdf": "西氏内科学精要-上卷.pdf",
-        "chapters": [
-            # Ch12 血管疾病和高血压 (p189-211), Ch5 心力衰竭与心肌病 (p79-91),
-            # Ch8 冠状动脉性心脏病 (p113-136), Ch9 心律失常 (p137-163)
-            {"slug": "hypertension",  "title": "血管疾病和高血压",       "pages": (189, 211)},
-            {"slug": "heart_failure", "title": "心力衰竭与心肌病",       "pages": (79,  91)},
-            {"slug": "cad",          "title": "冠状动脉性心脏病",       "pages": (113, 136)},
-            {"slug": "arrhythmia",   "title": "心律失常",               "pages": (137, 163)},
-        ]
-    },
-    "respiratory": {
-        "pdf": "西氏内科学精要-上卷.pdf",
-        "chapters": [
-            # Ch16 阻塞性肺疾病（含COPD+哮喘）(p240-255), Ch21 肺部感染 (p289-301)
-            {"slug": "copd",      "title": "阻塞性肺疾病（COPD与哮喘）", "pages": (240, 255)},
-            {"slug": "asthma",    "title": "阻塞性肺疾病（哮喘部分）",   "pages": (240, 255)},
-            {"slug": "pneumonia", "title": "肺部感染性疾病",             "pages": (289, 301)},
-        ]
-    },
-    "renal": {
-        "pdf": "西氏内科学精要-上卷.pdf",
-        "chapters": [
-            # Ch32 慢性肾脏病 (p406-414), Ch28 肾小球疾病 (p353-368)
-            {"slug": "ckd",       "title": "慢性肾脏病",   "pages": (406, 414)},
-            {"slug": "nephritis", "title": "肾小球疾病",   "pages": (353, 368)},
-        ]
-    },
-    "digestive": {
-        "pdf": "西氏内科学精要-上卷.pdf",
-        "chapters": [
-            # Ch41+43 肝炎+肝硬化 (p500-522), Ch36 胃与十二指肠 (p451-466), Ch37 IBD (p467-476)
-            {"slug": "liver", "title": "急性与慢性肝炎及肝硬化",   "pages": (500, 522)},
-            {"slug": "gi",    "title": "胃与十二指肠疾病",          "pages": (451, 466)},
-            {"slug": "ibd",   "title": "炎性肠病",                  "pages": (467, 476)},
-        ]
-    },
-    "hematology": {
-        "pdf": "西氏内科学精要-上卷.pdf",
-        "chapters": [
-            # Ch47 红细胞相关疾病（贫血）(p558-570)
-            {"slug": "anemia", "title": "红细胞相关疾病（贫血）", "pages": (558, 570)},
-        ]
-    },
-    # 下卷各部分
-    "endocrine": {
-        "pdf": "西氏内科学精要-下卷.pdf",
-        "chapters": [
-            # Ch66 糖尿病 (p99-117), Ch63 甲状腺 (p73-82),
-            # Ch69 脂代谢紊乱 (p133-142), Ch67 肥胖 (p118-125)
-            {"slug": "diabetes_t2",  "title": "糖尿病与低血糖症",   "pages": (99,  117)},
-            {"slug": "thyroid",      "title": "甲状腺疾病",          "pages": (73,  82)},
-            {"slug": "dyslipidemia", "title": "脂代谢紊乱",          "pages": (133, 142)},
-            {"slug": "gout",         "title": "晶体性关节炎：痛风",  "pages": (255, 260)},
-            {"slug": "obesity",      "title": "肥胖症",              "pages": (118, 125)},
-        ]
-    },
-    "rheumatology": {
-        "pdf": "西氏内科学精要-下卷.pdf",
-        "chapters": [
-            # Ch77 类风湿 (p223-228), Ch79 SLE (p234-241), Ch75 骨质疏松 (p207-215)
-            {"slug": "ra",           "title": "类风湿关节炎",    "pages": (223, 228)},
-            {"slug": "sle",          "title": "系统性红斑狼疮",  "pages": (234, 241)},
-            {"slug": "osteoporosis", "title": "骨质疏松症",      "pages": (207, 215)},
-        ]
-    },
-    "infectious": {
-        "pdf": "西氏内科学精要-下卷.pdf",
-        "chapters": [
-            # Ch88 发热 (p294-305), Ch89 菌血症 (p306-313), Ch92 下呼吸道感染 (p336-340),
-            # Ch98 尿路感染 (p378-380), Ch101 HIV (p398-414)
-            {"slug": "general", "title": "感染性疾病（发热/脓毒症/下呼吸道/尿路/HIV）",
-             "pages": (294, 430)},
-        ]
-    },
-}
+try:
+    import yaml
+except ImportError:
+    print("错误：需要 pyyaml。运行 pip install pyyaml", file=sys.stderr)
+    sys.exit(1)
 
 
-def extract_pages(pdf_path: Path, start_page: int, end_page: int) -> list[tuple[int, str]]:
-    """从 PDF 中提取指定页范围的文本，返回 [(页码, 文本)] 列表。"""
+def load_chapters() -> list[dict]:
+    if not CHAPTERS_YAML.exists():
+        print(f"错误：{CHAPTERS_YAML} 不存在。先运行 bin/build_chapter_map.py", file=sys.stderr)
+        sys.exit(1)
+    with open(CHAPTERS_YAML, encoding="utf-8") as f:
+        chapters = yaml.safe_load(f)
+    return [c for c in chapters if c.get("specialty") and c.get("slug")]
+
+
+def get_pdf_path(volume: str) -> Path:
+    path = PDF_UPPER if volume == "上" else PDF_LOWER
+    if not path.exists():
+        print(f"错误：PDF 不存在：{path}", file=sys.stderr)
+        print("请将 PDF 放入 pdfs/ 目录（已 git-ignored）", file=sys.stderr)
+        sys.exit(1)
+    return path
+
+
+def extract_pages(pdf_path: Path, start: int, end: int) -> list[tuple[int, str, "int | None"]]:
     doc = fitz.open(str(pdf_path))
     total = len(doc)
     result = []
-    for pn in range(start_page - 1, min(end_page, total)):
-        page = doc[pn]
-        text = page.get_text("text")
+    for pn in range(start - 1, min(end, total)):
+        text = doc[pn].get_text("text")
         if text.strip():
-            result.append((pn + 1, text))
+            folio = _extract_folio(text) if _extract_folio else None
+            result.append((pn + 1, text, folio))
     doc.close()
     return result
 
 
-def pages_to_markdown(pages: list[tuple[int, str]], title: str) -> str:
-    """将页面文本列表转为带页码标注的 Markdown。"""
+def pages_to_markdown(pages: list[tuple[int, str, "int | None"]], title: str) -> str:
     lines = [f"# {title}\n"]
-    for page_num, text in pages:
-        lines.append(f"\n[p.{page_num}]\n")
-        # 清理多余空行
-        cleaned = re.sub(r'\n{3,}', '\n\n', text.strip())
+    for page_num, text, folio in pages:
+        if folio is not None:
+            lines.append(f"\n[p.{page_num} | 页码 {folio}]\n")
+        else:
+            lines.append(f"\n[p.{page_num}]\n")
+        cleaned = re.sub(r"\n{3,}", "\n\n", text.strip())
         lines.append(cleaned)
     return "\n".join(lines)
 
 
-def ingest_specialty(specialty: str) -> None:
-    if specialty not in CHAPTER_MAP:
-        print(f"错误：未知专科 '{specialty}'。可用：{list(CHAPTER_MAP.keys())}", file=sys.stderr)
-        sys.exit(1)
+def ingest_chapter(ch: dict) -> None:
+    specialty = ch["specialty"]
+    slug = ch["slug"]
+    title = ch.get("title", slug)
+    volume = ch["volume"]
+    start = ch["pdf_page_start"]
+    end = ch["pdf_page_end"]
 
-    config = CHAPTER_MAP[specialty]
-    pdf_path = ROOT_DIR / "pdfs" / config["pdf"]
-
-    if not pdf_path.exists():
-        print(f"错误：PDF 文件不存在：{pdf_path}", file=sys.stderr)
-        print("请将 PDF 放入 pdfs/ 目录（该目录已 git-ignored）。", file=sys.stderr)
-        sys.exit(1)
-
+    pdf_path = get_pdf_path(volume)
     out_dir = ROOT_DIR / "source" / "chapters" / specialty
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    for ch in config["chapters"]:
-        slug = ch["slug"]
-        title = ch["title"]
-        start, end = ch["pages"]
+    print(f"  [ch{ch['chapter_no']} {specialty}/{slug}] 提取 p.{start}-{end} ({volume}卷)…")
+    pages = extract_pages(pdf_path, start, end)
+    if not pages:
+        print(f"    警告：未提取到文本，跳过")
+        return
 
-        print(f"  [{specialty}/{slug}] 提取 p.{start}-{end} ...")
-        pages = extract_pages(pdf_path, start, end)
-
-        if not pages:
-            print(f"    警告：未提取到任何文本，跳过。")
-            continue
-
-        md = pages_to_markdown(pages, title)
-        out_file = out_dir / f"{slug}.md"
+    md = pages_to_markdown(pages, title)
+    slugs = [slug] + list(ch.get("sub_slugs") or [])
+    for s in slugs:
+        out_file = out_dir / f"{s}.md"
         out_file.write_text(md, encoding="utf-8")
         print(f"    → {out_file}  ({len(pages)} 页, {len(md)} 字符)")
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="PDF → 章节 Markdown 抽取工具")
-    parser.add_argument("--specialty", default="all", help="专科名称，或 'all' 处理全部")
-    parser.add_argument("--list-specialties", action="store_true", help="列出所有可用专科")
+    parser = argparse.ArgumentParser(description="PDF → 章节 Markdown（manifest-driven）")
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument("--specialty", help="处理指定专科的所有章节")
+    group.add_argument("--chapter", type=int, help="处理指定章节号")
+    group.add_argument("--all", action="store_true", help="处理所有已标注章节")
+    group.add_argument("--list", action="store_true", help="列出所有已标注章节")
     args = parser.parse_args()
 
-    if args.list_specialties:
-        for sp in CHAPTER_MAP:
-            chs = CHAPTER_MAP[sp]["chapters"]
-            print(f"  {sp}: {[c['slug'] for c in chs]}")
+    chapters = load_chapters()
+    if not chapters:
+        print("chapters.yaml 中还没有填写 specialty/slug 的记录。", file=sys.stderr)
+        print("请先为每章填写 specialty 和 slug 字段，再运行 ingest。", file=sys.stderr)
+        sys.exit(1)
+
+    if args.list:
+        for c in sorted(chapters, key=lambda x: x["chapter_no"]):
+            subs = f" [sub_slugs: {c['sub_slugs']}]" if c.get("sub_slugs") else ""
+            pf = "" if c.get("patient_facing", True) else " [非患者向]"
+            print(f"  ch{c['chapter_no']:3d} {c['specialty']:18s}/{c['slug']}{subs}{pf}")
         return
 
-    if args.specialty == "all":
-        specialties = list(CHAPTER_MAP.keys())
+    if args.chapter:
+        targets = [c for c in chapters if c["chapter_no"] == args.chapter]
+        if not targets:
+            print(f"错误：章节 {args.chapter} 未在 chapters.yaml 中找到（或 specialty/slug 未填写）",
+                  file=sys.stderr)
+            sys.exit(1)
+    elif args.specialty:
+        targets = [c for c in chapters if c["specialty"] == args.specialty]
+        if not targets:
+            print(f"错误：专科 '{args.specialty}' 无已标注章节", file=sys.stderr)
+            sys.exit(1)
     else:
-        specialties = [args.specialty]
+        targets = chapters  # --all
 
-    print(f"开始 ingest：{specialties}")
-    for sp in specialties:
-        print(f"\n专科：{sp}")
-        ingest_specialty(sp)
+    print(f"开始 ingest：{len(targets)} 个章节")
+    for ch in sorted(targets, key=lambda x: x["chapter_no"]):
+        ingest_chapter(ch)
 
     print("\n完成。请检查 source/chapters/ 目录。")
 

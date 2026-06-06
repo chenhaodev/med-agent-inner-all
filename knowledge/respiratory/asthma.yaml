@@ -6,79 +6,88 @@ source: 《西氏内科学精要》（中文版）
 entries:
 - id: ASTHMA_DEF
   title: 支气管哮喘定义
-  source_page: 252
+  source_page: 231
   evidence_level: 未注明
   recommendation: 未注明
   key_points:
   - 支气管哮喘是一种气道慢性炎症，导致反复发作的喘息、气急、胸闷或咳嗽。
   - 与慢阻肺不同，哮喘的气流受限通常是可逆的，且常与过敏原有关。
+  pdf_page: 252
 - id: ASTHMA_SYMPTOM
   title: 哮喘典型症状
-  source_page: 253
+  source_page: 232
   evidence_level: 未注明
   recommendation: 未注明
   key_points:
   - 哮喘典型症状包括阵发性呼吸困难、咳嗽、气急，常在夜间或凌晨加重。
   - 症状可能由环境诱因（如花粉、尘螨、冷空气）触发。
+  pdf_page: 253
 - id: ASTHMA_DIAG
   title: 哮喘诊断方法
-  source_page: 253
+  source_page: 232
   evidence_level: 未注明
   recommendation: 未注明
   key_points:
   - 肺功能检查是诊断哮喘的关键，显示可变的气流阻塞。
   - 使用支气管扩张剂后FEV1显著改善，或乙酰甲胆碱激发试验阳性可确诊。
   - 一氧化碳弥散量（DLCO）正常或升高，有助于与慢阻肺鉴别。
+  pdf_page: 253
 - id: ASTHMA_TRIGGER
   title: 哮喘常见诱因
-  source_page: 253
+  source_page: 232
   evidence_level: 未注明
   recommendation: 未注明
   key_points:
   - 哮喘发作常由变应原（如花粉、尘螨、宠物皮屑）或刺激物（如烟雾、冷空气）诱发。
   - 避免已知诱因可减少哮喘发作频率和严重程度。
+  pdf_page: 253
 - id: ASTHMA_LIFESTYLE
   title: 哮喘生活方式管理
-  source_page: 254
+  source_page: 233
   evidence_level: 未注明
   recommendation: 未注明
   key_points:
   - 保持室内空气清洁，使用空气净化器，避免吸烟和二手烟。
   - 定期监测症状和峰流速，记录哮喘日记，及时调整管理方案。
   - 适度锻炼（如散步、游泳）可改善肺功能，但需避免剧烈运动诱发发作。
+  pdf_page: 254
 - id: ASTHMA_MEDICATION
   title: 哮喘药物管理注意事项
-  source_page: 254
+  source_page: 233
   evidence_level: 未注明
   recommendation: 未注明
   key_points:
   - 哮喘药物分为控制性药物（如吸入糖皮质激素）和缓解性药物（如短效支气管扩张剂）。
   - 遵医嘱规律使用控制性药物，不可随意停药，即使无症状时也需维持。
   - 缓解性药物仅用于急性发作时，频繁使用提示控制不佳，需就医调整方案。
+  pdf_page: 254
 - id: ASTHMA_ACUTE
   title: 哮喘急性加重处理
-  source_page: 254
+  source_page: 233
   evidence_level: 未注明
   recommendation: 未注明
   key_points:
   - 急性加重时立即使用缓解性药物（如沙丁胺醇吸入剂），并保持坐位。
   - 若症状未缓解或加重（如说话困难、嘴唇发紫），需立即就医或拨打急救电话。
   - 避免自行增加药物剂量，尤其是口服激素，需医生指导。
+  pdf_page: 254
 - id: ASTHMA_COMPLICATION
   title: 哮喘并发症预防
-  source_page: 254
+  source_page: 233
   evidence_level: 未注明
   recommendation: 未注明
   key_points:
   - 长期控制不佳可导致气道重塑和肺功能不可逆下降。
   - 预防并发症的关键是规范治疗和定期随访，避免频繁急性发作。
   - 接种流感疫苗和肺炎疫苗可减少感染诱发的哮喘加重。
+  pdf_page: 254
 - id: ASTHMA_WHEN_TO_SEEK
   title: 哮喘何时就医
-  source_page: 253
+  source_page: 232
   evidence_level: 未注明
   recommendation: 未注明
   key_points:
   - 出现夜间憋醒、活动耐力下降或缓解药物使用频率增加时，需及时就医。
   - 急性发作时使用缓解药物后症状无改善，或出现呼吸困难、意识模糊，立即急诊。
   - 每年至少复查一次肺功能，评估控制水平并调整治疗方案。
+  pdf_page: 253

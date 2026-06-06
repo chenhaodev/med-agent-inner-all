@@ -1,0 +1,106 @@
+specialty: neurology
+specialty_zh: neurology
+disease: stroke
+disease_zh: stroke
+source: 《西氏内科学精要》（中文版）
+entries:
+- id: STROKE_DEF
+  title: 脑卒中定义与分类
+  source_page: 1128
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 脑卒中分为缺血性和出血性两种，症状持续数分钟也可能发现脑损伤。
+  - 缺血性卒中占87%，出血性卒中占10%-13%。
+  - 无症状脑梗死也需重视，可能影响认知和步态。
+  pdf_page: 516
+- id: STROKE_RISK
+  title: 可控危险因素
+  source_page: 1129
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 高血压是最重要的可控危险因素，控制血压可降低卒中风险。
+  - 心房颤动是心源性栓塞的主因，需定期检查心电图。
+  - 糖尿病、高脂血症、吸烟、缺乏运动、酗酒均增加风险。
+  pdf_page: 517
+- id: HTN_CONTROL
+  title: 高血压管理
+  source_page: 1129
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 血压从115/75mmHg开始，越低卒中风险越低。
+  - 长期高血压患者需缓慢降压，避免脑灌注不足。
+  - 急性卒中时不宜过度降压，以免加重脑损伤。
+  pdf_page: 517
+- id: AF_MANAGE
+  title: 心房颤动管理
+  source_page: 1129
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 心房颤动是高龄患者卒中的重要原因，需抗凝治疗。
+  - 定期监测心律，发现异常及时就医。
+  - 其他心脏病如瓣膜病、心衰也需关注。
+  pdf_page: 517
+- id: TIA_WARNING
+  title: 短暂性脑缺血发作预警
+  source_page: 1130
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - TIA后2天内卒中风险5%，90天内10%，需紧急就医。
+  - 单眼黑矇或肢体无力、失语等症状持续超10分钟需警惕。
+  - MRI发现梗死灶预示高风险，应尽快评估。
+  pdf_page: 518
+- id: LIFESTYLE_MOD
+  title: 生活方式调整
+  source_page: 1129
+  evidence_level: 中
+  recommendation: 推荐
+  key_points:
+  - 适量饮酒（男性每日≤2杯，女性≤1杯）可降低缺血性卒中风险。
+  - 大量饮酒（每日≥5杯）增加出血性卒中风险。
+  - 规律运动、戒烟、健康饮食有助于预防。
+  pdf_page: 517
+- id: CAROTID_STENOSIS
+  title: 颈动脉狭窄管理
+  source_page: 1130
+  evidence_level: 中
+  recommendation: 推荐
+  key_points:
+  - 无症状颈动脉狭窄≥75%时，年卒中风险约2%。
+  - 狭窄进展速度和斑块稳定性影响风险。
+  - 定期超声检查，必要时考虑手术。
+  pdf_page: 518
+- id: STROKE_SYMPTOMS
+  title: 卒中症状识别
+  source_page: 1128
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 突发面部歪斜、肢体无力、言语不清需立即就医。
+  - 眩晕、平衡障碍、单眼视力丧失也可能是卒中。
+  - 症状即使短暂消失也需检查，排除TIA。
+  pdf_page: 516
+- id: HEMORRHAGE_CAUSE
+  title: 脑出血常见原因
+  source_page: 1131
+  evidence_level: 中
+  recommendation: 推荐
+  key_points:
+  - 高血压是脑出血主因，常见部位为壳核、脑桥、小脑。
+  - 老年人脑叶出血可能与淀粉样血管病有关。
+  - 抗凝治疗、外伤、血管畸形也可导致出血。
+  pdf_page: 519
+- id: WHEN_SEEK_CARE
+  title: 何时就医
+  source_page: 1130
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 出现任何卒中症状（如面瘫、肢体无力、言语困难）立即拨打急救。
+  - TIA症状即使缓解也需在24小时内就医。
+  - 高血压、房颤患者定期随访，控制危险因素。
+  pdf_page: 518

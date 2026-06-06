@@ -6,7 +6,7 @@ source: 《西氏内科学精要》（中文版）
 entries:
 - id: HTN_DEFINITION
   title: 高血压定义与分级
-  source_page: 198
+  source_page: 177
   evidence_level: 高
   recommendation: 强推荐
   key_points:
@@ -15,9 +15,10 @@ entries:
   - 高血压1级：收缩压140-159或舒张压90-99 mmHg。
   - 高血压2级：收缩压≥160或舒张压≥100 mmHg。
   - 分级以较高值为准，需多次测量确认。
+  pdf_page: 198
 - id: HTN_MEASUREMENT
   title: 正确测量血压方法
-  source_page: 198
+  source_page: 177
   evidence_level: 高
   recommendation: 强推荐
   key_points:
@@ -26,9 +27,10 @@ entries:
   - 使用合适尺寸袖带，肥胖者需大号。
   - 测量前30分钟避免咖啡因和烟草。
   - 首次就诊应测双上肢血压。
+  pdf_page: 198
 - id: HTN_HOME_MONITOR
   title: 家庭血压监测
-  source_page: 198
+  source_page: 177
   evidence_level: 高
   recommendation: 强推荐
   key_points:
@@ -36,9 +38,10 @@ entries:
   - 每次测量至少3次，间隔1分钟以上。
   - 家庭监测可排除白大衣高血压。
   - 鼓励患者参与健康管理。
+  pdf_page: 198
 - id: HTN_AMBULATORY
   title: 动态血压监测
-  source_page: 199
+  source_page: 178
   evidence_level: 高
   recommendation: 强推荐
   key_points:
@@ -46,18 +49,20 @@ entries:
   - 白天平均血压正常上限135/85 mmHg。
   - 夜间正常上限120/70 mmHg。
   - 可发现隐匿性高血压和夜间高血压。
+  pdf_page: 199
 - id: HTN_RISK_FACTORS
   title: 心血管危险因素
-  source_page: 199
+  source_page: 178
   evidence_level: 高
   recommendation: 强推荐
   key_points:
   - 高血压常合并高脂血症、吸烟、糖尿病。
   - 整体心血管风险需专业评估。
   - 控制血压可降低心脏病和脑卒中风险。
+  pdf_page: 199
 - id: HTN_SECONDARY_CAUSES
   title: 继发性高血压原因
-  source_page: 199
+  source_page: 178
   evidence_level: 中
   recommendation: 可考虑
   key_points:
@@ -66,9 +71,10 @@ entries:
   - 原发性醛固酮增多症常伴低血钾。
   - 嗜铬细胞瘤有阵发性头痛、出汗。
   - 睡眠呼吸暂停可导致高血压。
+  pdf_page: 199
 - id: HTN_LIFESTYLE
   title: 生活方式改善
-  source_page: 202
+  source_page: 181
   evidence_level: 高
   recommendation: 强推荐
   key_points:
@@ -76,9 +82,10 @@ entries:
   - 多吃水果蔬菜和低脂食物（DASH饮食）。
   - 减重、戒烟、限酒。
   - 规律有氧锻炼有助于降压。
+  pdf_page: 202
 - id: HTN_MEDICATION_CLASSES
   title: 降压药物种类
-  source_page: 202
+  source_page: 181
   evidence_level: 高
   recommendation: 强推荐
   key_points:
@@ -86,9 +93,10 @@ entries:
   - 不同药物有不同禁忌和副作用。
   - 用药需遵医嘱，不可自行调整。
   - 具体剂量由医生根据病情决定。
+  pdf_page: 202
 - id: HTN_COMPLICATIONS
   title: 高血压并发症预防
-  source_page: 198
+  source_page: 177
   evidence_level: 高
   recommendation: 强推荐
   key_points:
@@ -96,9 +104,10 @@ entries:
   - 长期高血压可损害肾脏功能。
   - 定期检查心、脑、肾等靶器官。
   - 出现症状及时就医。
+  pdf_page: 198
 - id: HTN_WHEN_TO_SEEK
   title: 何时就医
-  source_page: 199
+  source_page: 178
   evidence_level: 中
   recommendation: 强推荐
   key_points:
@@ -106,3 +115,4 @@ entries:
   - 出现头痛、心悸、出汗等症状。
   - 药物效果不佳或副作用明显。
   - 怀疑继发性高血压时需专科检查。
+  pdf_page: 199
