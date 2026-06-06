@@ -114,3 +114,23 @@ entries:
   - 持续乏力、恶心、呕吐、右上腹痛超过1周。
   - 有意识模糊、行为异常、出血倾向（如牙龈出血、皮肤瘀斑）时立即就医。
   pdf_page: 502
+- id: DIG_LIVER_DIET
+  title: 肝硬化腹水饮食管理
+  source_page: 502
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 肝硬化腹水患者应限制饮食钠摄入，同时配合利尿剂治疗以减轻腹水和水肿
+  - 限钠饮食是腹水的一线非药物治疗措施，严重腹水时可能需要利尿剂联合大量腹腔穿刺引流
+  - 肝功能严重受损时还需注意蛋白质摄入量，避免过度限制导致营养不良
+  pdf_page: 521
+- id: DIG_LIVER_REHAB
+  title: 药物性肝损伤康复要点
+  source_page: 485
+  evidence_level: 中
+  recommendation: 强推荐
+  key_points:
+  - 轻至中度药物性肝损伤（DILI）在及时停用相关药物后通常能够自行康复
+  - 康复期间应避免再次接触可疑肝毒性药物，避免饮酒，定期复查肝功能
+  - 部分DILI有特异性解毒剂（如对乙酰氨基酚中毒用N-乙酰半胱氨酸），应由医生决定
+  pdf_page: 504

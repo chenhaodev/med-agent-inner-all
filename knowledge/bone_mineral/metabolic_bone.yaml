@@ -139,3 +139,13 @@ entries:
   - 器官移植前后常出现严重骨质疏松。
   - 原因包括免疫抑制剂和原发器官衰竭。
   pdf_page: 206
+- id: BM_METABOLIC_EXERCISE
+  title: 代谢性骨病与体力活动
+  source_page: 817
+  evidence_level: 中
+  recommendation: 建议
+  key_points:
+  - 体力活动不足和营养不良可促进骨骼去矿化，增加代谢性骨病和骨折风险
+  - 终末期肺、心脏或肾脏疾病患者因活动减少，骨量丢失风险显著升高
+  - 在病情允许时维持适量体力活动有助于延缓骨量丢失
+  pdf_page: 206

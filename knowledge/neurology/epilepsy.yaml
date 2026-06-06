@@ -104,3 +104,23 @@ entries:
   - Dravet综合征需避免某些药物，如拉莫三嗪。
   - 遗传咨询可帮助评估家族复发风险。
   pdf_page: 536
+- id: NEURO_EPI_DIET
+  title: 癫痫饮食治疗（生酮饮食）
+  source_page: 1157
+  evidence_level: 中
+  recommendation: 建议
+  key_points:
+  - 生酮饮食（极高脂肪、低碳水化合物和蛋白质）可减少部分儿童和成人癫痫患者的发作频率
+  - 生酮饮食需在专业营养师和神经科医生指导下进行，不可自行实施
+  - 通常用于2种以上抗癫痫药物治疗无效的难治性癫痫患者
+  pdf_page: 545
+- id: NEURO_EPI_ALCOHOL
+  title: 癫痫患者戒酒建议
+  source_page: 1147
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 戒酒过程中（酒精戒断）可诱发癫痫发作，有癫痫病史的患者应完全戒酒
+  - 大量饮酒本身和饮酒后睡眠剥夺均可降低癫痫发作阈值
+  - 服用抗癫痫药物期间饮酒可能影响药物代谢，增加毒副作用风险
+  pdf_page: 535

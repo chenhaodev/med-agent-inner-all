@@ -131,3 +131,13 @@ entries:
   - 出现心悸、晕厥、胸痛或呼吸困难时需立即就医。
   - 症状发作时记录心电图有助于诊断。
   pdf_page: 138
+- id: CARD_ARR_EXERCISE
+  title: 心律失常患者的运动注意事项
+  source_page: 140
+  evidence_level: 中
+  recommendation: 建议
+  key_points:
+  - 部分遗传性心律失常（如LQT1型）在运动或高肾上腺素状态下危险度增加
+  - 心律失常患者运动强度和类型需经医生评估，不可自行判断运动安全性
+  - 植入起搏器或除颤器的患者应遵循医嘱决定可参与的运动项目
+  pdf_page: 161

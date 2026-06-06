@@ -84,3 +84,23 @@ entries:
   - 症状持续超过20分钟或含服硝酸甘油无效，警惕心肌梗死。
   - 伴有呼吸困难、出汗或恶心，提示严重缺血。
   pdf_page: 116
+- id: CARD_CAD_EXERCISE
+  title: 冠心病与体力活动
+  source_page: 96
+  evidence_level: 高
+  recommendation: 建议
+  key_points:
+  - 体力活动是稳定型心绞痛的常见诱因，活动中出现胸痛或胸闷应立即停止活动并休息
+  - 含服硝酸甘油可在数分钟内缓解活动诱发的心绞痛，随身携带并了解正确使用方法
+  - 经治疗后症状稳定的冠心病患者在医生指导下可进行适量有氧运动
+  pdf_page: 117
+- id: CARD_CAD_REHAB
+  title: 冠心病心脏康复
+  source_page: 115
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 心肌梗死后应积极开展患者教育，使患者充分了解治疗价值及冠心病危险因素控制
+  - 心脏康复计划包括运动训练、危险因素管理（戒烟、血压、血糖、血脂控制）和心理支持
+  - 参与规范心脏康复计划可显著降低再次心肌梗死和心血管死亡风险
+  pdf_page: 136

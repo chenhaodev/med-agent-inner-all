@@ -124,3 +124,23 @@ entries:
   - 肾移植提供更好的生活质量和生存率。
   - 透析通常在出现尿毒症症状或eGFR≤10时开始。
   pdf_page: 411
+- id: REN_CKD_SMOKING
+  title: 慢性肾病患者戒烟
+  source_page: 389
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 戒烟是慢性肾病管理的重要措施，与控制高血压、糖尿病等危险因素并列
+  - 吸烟可加速肾功能下降，增加终末期肾病风险
+  - 同时需应用RAAS阻断药物（如普利类或沙坦类）并调整饮食，共同延缓肾功能进展
+  pdf_page: 410
+- id: REN_CKD_REHAB
+  title: 慢性肾病肾移植与康复
+  source_page: 390
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 符合条件的慢性肾病患者应鼓励考虑肾移植，移植可提供比透析更好的生活质量和更高的生存率
+  - 成功肾移植后患者有更多的康复机会，能够恢复更接近正常的生活和工作能力
+  - 移植等待期间仍需维持透析治疗并积极管理并发症，保持身体状况以备移植
+  pdf_page: 411

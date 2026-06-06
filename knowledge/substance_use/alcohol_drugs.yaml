@@ -124,3 +124,33 @@ entries:
   - 发生抽搐或震颤性谵妄（意识混乱、幻觉）需紧急处理。
   - 每周饮酒超过14杯或每天超过3杯应寻求专业评估。
   pdf_page: 620
+- id: SUB_ALCOHOL_DIET
+  title: 酒精相关疾病营养管理
+  source_page: 1233
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 酒精本身缺乏蛋白质、矿物质和维生素；长期大量饮酒者常合并严重营养不良
+  - 初始治疗必须补充硫胺素（维生素B1），预防Wernicke脑病；同时纠正钾、镁、钙、锌缺乏
+  - 戒酒后饮食应逐步恢复均衡营养，必要时在营养师指导下制定补充方案
+  pdf_page: 619
+- id: SUB_ALCOHOL_ABSTAIN
+  title: 酒精相关疾病戒酒建议
+  source_page: 1238
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 有酒精滥用史或严重器官损害（如肝病）的患者应完全戒酒，而非仅减少饮酒量
+  - 安全驾驶等公共安全场合禁止饮酒，酒后驾车危害生命
+  - 戒酒过程中可能出现戒断症状（震颤、出汗、癫痫发作），戒断反应严重者需医疗监护
+  pdf_page: 624
+- id: SUB_ALCOHOL_REHAB
+  title: 酒精相关疾病康复治疗
+  source_page: 1241
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 药物治疗（如纳曲酮、阿坎酸）需与心理治疗和结构化康复治疗联用，以达到最佳疗效
+  - 纳曲酮仅在患者完全解毒（戒断完成）后才能使用，使用前须确认无阿片类药物依赖
+  - 社会支持和自助团体（如匿名戒酒会）是长期维持戒酒的重要辅助手段
+  pdf_page: 627

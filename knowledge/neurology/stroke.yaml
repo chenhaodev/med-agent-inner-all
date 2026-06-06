@@ -104,3 +104,23 @@ entries:
   - TIA症状即使缓解也需在24小时内就医。
   - 高血压、房颤患者定期随访，控制危险因素。
   pdf_page: 518
+- id: NEURO_STROKE_EXERCISE
+  title: 脑卒中预防与体力活动
+  source_page: 1129
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 缺乏体力活动是脑卒中的独立危险因素，规律有氧锻炼和运动有助于降低卒中风险
+  - 锻炼可改善血压、血脂、血糖等多种卒中危险因素，建议每周至少150分钟中等强度体力活动
+  - 已发生过TIA或卒中的患者应在医生评估后进行适量运动，避免高强度剧烈运动
+  pdf_page: 517
+- id: NEURO_STROKE_REHAB
+  title: 脑卒中康复
+  source_page: 1138
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 由理疗师和物理康复治疗师组成的专业卒中康复单元对患者功能恢复有重要意义
+  - 卒中康复应尽早启动（病情稳定后48小时内），早期康复可改善运动、语言和认知功能
+  - 卒中后康复是长期过程，出院后仍需继续门诊或居家康复训练
+  pdf_page: 526

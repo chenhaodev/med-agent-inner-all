@@ -94,3 +94,43 @@ entries:
   - 出现非特异性症状如意识改变、跌倒、尿失禁。
   - 功能突然下降或日常生活能力恶化需及时就医。
   pdf_page: 597
+- id: GER_EXERCISE
+  title: 老年人运动能力与跌倒预防
+  source_page: 1214
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 步速是衡量老年人运动能力和整体健康状况的重要指标，步速减慢提示跌倒和功能下降风险增加
+  - 计时起立行走测试（TUG）超过12秒提示跌倒风险显著增加，应进行专科评估
+  - 规律的平衡训练、力量锻炼（如太极、步行）可降低跌倒风险，改善老年人功能状态
+  pdf_page: 601
+- id: GER_DIET
+  title: 老年人营养与饮食管理
+  source_page: 1216
+  evidence_level: 中
+  recommendation: 建议
+  key_points:
+  - 老年患者应评估吞咽功能，有吞咽困难者需调整饮食质地（软食/流质）以预防误吸
+  - 营养不良在老年人中常见，可影响功能康复速度和住院预后
+  - 既往饮食限制（如低盐、低蛋白）在老年阶段需重新评估，改善营养是整体生活方式管理的重要组成
+  pdf_page: 603
+- id: GER_REHAB
+  title: 老年人急性期后康复
+  source_page: 1218
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 老年评估管理（GEM）单元提供专业的、多学科团队协作的急性期后康复
+  - 康复目标是帮助患者尽可能恢复到患病前的功能水平，包括日常生活能力和行动能力
+  - 早期启动康复（住院期间即开始）比延迟康复能获得更好的功能恢复结果
+  pdf_page: 605
+- id: GER_HOME_CARE
+  title: 老年人居家护理要点
+  source_page: 1219
+  evidence_level: 中
+  recommendation: 建议
+  key_points:
+  - 居家护理和个人护理服务（如助浴、送餐、家政）是维持老年人社区独立生活的重要支持
+  - 家庭护理（家庭照护者）需了解患者的日常护理需求，必要时申请专业居家护理机构的支持
+  - 出院前应评估家庭环境安全（如防滑、扶手、照明），并做好家庭改造以预防跌倒
+  pdf_page: 606

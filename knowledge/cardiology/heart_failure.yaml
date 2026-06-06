@@ -101,3 +101,23 @@ entries:
   - 男性、黑人、有冠心病或高血压者风险高。
   - 糖尿病和肥胖也增加心衰风险。
   pdf_page: 81
+- id: CARD_HF_EXERCISE
+  title: 心力衰竭与体力活动耐量
+  source_page: 58
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 心功能NYHA I级患者体力活动不受限；II级患者日常活动引起轻度症状；III-IV级时活动明显受限
+  - 心力衰竭患者应根据心功能分级调整日常活动强度，避免超出耐受范围
+  - 病情稳定的轻中度心衰患者在医生指导下进行适量有氧运动可改善运动耐量
+  pdf_page: 79
+- id: CARD_HF_DIET
+  title: 心力衰竭饮食管理
+  source_page: 65
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 饮食中钠（盐）和液体过量摄入是心力衰竭急性加重的常见诱因
+  - 心衰患者通常需要限制每日食盐摄入（一般建议每日钠摄入＜2g），并监测液体出入量
+  - 出现体重短期内快速增加（如3天内增加2kg以上）提示液体潴留，应及时就医
+  pdf_page: 86

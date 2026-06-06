@@ -84,3 +84,13 @@ entries:
   - 出现血尿、蛋白尿、呼吸困难、胸痛等可能提示器官受累。
   - 妊娠期需密切监测，因可能影响疾病活动和胎儿健康。
   pdf_page: 234
+- id: RHE_SLE_EXERCISE
+  title: 系统性红斑狼疮体力活动建议
+  source_page: 850
+  evidence_level: 中
+  recommendation: 建议
+  key_points:
+  - SLE的疲劳和关节症状可能限制体力活动，导致骨强度降低，增加骨质疏松风险
+  - 病情稳定期应在医生指导下进行适量运动，有助于维持骨密度和整体体能
+  - 避免阳光直射（SLE患者对紫外线敏感），户外运动时应做好防晒措施
+  pdf_page: 239
