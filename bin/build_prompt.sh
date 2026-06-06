@@ -18,17 +18,19 @@ KNOWLEDGE_DIR="$ROOT_DIR/knowledge"
 # ─── 模式标志解析（在位置参数之前） ──────────────────────────
 NAIVE=false
 REROLL=false
+MODE="patient"
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    --naive)  NAIVE=true;  shift ;;
-    --reroll) REROLL=true; shift ;;
+    --naive)  NAIVE=true;        shift ;;
+    --reroll) REROLL=true;       shift ;;
+    --mode)   MODE="$2";         shift 2 ;;
     *)        break ;;
   esac
 done
 
 if [[ $# -lt 2 ]]; then
-  echo "用法：./bin/build_prompt.sh [--naive] [--reroll] \"specialty:disease\" \"问题文本\"" >&2
+  echo "用法：./bin/build_prompt.sh [--naive] [--reroll] [--mode patient|doctor] \"specialty:disease\" \"问题文本\"" >&2
   exit 1
 fi
 
@@ -40,9 +42,14 @@ if [[ -f "$ROOT_DIR/.env" ]]; then
 fi
 DEEPSEEK_MODEL="${DEEPSEEK_MODEL:-deepseek-chat}"
 
-# ─── 读取基础 prompt 文件 ─────────────────────────────────────
-SYSTEM_BASE=$(cat "$PROMPTS_DIR/system_base.md")
-OUTPUT_SCHEMA=$(cat "$PROMPTS_DIR/output_schema.md")
+# ─── 读取基础 prompt 文件（按 mode 选择）─────────────────────
+if [[ "$MODE" == "doctor" ]]; then
+  SYSTEM_BASE=$(cat "$PROMPTS_DIR/system_doctor.md")
+  OUTPUT_SCHEMA=$(cat "$PROMPTS_DIR/output_schema_doctor.md")
+else
+  SYSTEM_BASE=$(cat "$PROMPTS_DIR/system_base.md")
+  OUTPUT_SCHEMA=$(cat "$PROMPTS_DIR/output_schema.md")
+fi
 
 # ─── 知识片段注入（naive 模式跳过）──────────────────────────
 SECTIONS_CONTENT=""
@@ -158,6 +165,7 @@ export _BUILD_SYSTEM="$SYSTEM_PROMPT"
 export _BUILD_QUESTION="$QUESTION"
 export _BUILD_MODEL="$DEEPSEEK_MODEL"
 export _BUILD_REROLL="$REROLL"
+export _BUILD_MODE="$MODE"
 
 python3 - <<'PYEOF'
 import json, os
@@ -165,6 +173,7 @@ import json, os
 system = os.environ["_BUILD_SYSTEM"]
 question = os.environ["_BUILD_QUESTION"]
 model = os.environ["_BUILD_MODEL"]
+mode = os.environ.get("_BUILD_MODE", "patient")
 is_reroll = os.environ.get("_BUILD_REROLL", "false") == "true"
 
 if is_reroll:
@@ -175,12 +184,16 @@ if is_reroll:
         f"- [{c['kind']}] {c['claim']} — {c['evidence']}"
         for c in failed
     )
+    if mode == "doctor":
+        schema_note = "请重新生成完整的证据档案式回答（5段：定义/循证管理/红旗/证据等级汇总/参考）。"
+    else:
+        schema_note = "请重新生成完整的5段式回答。"
     user_content = (
         f"原始问题：{question}\n\n"
         "VERIFY_FAILED — 以下声明在教材原文中找不到支撑，"
         "请在修订版中删除或依据注入知识片段更正：\n\n"
         f"{failed_lines}\n\n"
-        "请重新生成完整的5段式回答。"
+        f"{schema_note}"
     )
 else:
     user_content = question

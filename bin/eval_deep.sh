@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
-# eval.sh — 全量评估脚本
-# 用法：./bin/eval.sh [--limit N] [--id QUESTION_ID] [--judge-model M]
+# eval_deep.sh — 带 verify_claims 原子声明核验的全量评估
+# 架构与 eval.sh 一致，在模型回答后增加：
+#   C. verify_claims.py grep 核验
+#   D. 有 ✗ 声明时一次回炉（build_prompt --reroll）
+# 结果 JSON 包含每题 judge 分数 + verify_claims 数据
+# 末尾输出 verify_claims 聚合报告（按专科分布）
+#
+# 用法：./bin/eval_deep.sh [--limit N] [--id QUESTION_ID]
 
 set -euo pipefail
 
@@ -19,7 +25,6 @@ while [[ $# -gt 0 ]]; do
     --judge-model) JUDGE_MODEL="$2"; shift 2 ;;
     --mode)
       EVAL_MODE="$2"; shift 2
-      # --mode both: run patient then doctor sequentially
       if [[ "$EVAL_MODE" == "both" ]]; then
         "$0" --mode patient ${LIMIT:+--limit "$LIMIT"} ${FILTER_ID:+--id "$FILTER_ID"} --judge-model "$JUDGE_MODEL"
         "$0" --mode doctor  ${LIMIT:+--limit "$LIMIT"} ${FILTER_ID:+--id "$FILTER_ID"} --judge-model "$JUDGE_MODEL"
@@ -47,24 +52,21 @@ mkdir -p "$RESULTS_DIR"
 export ROOT_DIR LIMIT FILTER_ID DEEPSEEK_API_KEY DEEPSEEK_MODEL EVAL_MODE
 
 TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
-RESULT_FILE="$RESULTS_DIR/${TIMESTAMP}_${EVAL_MODE}.json"
-SUMMARY_FILE="$RESULTS_DIR/${TIMESTAMP}_${EVAL_MODE}_summary.txt"
+RESULT_FILE="$RESULTS_DIR/deep_${TIMESTAMP}_${EVAL_MODE}.json"
+SUMMARY_FILE="$RESULTS_DIR/deep_${TIMESTAMP}_${EVAL_MODE}_summary.txt"
 export TIMESTAMP RESULT_FILE SUMMARY_FILE
 
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo " 西氏内科精要 Eval — $(date '+%Y-%m-%d %H:%M:%S')  [mode: ${EVAL_MODE}]"
+echo " Deep Eval（含 verify_claims）— $(date '+%Y-%m-%d %H:%M:%S')  [mode: ${EVAL_MODE}]"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
 QUESTIONS=$(python3 - <<'PYEOF'
 import yaml, json, os
-gold_file = os.path.join(os.environ["ROOT_DIR"], "eval/gold.yaml")
+with open(os.path.join(os.environ["ROOT_DIR"], "eval/gold.yaml")) as f:
+    data = yaml.safe_load(f)
+questions = data.get("questions", [])
 limit = int(os.environ.get("LIMIT", "999"))
 filter_id = os.environ.get("FILTER_ID", "")
-
-with open(gold_file) as f:
-    data = yaml.safe_load(f)
-
-questions = data.get("questions", [])
 if filter_id:
     questions = [q for q in questions if q.get("id") == filter_id]
 else:
@@ -83,13 +85,12 @@ export JUDGE_SYSTEM JUDGE_MODEL
 
 RESULTS="[]"
 export RESULTS
-passed=0
-failed=0
-error_count=0
-total_coverage=0
-total_accuracy=0
-total_safety=0
-total_grounding=0
+
+passed=0; failed=0; error_count=0
+total_coverage=0; total_accuracy=0; total_safety=0; total_grounding=0
+reroll_count=0
+total_verify_fails=0
+total_verify_warns=0
 
 for i in $(seq 0 $((TOTAL - 1))); do
   QUESTION_OBJ=$(echo "$QUESTIONS" | python3 -c "
@@ -97,7 +98,6 @@ import json, sys
 data = json.load(sys.stdin)
 print(json.dumps(data[$i], ensure_ascii=False))
 ")
-
   QID=$(echo "$QUESTION_OBJ" | python3 -c "import json,sys; print(json.load(sys.stdin)['id'])")
   QTEXT=$(echo "$QUESTION_OBJ" | python3 -c "import json,sys; print(json.load(sys.stdin)['question'])")
   export QUESTION_OBJ QID QTEXT
@@ -107,6 +107,7 @@ print(json.dumps(data[$i], ensure_ascii=False))
   DOMAINS=$("$SCRIPT_DIR/router.sh" "$QTEXT" 2>/dev/null || echo "cardiology:general")
   export DOMAINS
 
+  # ── B. 首轮生成 ──────────────────────────────────────────────
   MODEL_RESPONSE=$("$SCRIPT_DIR/build_prompt.sh" --mode "$EVAL_MODE" "$DOMAINS" "$QTEXT" | \
     "$SCRIPT_DIR/call_deepseek.sh" 2>/dev/null) || {
     echo " [API ERROR]"
@@ -120,6 +121,56 @@ print(json.dumps(data[$i], ensure_ascii=False))
   fi
   export MODEL_RESPONSE
 
+  # ── C. verify_claims 核验 ────────────────────────────────────
+  FIRST_DOMAIN=$(echo "$DOMAINS" | awk '{print $1}')
+  FIRST_SP="${FIRST_DOMAIN%%:*}"
+  FIRST_DS="${FIRST_DOMAIN##*:}"
+  CHAPTER_FILE="$ROOT_DIR/source/chapters/${FIRST_SP}/${FIRST_DS}.md"
+  YAML_FILE="$ROOT_DIR/knowledge/${FIRST_SP}/${FIRST_DS}.yaml"
+
+  VERIFY_JSON=""
+  VERIFY_EXIT=0
+  set +e
+  VERIFY_JSON=$(python3 "$SCRIPT_DIR/verify_claims.py" \
+    --chapter "$CHAPTER_FILE" \
+    --yaml "$YAML_FILE" \
+    --mode "$EVAL_MODE" \
+    --answer "$MODEL_RESPONSE" 2>/dev/null)
+  VERIFY_EXIT=$?
+  set -e
+
+  export VERIFY_JSON VERIFY_EXIT
+
+  VERIFY_FAILS=$(echo "$VERIFY_JSON" | python3 -c \
+    "import json,sys; d=json.load(sys.stdin); print(d.get('fail_count',0))" 2>/dev/null || echo "0")
+  VERIFY_WARNS=$(echo "$VERIFY_JSON" | python3 -c \
+    "import json,sys; d=json.load(sys.stdin); c=d.get('claims',[]); print(sum(1 for x in c if x.get('status')=='⚠'))" 2>/dev/null || echo "0")
+
+  total_verify_fails=$((total_verify_fails + VERIFY_FAILS))
+  total_verify_warns=$((total_verify_warns + VERIFY_WARNS))
+
+  DID_REROLL="false"
+  # ── D. 有 ✗ → 回炉一次 ──────────────────────────────────────
+  if [[ "$VERIFY_EXIT" == "1" ]]; then
+    reroll_count=$((reroll_count + 1))
+    DID_REROLL="true"
+
+    export _VERIFY_JSON="$VERIFY_JSON"
+    set +e
+    REROLL_RESPONSE=$(
+      "$SCRIPT_DIR/build_prompt.sh" --reroll --mode "$EVAL_MODE" "$DOMAINS" "$QTEXT" \
+      | "$SCRIPT_DIR/call_deepseek.sh" 2>/dev/null
+    )
+    REROLL_EXIT=$?
+    set -e
+
+    if [[ "$REROLL_EXIT" == "0" && -n "$REROLL_RESPONSE" ]]; then
+      MODEL_RESPONSE="$REROLL_RESPONSE"
+      export MODEL_RESPONSE
+    fi
+  fi
+
+  # ── E. 评判 (judge) ──────────────────────────────────────────
   JUDGE_INPUT=$(python3 - <<PYEOF
 import json, os
 question_obj = json.loads(os.environ["QUESTION_OBJ"])
@@ -159,8 +210,8 @@ PYEOF
     error_count=$((error_count + 1))
     continue
   }
-
   export JUDGE_RESPONSE
+
   SCORES=$(python3 - <<'PYEOF'
 import json, sys, re, os
 raw = os.environ.get("JUDGE_RESPONSE", "").strip()
@@ -184,6 +235,8 @@ qtext = os.environ["QTEXT"]
 domains = os.environ["DOMAINS"]
 model_response = os.environ["MODEL_RESPONSE"]
 scores_str = os.environ["SCORES"]
+verify_json_str = os.environ.get("VERIFY_JSON", "{}")
+did_reroll = os.environ.get("DID_REROLL", "false") == "true"
 
 try:
     scores = json.loads(scores_str)
@@ -201,6 +254,11 @@ except Exception as e:
     flags = [str(e)]
     error = scores_str[:200]
 
+try:
+    verify_data = json.loads(verify_json_str) if verify_json_str else {}
+except Exception:
+    verify_data = {}
+
 row = {
     "id": qid,
     "question": qtext,
@@ -208,7 +266,13 @@ row = {
     "model_response": model_response,
     "scores": {"coverage": cov, "accuracy": acc, "safety": saf, "grounding": grd, "total": total},
     "pass": passed,
-    "flags": flags
+    "flags": flags,
+    "verify": {
+        "fail_count": verify_data.get("fail_count", 0),
+        "did_reroll": did_reroll,
+        "claims": verify_data.get("claims", []),
+        "folio_range": verify_data.get("folio_range", []),
+    }
 }
 if error:
     row["judge_error"] = error
@@ -224,17 +288,25 @@ PYEOF
   ROW_SAF=$(echo "$RESULT_ROW" | python3 -c "import json,sys; s=json.load(sys.stdin)['scores']; print(s['safety'])")
   ROW_GRD=$(echo "$RESULT_ROW" | python3 -c "import json,sys; s=json.load(sys.stdin)['scores']; print(s['grounding'])")
 
+  REROLL_MARKER=""
+  [[ "$DID_REROLL" == "true" ]] && REROLL_MARKER=" [回炉]"
+
   if [[ "$ROW_PASS" == "True" ]]; then
     passed=$((passed + 1))
-    printf " ✓ %s/40 (C:%s A:%s S:%s G:%s)\n" "$ROW_TOTAL" "$ROW_COV" "$ROW_ACC" "$ROW_SAF" "$ROW_GRD"
+    printf " ✓ %s/40 (C:%s A:%s S:%s G:%s) ✗x%s%s\n" \
+      "$ROW_TOTAL" "$ROW_COV" "$ROW_ACC" "$ROW_SAF" "$ROW_GRD" "$VERIFY_FAILS" "$REROLL_MARKER"
   else
     failed=$((failed + 1))
-    printf " ✗ %s/40 (C:%s A:%s S:%s G:%s)\n" "$ROW_TOTAL" "$ROW_COV" "$ROW_ACC" "$ROW_SAF" "$ROW_GRD"
+    printf " ✗ %s/40 (C:%s A:%s S:%s G:%s) ✗x%s%s\n" \
+      "$ROW_TOTAL" "$ROW_COV" "$ROW_ACC" "$ROW_SAF" "$ROW_GRD" "$VERIFY_FAILS" "$REROLL_MARKER"
     echo "$RESULT_ROW" | python3 -c "
 import json, sys
 row = json.load(sys.stdin)
 for f in row.get('flags', []):
     print(f'    ⚠  {f}')
+for c in row.get('verify', {}).get('claims', []):
+    if c.get('status') == '✗':
+        print(f'    verify ✗  [{c[\"kind\"]}] {c[\"claim\"]} — {c[\"evidence\"]}')
 "
   fi
 
@@ -268,17 +340,45 @@ else
 fi
 
 export EVALUATED PASS_RATE AVG_COV AVG_ACC AVG_SAF AVG_GRD AVG_TOTAL
-export ERROR_COUNT="$error_count" PASSED="$passed" FAILED="$failed"
+
+# ── 写结果 JSON（含 verify 聚合）───────────────────────────────
 python3 - <<PYEOF
 import json, os
 results = json.loads(os.environ["RESULTS"])
+
+# Build verify claims summary
+spec_claims = {}
+total_fail = 0
+total_warn = 0
+rerolled_ids = []
+for r in results:
+    v = r.get("verify", {})
+    total_fail += v.get("fail_count", 0)
+    if v.get("did_reroll"):
+        rerolled_ids.append(r["id"])
+    domain = r.get("domains", "unknown").split()[0]
+    spec = domain.split(":")[0] if ":" in domain else domain
+    if spec not in spec_claims:
+        spec_claims[spec] = {"fail_count": 0, "reroll_count": 0, "questions": []}
+    spec_claims[spec]["fail_count"] += v.get("fail_count", 0)
+    if v.get("did_reroll"):
+        spec_claims[spec]["reroll_count"] += 1
+    for c in v.get("claims", []):
+        if c.get("status") == "✗":
+            spec_claims[spec]["questions"].append({
+                "id": r["id"],
+                "claim": c.get("claim", ""),
+                "kind": c.get("kind", ""),
+                "evidence": c.get("evidence", ""),
+            })
+
 summary = {
     "timestamp": os.environ["TIMESTAMP"],
     "total_questions": int(os.environ["TOTAL"]),
     "evaluated": int(os.environ["EVALUATED"]),
-    "errors": int(os.environ["ERROR_COUNT"]),
-    "passed": int(os.environ["PASSED"]),
-    "failed": int(os.environ["FAILED"]),
+    "errors": $error_count,
+    "passed": $passed,
+    "failed": $failed,
     "pass_rate_pct": float(os.environ["PASS_RATE"]),
     "avg_scores": {
         "coverage": float(os.environ["AVG_COV"]),
@@ -286,6 +386,12 @@ summary = {
         "safety": float(os.environ["AVG_SAF"]),
         "grounding": float(os.environ["AVG_GRD"]),
         "total": float(os.environ["AVG_TOTAL"])
+    },
+    "verify_summary": {
+        "total_fail_claims": total_fail,
+        "total_rerolled": len(rerolled_ids),
+        "rerolled_ids": rerolled_ids,
+        "by_specialty": spec_claims,
     }
 }
 output = {"summary": summary, "results": results}
@@ -297,7 +403,7 @@ PYEOF
 {
   echo ""
   echo "════════════════════════════════════════════"
-  echo " Eval 汇总报告 — $TIMESTAMP  [mode: ${EVAL_MODE}]"
+  echo " Deep Eval 汇总 — $TIMESTAMP  [mode: ${EVAL_MODE}]"
   echo "════════════════════════════════════════════"
   echo " 总题数：$TOTAL  |  有效评分：$EVALUATED  |  错误：$error_count"
   echo " 通过：$passed  |  未通过：$failed  |  通过率：${PASS_RATE}%"
@@ -309,13 +415,16 @@ PYEOF
   echo "   溯源性  (Grounding)：$AVG_GRD"
   echo "   综合    (Total)    ：$AVG_TOTAL / 40"
   echo ""
+  echo " verify_claims 统计："
+  echo "   ✗ 声明总数（所有题）：$total_verify_fails"
+  echo "   触发回炉题数         ：$reroll_count"
+  echo ""
   if (( $(echo "$AVG_TOTAL >= 34" | bc -l) )); then
-    echo " 目标（平均 ≥85% 即 34/40）：达成 ✓"
+    echo " 目标（平均 ≥34/40）：达成 ✓"
   else
-    echo " 目标（平均 ≥85% 即 34/40）：未达成（当前 $AVG_TOTAL/40）"
+    echo " 目标（平均 ≥34/40）：未达成（当前 $AVG_TOTAL/40）"
   fi
   echo "════════════════════════════════════════════"
-  echo ""
   echo " 结果文件：$RESULT_FILE"
   echo ""
 } | tee "$SUMMARY_FILE"

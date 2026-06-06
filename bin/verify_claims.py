@@ -6,6 +6,10 @@ verify_claims.py — 原子声明 grep 核验
   # 或从 stdin 读取答案：
   echo "answer" | python3 bin/verify_claims.py --chapter <path> --yaml <path>
 
+选项：
+  --mode patient|doctor   patient（默认）：严格 grep 所有声明
+                          doctor：跳过含 (临床常用)/(教材未明示) 标签行的声明核验
+
 输出：JSON（stdout）
   {claims: [...], has_fail: bool, fail_count: int, folio_range: [min, max]}
 退出码：0 = 全 ✓/⚠（无需 reroll），1 = 有 ✗（触发 reroll）
@@ -165,6 +169,8 @@ def main() -> int:
     parser.add_argument('--chapter', help='Path to source/chapters/<sp>/<disease>.md')
     parser.add_argument('--yaml', help='Path to knowledge/<sp>/<disease>.yaml')
     parser.add_argument('--answer', help='Answer text (default: read stdin)')
+    parser.add_argument('--mode', choices=['patient', 'doctor'], default='patient',
+                        help='patient: strict grep; doctor: skip tagged clinical-common lines')
     args = parser.parse_args()
 
     answer = args.answer if args.answer else sys.stdin.read()
@@ -200,11 +206,22 @@ def main() -> int:
         print(json.dumps(result, ensure_ascii=False, indent=2))
         return 0
 
+    # Doctor mode: strip lines tagged as clinical-common from numeric/drug verification
+    # (page claims are still checked on all lines)
+    DOCTOR_EXEMPT_TAGS = re.compile(r'\(临床常用\)|\(教材未明示\)|\(教材.*未.*明示\)')
+    if args.mode == 'doctor':
+        answer_for_numeric = '\n'.join(
+            line for line in answer.split('\n')
+            if not DOCTOR_EXEMPT_TAGS.search(line)
+        )
+    else:
+        answer_for_numeric = answer
+
     # Run verifications
     claims = []
     claims.extend(verify_page_claims(answer, folios))
-    claims.extend(verify_numeric_claims(answer, chapter_text))
-    claims.extend(verify_drug_claims(answer, chapter_text, yaml_drugs))
+    claims.extend(verify_numeric_claims(answer_for_numeric, chapter_text))
+    claims.extend(verify_drug_claims(answer_for_numeric, chapter_text, yaml_drugs))
 
     has_fail = any(c['status'] == '✗' for c in claims)
     fail_count = sum(1 for c in claims if c['status'] == '✗')

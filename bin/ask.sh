@@ -6,6 +6,7 @@
 # 可选参数：
 #   --debug         打印路由和 payload 信息（写入 stderr）
 #   --deep          原子声明 grep 核验 + 必要时回炉自纠（降低幻觉率）
+#   --mode patient|doctor  受众模式（默认 patient）
 #   --domain XXX    强制指定领域，跳过自动路由（例如 --domain cardiology:hypertension）
 
 set -euo pipefail
@@ -16,6 +17,7 @@ ROOT_DIR="$(dirname "$SCRIPT_DIR")"
 # ─── 参数解析 ────────────────────────────────────────────────
 DEBUG=false
 DEEP=false
+MODE="patient"
 FORCE_DOMAIN=""
 QUESTION=""
 
@@ -28,6 +30,10 @@ while [[ $# -gt 0 ]]; do
     --deep)
       DEEP=true
       shift
+      ;;
+    --mode)
+      MODE="$2"
+      shift 2
       ;;
     --domain)
       FORCE_DOMAIN="$2"
@@ -45,9 +51,10 @@ if [[ -z "$QUESTION" ]]; then
   echo "示例：./bin/ask.sh \"我爸有高血压，平时饮食要注意什么？\"" >&2
   echo "" >&2
   echo "可选参数：" >&2
-  echo "  --debug           打印路由调试信息" >&2
-  echo "  --deep            开启原子声明核验 + 回炉自纠（降低幻觉率）" >&2
-  echo "  --domain DOMAIN   强制使用指定领域（跳过自动路由）" >&2
+  echo "  --debug                   打印路由调试信息" >&2
+  echo "  --deep                    开启原子声明核验 + 回炉自纠（降低幻觉率）" >&2
+  echo "  --mode patient|doctor     受众模式（默认 patient）" >&2
+  echo "  --domain DOMAIN           强制使用指定领域（跳过自动路由）" >&2
   exit 1
 fi
 
@@ -102,7 +109,7 @@ fi
 # ─── 2. 构建 prompt payload ──────────────────────────────────
 [[ "$DEBUG" == "true" ]] && echo "[DEBUG] 正在构建 prompt (领域: $DOMAINS)..." >&2
 
-PAYLOAD=$("$SCRIPT_DIR/build_prompt.sh" "$DOMAINS" "$QUESTION") || {
+PAYLOAD=$("$SCRIPT_DIR/build_prompt.sh" --mode "$MODE" "$DOMAINS" "$QUESTION") || {
   echo "错误：构建 prompt 失败。" >&2
   exit 1
 }
@@ -137,6 +144,7 @@ if [[ "$DEEP" == "true" ]]; then
   VERIFY_JSON=$(python3 "$SCRIPT_DIR/verify_claims.py" \
     --chapter "$CHAPTER_FILE" \
     --yaml "$YAML_FILE" \
+    --mode "$MODE" \
     --answer "$RESPONSE")
   VERIFY_EXIT=$?
   set -e
@@ -161,7 +169,7 @@ for c in d.get('claims', []):
 
     set +e
     REROLL_RESPONSE=$(
-      "$SCRIPT_DIR/build_prompt.sh" --reroll "$DOMAINS" "$QUESTION" \
+      "$SCRIPT_DIR/build_prompt.sh" --reroll --mode "$MODE" "$DOMAINS" "$QUESTION" \
       | "$SCRIPT_DIR/call_deepseek.sh"
     )
     REROLL_EXIT=$?
@@ -182,7 +190,7 @@ for c in d.get('claims', []):
     echo "[DEBUG --deep] 运行 naive 对照（不注入知识库）..." >&2
     set +e
     NAIVE_RESPONSE=$(
-      "$SCRIPT_DIR/build_prompt.sh" --naive "$DOMAINS" "$QUESTION" \
+      "$SCRIPT_DIR/build_prompt.sh" --naive --mode "$MODE" "$DOMAINS" "$QUESTION" \
       | "$SCRIPT_DIR/call_deepseek.sh" 2>/dev/null
     )
     NAIVE_EXIT=$?
