@@ -1,0 +1,103 @@
+specialty: rheumatology
+specialty_zh: 风湿骨
+disease: gout
+disease_zh: gout
+source: 《西氏内科学精要》（中文版）
+entries:
+- id: GOUT_CAUSE
+  title: 痛风病因与危险因素
+  source_page: 866
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 痛风由尿酸盐结晶沉积在关节引起，与高尿酸血症相关。
+  - 高尿酸血症定义为血清尿酸水平超过6.8mg/dl。
+  - 常见危险因素包括肥胖、高血压、肾脏疾病、利尿剂使用和饮酒。
+  - 男性患病风险是女性的3-6倍，绝经后女性风险增加。
+  - 高嘌呤食物（如贝类、动物内脏）和果糖饮料可加重病情。
+- id: GOUT_DIAGNOSIS
+  title: 痛风诊断方法
+  source_page: 868
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 典型症状是单关节（如大脚趾）突发剧痛、红肿，5-14天可自行缓解。
+  - 确诊需关节穿刺，在偏振光显微镜下找到尿酸盐结晶。
+  - 需排除感染和其他晶体性关节炎（如假性痛风）。
+  - 急性期血清尿酸水平可能正常，不能单凭此诊断。
+- id: GOUT_ACUTE_TREAT
+  title: 急性痛风发作处理
+  source_page: 869
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 发作时让受累关节休息，局部冰敷可缓解症状。
+  - 非甾体抗炎药（如布洛芬）需足量使用7-10天。
+  - 口服秋水仙碱在发作24-48小时内有效，出现呕吐或腹泻应停药。
+  - 关节内注射激素对单关节发作有效，口服激素用于多关节受累。
+  - 已用降尿酸药的患者不应中断治疗。
+- id: GOUT_CHRONIC_TREAT
+  title: 慢性痛风降尿酸治疗
+  source_page: 869
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 治疗目标是将尿酸降至6mg/dl以下，有痛风石者降至5mg/dl以下。
+  - 别嘌呤醇是一线药物，从低剂量开始，每2-5周调整。
+  - 别嘌呤醇过敏反应可能致命，出现皮疹需立即就医。
+  - 非布司他可用于别嘌呤醇不耐受或效果不佳者。
+  - 降尿酸治疗通常需终身进行，不可随意停药。
+- id: GOUT_LIFESTYLE
+  title: 痛风生活方式管理
+  source_page: 870
+  evidence_level: 中
+  recommendation: 推荐
+  key_points:
+  - 减少高嘌呤食物摄入，如贝类、动物内脏和红肉。
+  - 避免含果糖饮料和酒精（尤其是啤酒）。
+  - 多喝水，每日至少1.5升，以促进尿酸排泄。
+  - 控制体重，肥胖者应减重。
+  - 低脂乳制品有助于降低尿酸水平。
+- id: GOUT_MED_CAUTION
+  title: 痛风药物注意事项
+  source_page: 869
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 非甾体抗炎药不适用于消化性溃疡、肾功能不全者。
+  - 秋水仙碱静脉使用风险高，已不推荐。
+  - 别嘌呤醇与噻嗪类利尿剂合用增加过敏风险。
+  - 促尿酸排泄药（如丙磺舒）禁用于肾结石患者。
+  - 降尿酸治疗初期需联用秋水仙碱或非甾体抗炎药预防发作。
+- id: GOUT_COMPLICATION
+  title: 痛风并发症预防
+  source_page: 868
+  evidence_level: 中
+  recommendation: 推荐
+  key_points:
+  - 长期高尿酸可导致痛风石形成，造成关节变形和骨侵蚀。
+  - 痛风石常见于耳朵、手指、手腕和肘部。
+  - 控制尿酸水平可减少痛风石和关节损伤。
+  - 痛风患者需监测肾功能和心血管健康。
+- id: GOUT_WHEN_SEEK
+  title: 痛风何时就医
+  source_page: 868
+  evidence_level: 未注明
+  recommendation: 强推荐
+  key_points:
+  - 关节突发剧痛、红肿，尤其是大脚趾，应尽早就诊。
+  - 发热、寒战伴关节红肿需排除感染。
+  - 痛风发作频繁（每年≥2次）需开始降尿酸治疗。
+  - 出现痛风石或关节持续疼痛提示慢性期，需专科治疗。
+  - 服用降尿酸药后出现皮疹、发热等过敏症状立即就医。
+- id: CPPD_OVERVIEW
+  title: 假性痛风（CPPD）概述
+  source_page: 870
+  evidence_level: 中
+  recommendation: 可考虑
+  key_points:
+  - 假性痛风由焦磷酸钙晶体沉积引起，常见于老年人。
+  - 好发关节为膝关节和手腕，可表现为急性单关节炎。
+  - 诊断需关节液检查发现弱正双折射晶体。
+  - 治疗包括关节内激素注射和非甾体抗炎药。
+  - 目前无清除晶体的有效方法，主要控制症状。

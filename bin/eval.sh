@@ -69,6 +69,8 @@ with open(gold_file) as f:
     data = yaml.safe_load(f)
 
 questions = data.get("questions", [])
+eval_mode = os.environ.get("EVAL_MODE", "patient")
+questions = [q for q in questions if q.get("mode", "both") in (eval_mode, "both")]
 if filter_id:
     questions = [q for q in questions if q.get("id") == filter_id]
 else:

@@ -1272,3 +1272,459 @@ questions:
   - 建议自行停用抗癫痫药物
   doctor_must_have_tags:
   - 证据等级
+# ── Patient-only questions (mode: patient) ─────────────────────────────────
+- id: RESP_COPD_02
+  mode: patient
+  question: 妈妈有慢阻肺，最近几天喘得越来越重，嘴唇有点发紫，需要马上去医院吗？
+  expected_domain:
+  - respiratory:copd
+  expected_topics:
+  - 慢阻肺急性加重表现（呼吸困难、咳嗽、咳痰明显加重）
+  - 严重者可导致急性呼吸衰竭甚至死亡
+  - 唇发绀提示缺氧，需紧急就医
+  must_warn:
+  - 唇发绀或静息呼吸困难应立即就医或拨 120
+  source_refs:
+  - 西氏内科学精要
+  must_not:
+  - 建议在家自行处理等待好转
+  doctor_must_have_tags:
+  - 证据等级
+- id: RESP_ASTHMA_02
+  mode: patient
+  question: 孩子哮喘突然发作，喘得很厉害，家里有沙丁胺醇喷雾，怎么用，什么时候需要急诊？
+  expected_domain:
+  - respiratory:asthma
+  expected_topics:
+  - 沙丁胺醇（速效β2受体激动剂）用于急性支气管痉挛
+  - 吸入β2受体激动剂是急性发作的一线处置
+  - 用药后症状不缓解需急诊就医
+  must_warn:
+  - 急性发作药物无效时立即急诊，不可继续等待
+  source_refs:
+  - 西氏内科学精要
+  must_not:
+  - 给出具体剂量建议（如几喷几次）
+  doctor_must_have_tags:
+  - 证据等级
+- id: DIGE_LIVER_02
+  mode: patient
+  question: 爸爸得了肝硬化，最近肚子越来越大，神志也有点不对劲，需要马上去医院吗？
+  expected_domain:
+  - digestive:liver
+  expected_topics:
+  - 腹水是肝硬化常见并发症
+  - 肝性脑病（神志改变）是严重并发症，需紧急处理
+  - 肝硬化并发症（腹水/肝性脑病/消化道出血）需及时就医
+  must_warn:
+  - 出现神志改变（意识模糊、嗜睡）应立即就医
+  source_refs:
+  - 西氏内科学精要
+  must_not:
+  - 建议自行服用利尿药
+  doctor_must_have_tags:
+  - 证据等级
+- id: DIGE_GI_02
+  mode: patient
+  question: 爸爸有消化性溃疡，今天大便是黑色的，头有点晕，这是什么情况，需要急诊吗？
+  expected_domain:
+  - digestive:gi
+  expected_topics:
+  - 黑便（柏油便）是上消化道出血的典型表现
+  - 消化性溃疡是上消化道出血最常见原因
+  - 头晕可能提示出血量较大、循环不稳定
+  must_warn:
+  - 黑便伴头晕应立即急诊，可能存在消化道出血
+  source_refs:
+  - 西氏内科学精要
+  must_not:
+  - 建议在家观察等下次复诊
+  doctor_must_have_tags:
+  - 证据等级
+- id: HEMA_ANEMIA_02
+  mode: patient
+  question: 妈妈有贫血，最近感觉心跳很快、爬几步楼梯就喘，是不是贫血加重了？
+  expected_domain:
+  - hematology:anemia
+  expected_topics:
+  - 贫血的常见症状包括乏力、活动耐量降低、呼吸困难和心悸
+  - 上述症状加重提示贫血可能加重，需及时就医
+  must_warn:
+  - 心悸或静息呼吸困难需尽快就医排除贫血加重
+  source_refs:
+  - 西氏内科学精要
+  must_not:
+  - 建议自行补铁或购买补血保健品
+  doctor_must_have_tags:
+  - 证据等级
+- id: RHEU_RA_02
+  mode: patient
+  question: 妈妈类风湿关节炎在吃甲氨蝶呤，最近发烧38.5度，需要停药吗？需要立即就医吗？
+  expected_domain:
+  - rheumatology:ra
+  expected_topics:
+  - 使用DMARD/生物制剂增加感染风险包括机会性感染
+  - 急性感染情况下应暂停DMARD和生物制剂
+  - 免疫抑制患者发热需及时就医排除严重感染
+  must_warn:
+  - 免疫抑制患者发热应及时就医，不可拖延
+  source_refs:
+  - 西氏内科学精要
+  must_not:
+  - 建议自行停药或自行加用抗生素
+  doctor_must_have_tags:
+  - 证据等级
+- id: RHEU_OSTEO_02
+  mode: patient
+  question: 奶奶有骨质疏松，担心她在家跌倒，我们能做什么来预防？
+  expected_domain:
+  - rheumatology:osteoporosis
+  expected_topics:
+  - 在卫生间安装扶手杆和楼梯扶手
+  - 地面避免松散地毯和电线
+  - 保证床边良好照明
+  must_warn:
+  - 跌倒是骨质疏松骨折的主要原因，家居改造非常重要
+  source_refs:
+  - 西氏内科学精要
+  must_not:
+  - 建议完全卧床不动以避免跌倒
+  doctor_must_have_tags:
+  - 证据等级
+- id: RHEU_GOUT_02
+  mode: patient
+  question: 爸爸痛风好几年了，医生说要长期控制尿酸，平时饮食该怎么注意？
+  expected_domain:
+  - rheumatology:gout
+  expected_topics:
+  - 减少高嘌呤食物（贝类、动物内脏）摄入
+  - 避免含果糖饮料和酒精（尤其啤酒）
+  - 多喝水每日至少1.5升促进尿酸排泄
+  - 低脂乳制品有助于降低尿酸
+  must_warn:
+  - 已在服降尿酸药的患者不能随意停药
+  source_refs:
+  - 西氏内科学精要
+  must_not:
+  - 建议自行调整降尿酸药剂量
+  doctor_must_have_tags:
+  - 证据等级
+- id: NEURO_STROKE_02
+  mode: patient
+  question: 爸爸三个月前脑梗，医生开了阿司匹林，他说感觉好了想停药，可以吗？
+  expected_domain:
+  - neurology:stroke
+  expected_topics:
+  - 抗血小板治疗可降低卒中复发风险约20-25%（A级证据）
+  - 卒中二级预防需严格控制危险因素
+  - 擅自停用抗血小板药物增加复发风险
+  must_warn:
+  - 绝对不可自行停用抗血小板药或他汀，需遵医嘱
+  source_refs:
+  - 西氏内科学精要
+  must_not:
+  - 建议自行停药或减量
+  doctor_must_have_tags:
+  - 证据等级
+- id: NEURO_MOV_02
+  mode: patient
+  question: 爸爸帕金森病，最近开始出现吞咽困难，有时候吃东西会呛，这正常吗，需要看医生吗？
+  expected_domain:
+  - neurology:movement_disorders
+  expected_topics:
+  - 球部无力（吞咽困难、呛咳）是神经系统疾病的重要症状
+  - 早期吞咽困难可能提示非典型帕金森综合征
+  - 吞咽困难需及时就医评估，存在吸入性肺炎风险
+  must_warn:
+  - 吞咽困难出现或加重应及时就医
+  source_refs:
+  - 西氏内科学精要
+  must_not:
+  - 建议自行调整帕金森药物
+  doctor_must_have_tags:
+  - 证据等级
+- id: NEURO_DEM_02
+  mode: patient
+  question: 奶奶阿尔茨海默病，最近总是烦躁发脾气，有时候半夜乱走，家属怎么办？
+  expected_domain:
+  - neurology:dementia
+  expected_topics:
+  - 痴呆患者护理包括卫生、营养和监督服药依从性
+  - 抗精神病药、抗抑郁药可控制行为问题
+  - 家属可联系阿尔茨海默病协会获取支持资源
+  must_warn:
+  - 行为症状明显影响生活时应就医评估，必要时调整用药
+  source_refs:
+  - 西氏内科学精要
+  must_not:
+  - 建议自行给患者服用镇静药或安眠药
+  doctor_must_have_tags:
+  - 证据等级
+- id: SUBS_ALC_02
+  mode: patient
+  question: 哥哥有酒精依赖问题，家人很担心，我们能做些什么来帮助他？
+  expected_domain:
+  - substance_use:alcohol_drugs
+  expected_topics:
+  - 支持性环境和应对机制对戒酒康复重要
+  - 动力增强疗法是四模块的简短干预方式
+  - 建立支持小组和行为矫正可作为补充治疗
+  must_warn:
+  - 戒断症状（如抖动、出汗、躁动）需医护监督，不可自行突然停酒
+  source_refs:
+  - 西氏内科学精要
+  must_not:
+  - 建议患者自行突然完全停止饮酒
+  doctor_must_have_tags:
+  - 证据等级
+- id: CARD_CAD_02
+  mode: patient
+  question: 爸爸有冠心病，医生给了硝酸甘油备用，什么情况下需要用，什么时候该打 120？
+  expected_domain:
+  - cardiology:cad
+  expected_topics:
+  - 舌下含服硝酸甘油用于心绞痛发作的治疗和预防
+  - 不稳定型心绞痛或静息时发生的心绞痛需紧急处理
+  - 硝酸甘油效果不佳的心绞痛是危险信号
+  must_warn:
+  - 静息时胸痛或硝酸甘油无效时立即拨 120，可能是急性心肌梗死
+  source_refs:
+  - 西氏内科学精要
+  must_not:
+  - 建议反复使用硝酸甘油代替急诊就医
+  doctor_must_have_tags:
+  - 证据等级
+# ── Doctor-only questions (mode: doctor) ───────────────────────────────────
+- id: RESP_COPD_DR_01
+  mode: doctor
+  question: COPD 患者出现急性加重，如何判断严重程度并决定是否住院？
+  expected_domain:
+  - respiratory:copd
+  expected_topics:
+  - 急性加重定义（呼吸困难、咳嗽、咳痰明显加重）
+  - 严重加重可导致急性呼吸衰竭，需住院评估
+  - 急性加重抗生素治疗（2级证据）
+  - 无创正压通气用于高碳酸血症呼吸衰竭
+  must_warn:
+  - 合并呼吸衰竭需评估 NIV 或 ICU 转入
+  source_refs:
+  - 西氏内科学精要
+  must_not: []
+  doctor_must_have_tags:
+  - 证据等级
+  - 具体临床指征
+- id: RESP_ASTHMA_DR_01
+  mode: doctor
+  question: 哮喘患者如何进行阶梯式治疗，何时升级或降级治疗方案？
+  expected_domain:
+  - respiratory:asthma
+  expected_topics:
+  - 吸入性支气管扩张剂包括β2受体激动剂（拟交感药物）
+  - 沙丁胺醇是最常用的速效β2受体激动剂
+  - 维持治疗使用长效β2受体激动剂
+  - 阶梯式治疗流程（图16-4急诊治疗流程）
+  must_warn:
+  - 严重急性支气管痉挛可危及生命，需紧急处理
+  source_refs:
+  - 西氏内科学精要
+  must_not: []
+  doctor_must_have_tags:
+  - 证据等级
+  - 具体治疗分级
+- id: DIGE_LIVER_DR_01
+  mode: doctor
+  question: 肝硬化患者如何评估预后，MELD 评分如何指导临床决策？
+  expected_domain:
+  - digestive:liver
+  expected_topics:
+  - MELD 评分基于胆红素、肌酐、凝血功能评估死亡率
+  - MELD ≥15 具有肝移植指征
+  - 食管静脉曲张破裂出血是严重并发症，近年死亡率下降
+  - 肝性脑病、腹水、急性肾损伤使肝硬化治疗复杂
+  must_warn:
+  - 失代偿性肝硬化需评估肝移植
+  source_refs:
+  - 西氏内科学精要
+  must_not: []
+  doctor_must_have_tags:
+  - 证据等级
+  - 评分数值
+- id: DIGE_GI_DR_01
+  mode: doctor
+  question: 上消化道出血患者内镜下如何评估再出血风险，何时行内镜下止血治疗？
+  expected_domain:
+  - digestive:gi
+  expected_topics:
+  - 上消化道出血患者应尽早行内镜检查（诊断+内镜下止血）
+  - 内镜下不同溃疡特征对应不同再出血风险
+  - 内镜下止血可降低死亡率（含注射、热疗、止血夹）
+  - PUD 占上消化道出血约 50%，80% 可自发停止
+  must_warn:
+  - 高危溃疡特征（活动性出血、血管裸露）需积极内镜干预
+  source_refs:
+  - 西氏内科学精要
+  must_not: []
+  doctor_must_have_tags:
+  - 证据等级
+  - 内镜下止血
+- id: HEMA_ANEMIA_DR_01
+  mode: doctor
+  question: 如何鉴别缺铁性贫血与慢性病贫血？
+  expected_domain:
+  - hematology:anemia
+  expected_topics:
+  - 网织红细胞计数用于区分骨髓衰竭与外周破坏/失血
+  - 小细胞性贫血（MCV 降低）见于缺铁性贫血和慢性病
+  - 两者可共存，铁蛋白是区分关键指标
+  must_warn:
+  - 贫血病因不明时需系统评估，避免漏诊恶性肿瘤
+  source_refs:
+  - 西氏内科学精要
+  must_not: []
+  doctor_must_have_tags:
+  - 证据等级
+  - 鉴别诊断要点
+- id: RHEU_RA_DR_01
+  mode: doctor
+  question: 类风湿关节炎的治疗策略是什么，甲氨蝶呤在 RA 治疗中处于什么地位？
+  expected_domain:
+  - rheumatology:ra
+  expected_topics:
+  - DMARD 阻止疾病进展和残疾，目标是尽可能完全控制炎症
+  - 甲氨蝶呤因确定疗效和已知毒性，是大多数 RA 患者初始 DMARD
+  - 甲氨蝶呤失败后可选择其他传统或生物 DMARD
+  - 生物制剂（TNF 抑制剂等）推荐用于 MTX 治疗失败后
+  must_warn:
+  - 使用 DMARD/生物制剂时增加感染风险，急性感染须停用
+  source_refs:
+  - 西氏内科学精要
+  must_not: []
+  doctor_must_have_tags:
+  - 证据等级
+  - 药物选择依据
+- id: RHEU_OSTEO_DR_01
+  mode: doctor
+  question: 骨质疏松症如何判断骨折高风险，双膦酸盐治疗的适应证是什么？
+  expected_domain:
+  - rheumatology:osteoporosis
+  expected_topics:
+  - 骨质疏松定义：T 值 ≤ -2.5s
+  - FRAX 工具预测 40-90 岁人群 10 年骨折风险
+  - 治疗指征：T ≤-2.5s，或低骨量（-1.0～-2.5s）+10年髋部骨折≥3%或主要骨折≥20%
+  - 双膦酸盐是一线药物
+  must_warn:
+  - 双膦酸盐长期使用超过5年需评估药物假期风险
+  source_refs:
+  - 西氏内科学精要
+  must_not: []
+  doctor_must_have_tags:
+  - 证据等级
+  - 具体阈值
+- id: RHEU_GOUT_DR_01
+  mode: doctor
+  question: 痛风患者急性发作期与间歇期的治疗策略有何不同，降尿酸治疗何时启动？
+  expected_domain:
+  - rheumatology:gout
+  expected_topics:
+  - 急性发作期：NSAIDs足量7-10天，或秋水仙碱（24-48h内有效），或激素
+  - 已用降尿酸药的患者急性发作时不应中断治疗
+  - 降尿酸治疗初期需联用秋水仙碱或NSAIDs预防发作
+  - 治疗目标：尿酸 <6mg/dl；痛风石患者 <5mg/dl
+  must_warn:
+  - 急性发作期新启动降尿酸治疗可能加重或延长发作
+  source_refs:
+  - 西氏内科学精要
+  must_not: []
+  doctor_must_have_tags:
+  - 证据等级
+  - 启动时机
+- id: NEURO_STROKE_DR_01
+  mode: doctor
+  question: 缺血性卒中患者溶栓治疗的时间窗和主要适应证是什么？
+  expected_domain:
+  - neurology:stroke
+  expected_topics:
+  - 发病3小时内可行rt-PA溶栓治疗
+  - 时间窗可扩展至4.5小时（结合影像）
+  - 里程碑研究：3小时内rt-PA溶栓改善预后
+  - 溶栓前后收缩压需维持在特定水平
+  must_warn:
+  - 严格把握时间窗和禁忌证，出血风险不可忽视
+  source_refs:
+  - 西氏内科学精要
+  must_not: []
+  doctor_must_have_tags:
+  - 证据等级
+  - 具体时间窗数值
+- id: NEURO_MOV_DR_01
+  mode: doctor
+  question: 帕金森病何时开始左旋多巴治疗，诊断标准有哪些核心特征？
+  expected_domain:
+  - neurology:movement_disorders
+  expected_topics:
+  - 帕金森综合征核心症状：运动迟缓、肌僵直、震颤、姿势不稳
+  - 诊断支持指标：单侧起病、持续不对称、左旋多巴治疗有效
+  - 左旋多巴是主要治疗药物，常与多巴脱羧酶抑制剂合用
+  - 早期姿势不稳或吞咽困难需警惕非典型帕金森综合征
+  must_warn:
+  - 抗精神病药暴露史可能导致药物性帕金森综合征，需排除
+  source_refs:
+  - 西氏内科学精要
+  must_not: []
+  doctor_must_have_tags:
+  - 证据等级
+  - 诊断标准
+- id: NEURO_DEM_DR_01
+  mode: doctor
+  question: 阿尔茨海默病的诊断标准是什么，胆碱酯酶抑制剂的适应证和疗效如何？
+  expected_domain:
+  - neurology:dementia
+  expected_topics:
+  - AD 诊断标准（表108-6，包括记忆和认知功能损害标准）
+  - 胆碱酯酶抑制剂（多奈哌齐、卡巴拉汀、加兰他敏）是重要进步
+  - 不到50%的患者对胆碱酯酶抑制剂有临床显著改善
+  - 卡巴拉汀对帕金森病痴呆也有疗效（FDA批准）
+  must_warn:
+  - 确诊前需排除可逆性痴呆原因（如甲状腺功能减退、维生素B12缺乏）
+  source_refs:
+  - 西氏内科学精要
+  must_not: []
+  doctor_must_have_tags:
+  - 证据等级
+  - 疗效数据
+- id: SUBS_ALC_DR_01
+  mode: doctor
+  question: 酒精戒断患者如何评估严重程度，苯二氮䓬类药物如何使用？
+  expected_domain:
+  - substance_use:alcohol_drugs
+  expected_topics:
+  - CIWA-Ar 量表评估戒断症状严重性，指导对症治疗
+  - 苯二氮䓬类是唯一批准降低癫痫发作和震颤性谵妄风险的药物
+  - 地西泮/氯氮/劳拉西泮每5-10分钟静脉给药直至症状消失
+  - 严重肝硬化患者首选劳拉西泮（肝内代谢较少）
+  must_warn:
+  - 震颤性谵妄死亡率高，需在ICU或严密监护下管理
+  source_refs:
+  - 西氏内科学精要
+  must_not: []
+  doctor_must_have_tags:
+  - 证据等级
+  - 具体用药方案
+- id: CARD_CAD_DR_01
+  mode: doctor
+  question: 稳定性心绞痛患者的抗心绞痛药物有哪些选择，硝酸甘油、β受体阻滞剂和钙通道阻滞剂各有何机制？
+  expected_domain:
+  - cardiology:cad
+  expected_topics:
+  - 硝酸甘油舌下含服对心绞痛的治疗和预防起重要作用
+  - 不稳定型心绞痛或静息心绞痛是高危信号，需积极处理
+  - β受体阻滞剂有效减少活动相关心绞痛，机制为降低心率/心肌耗氧
+  - 钙通道阻滞剂通过扩张动脉、降低心肌收缩力减少心肌耗氧
+  must_warn:
+  - 不稳定型心绞痛（静息痛/硝酸甘油无效）需立即就医处理
+  source_refs:
+  - 西氏内科学精要
+  must_not: []
+  doctor_must_have_tags:
+  - 证据等级
+  - 药物选择依据
