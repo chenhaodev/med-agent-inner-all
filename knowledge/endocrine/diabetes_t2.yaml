@@ -144,3 +144,24 @@ entries:
   - 血糖持续高于目标范围或出现酮症酸中毒症状需紧急就医
   - 定期复查糖化血红蛋白和并发症筛查
   pdf_page: 103
+- id: DM_EXERCISE_GUIDANCE
+  title: 糖尿病运动锻炼指导
+  source_page: 715
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 建议每次30分钟、每周至少5次中等强度的体育锻炼
+  - 中等强度锻炼包括快步走、骑自行车、游泳等有氧运动
+  - 运动前后需监测血糖，避免低血糖发生
+  - 长期坚持规律锻炼可改善胰岛素敏感性和血糖控制
+  pdf_page: 105
+- id: DM_SMOKING_CESSATION
+  title: 糖尿病患者戒烟建议
+  source_page: 720
+  evidence_level: 高
+  recommendation: 强推荐
+  key_points:
+  - 吸烟患者每次就诊时应接受戒烟重要性和戒烟策略的宣教
+  - 吸烟显著增加糖尿病患者心血管并发症和微血管病变风险
+  - 戒烟是糖尿病综合管理的重要组成部分
+  pdf_page: 110
