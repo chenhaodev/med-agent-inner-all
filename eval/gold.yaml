@@ -1726,3 +1726,36 @@ questions:
   doctor_must_have_tags:
   - 证据等级
   - 药物选择依据
+- id: DIGE_HEPATITIS_01
+  mode: patient
+  question: 家人确诊慢性乙肝，日常生活中家属如何防护，患者本人需要注意什么？
+  expected_domain:
+  - digestive:hepatitis
+  expected_topics:
+  - 乙肝通过血液、性接触、母婴传播；日常接触（共餐、握手、拥抱）不传播
+  - 家属/性伴侣应检测乙肝表面抗体，阴性者接种全程乙肝疫苗（3针）
+  - 抗病毒药物须遵医嘱长期服用，不可自行停药（停药可导致病毒反弹）
+  - 定期复查：HBV DNA载量、肝功能（ALT/AST）、腹部超声
+  must_warn:
+  - 禁止饮酒（酒精加速肝纤维化进展）
+  source_refs:
+  - 西氏内科学精要
+  must_not: []
+- id: DIGE_HEPATITIS_DR_01
+  mode: doctor
+  question: 慢性HBV感染患者的抗病毒治疗指征是什么？首选药物及治疗目标如何？
+  expected_domain:
+  - digestive:hepatitis
+  expected_topics:
+  - 高复制期（HBsAg+、HBeAg+或HBV DNA>20000 IU/ml、ALT升高）及早期肝硬化患者应启动抗病毒治疗
+  - 恩替卡韦或替诺福韦酯是具有高遗传抗性屏障的核苷类似物，为慢性乙肝一线治疗
+  - 治疗目标：永久抑制HBV复制，减少肝炎活动，减缓肝硬化和肝癌进展
+  - HCV感染后20年内高达20%进展为肝硬化；DAA联合方案使90%基因型1型患者在12周内实现SVR
+  must_warn:
+  - 抗病毒药物自行停药可导致病毒剧烈反弹，甚至急性肝衰竭
+  source_refs:
+  - 西氏内科学精要
+  must_not: []
+  doctor_must_have_tags:
+  - 证据等级
+  - 恩替卡韦
