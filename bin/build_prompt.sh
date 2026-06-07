@@ -205,7 +205,11 @@ else:
 payload = {
     "model": model,
     "temperature": 0.2 if mode == "doctor" else 0.3,
-    "max_tokens": 2000 if mode == "doctor" else 1500,
+    # v4-flash 是推理模型：max_tokens 上限同时覆盖 reasoning_content + content。
+    # 旧值 2000/1500 下推理常吃掉大半预算，可见回答在末段（【依据】/【参考】）
+    # 被截断 → grounding=0。给足头寸：doctor 需 5 段 + 证据等级汇总表，更高。
+    # 答案自然结束即停，对已完整的回答无额外开销。
+    "max_tokens": 4000 if mode == "doctor" else 3000,
     "messages": [
         {"role": "system", "content": system},
         {"role": "user",   "content": user_content}
