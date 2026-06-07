@@ -101,8 +101,12 @@ KEYWORDS_FINANCE="股票|基金|理财|投资建议|炒股"
 KEYWORDS_WEATHER="天气怎么样|天气如何|天气预报|查天气|今天.*天气|明天.*天气"
 KEYWORDS_COOKING="菜谱|烹饪方法|怎么做菜|做菜|食谱|红烧|清蒸|怎么烹饪|怎么做.*肉|怎么煮|炖.*汤"
 KEYWORDS_TRANSLATE="翻译成英文|翻译成中文|请翻译|帮我翻译"
+# 音乐/娱乐推荐（区别于"音乐疗法"：后者不含推荐意图+具体曲目，此处只拦截"推荐内容"类请求）
+KEYWORDS_ENTERTAINMENT="推荐.*[首张支首].*音乐|推荐.*歌曲|推荐.*歌单|推荐.*播放列表|\
+推荐.*电影|推荐.*电视剧|推荐.*影片|推荐.*影视|\
+音乐.*推荐|歌曲.*推荐|好听的.*音乐|什么.*音乐.*好听"
 
-if echo "$QUESTION" | grep -qE "$KEYWORDS_WRITING|$KEYWORDS_FINANCE|$KEYWORDS_WEATHER|$KEYWORDS_COOKING|$KEYWORDS_TRANSLATE"; then
+if echo "$QUESTION" | grep -qE "$KEYWORDS_WRITING|$KEYWORDS_FINANCE|$KEYWORDS_WEATHER|$KEYWORDS_COOKING|$KEYWORDS_TRANSLATE|$KEYWORDS_ENTERTAINMENT"; then
   echo "out_of_scope:unrelated"
   exit 0
 fi
