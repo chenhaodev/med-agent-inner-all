@@ -1599,7 +1599,7 @@ questions:
   must_not: []
   doctor_must_have_tags:
   - 证据等级
-  - 药物选择依据
+  - 甲氨蝶呤
 - id: RHEU_OSTEO_DR_01
   mode: doctor
   question: 骨质疏松症如何判断骨折高风险，双膦酸盐治疗的适应证是什么？
@@ -1617,7 +1617,7 @@ questions:
   must_not: []
   doctor_must_have_tags:
   - 证据等级
-  - 具体阈值
+  - T值
 - id: RHEU_GOUT_DR_01
   mode: doctor
   question: 痛风患者急性发作期与间歇期的治疗策略有何不同，降尿酸治疗何时启动？

@@ -87,7 +87,7 @@ KW_RENAL_GENERAL="肾|尿蛋白|血尿|肾功能|尿毒症|肾脏病"
 # 血液
 KW_HEMATOLOGY_ANEMIA="贫血|血红蛋白低|缺铁性贫血|恶性贫血|溶血性贫血|地中海贫血|再生障碍性贫血"
 KW_HEMATOLOGY_BLEEDING="ITP|免疫性血小板减少|血小板减少性紫癜|血友病|出血性疾病|凝血因子缺乏|血小板减少.*出血|皮肤瘀斑.*血小板"
-KW_HEMATOLOGY_THROMBOSIS="深静脉血栓|DVT|静脉血栓|血栓形成|抗凝治疗|华法林.*血栓|血栓.*预防|易栓|低分子肝素.*血栓"
+KW_HEMATOLOGY_THROMBOSIS="肺栓塞|肺血栓|DVT|深静脉血栓|静脉血栓|血栓形成|抗凝治疗|华法林.*血栓|血栓.*预防|易栓|低分子肝素.*血栓"
 KW_HEMATOLOGY_LYMPHOMA="淋巴瘤|霍奇金淋巴瘤|非霍奇金淋巴瘤|淋巴结肿大.*恶性|淋巴细胞性白血病|CLL|淋巴细胞增多"
 KW_HEMATOLOGY_MYELOID="骨髓增殖|CML|慢性髓性白血病|费城染色体|伊马替尼|BCR.*ABL|JAK2.*突变|真性红细胞增多症|血小板增多症|骨髓纤维化|鲁索利替尼|ruxolitinib"
 KW_HEMATOLOGY_GENERAL="血液病|白血病|骨髓瘤|血小板减少|白细胞低|血细胞|骨髓"
