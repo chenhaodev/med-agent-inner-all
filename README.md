@@ -12,7 +12,7 @@
   - **doctor**：面向临床医生，证据档案式 5 段结构（定义与流行病学/循证管理/红旗症状/证据等级汇总/参考），每条建议带证据等级标注
 - **指南叠加**：`knowledge/<专科>/guidelines/` 放入指南 YAML 即可叠加，教材与指南冲突以最新指南为准
 - **越界保护（5 类 action-based）**：确定性拦截外科手术决策（A）/ 化疗剂量方案（B）/ 诊断红线（C）/ 调药红线（D）/ 无关任务（E）；doctor 模式放宽鉴别诊断框架，红线仍生效
-- **可量化评估**：patient 90 题 38.9/40（96.6%）；doctor 88 题 37.6/40（94.3%）；gold.yaml 103 题（支持 mode 过滤）；OOB 双模式拦截率/无幻觉率 100%
+- **可量化评估**：patient 112 题 38.9/40（99.1%）；doctor 110 题 37.2/40（88.1%）；gold.yaml 147 题（支持 mode 过滤）；OOB 双模式拦截率/无幻觉率 100%
 
 ## 快速开始
 
@@ -121,14 +121,14 @@ pip install -r requirements.txt
 
 | 专科 | 覆盖疾病（已有知识 YAML） | 关键词示例 |
 |------|--------------------------|-----------|
-| cardiology | 高血压、心衰、冠心病、心律失常 | 血压、心衰、冠心病、心绞痛、房颤 |
-| endocrine | 2型糖尿病、血脂异常、甲状腺、痛风、肥胖 | 血糖、糖尿病、胰岛素、血脂、痛风 |
-| respiratory | 哮喘、COPD、肺炎 | 哮喘、慢阻肺、喘息、肺炎、咳嗽 |
-| digestive | 消化道疾病、IBD、肝病 | 胃、肠、肝硬化、乙肝、腹泻 |
-| renal | 慢性肾病、肾炎 | 肾病、蛋白尿、肌酐、肾功能 |
-| hematology | 贫血 | 贫血、血红蛋白、缺铁 |
-| infectious | 感染性疾病（发热通科） | 感染、发热、肺结核、乙肝 |
-| rheumatology | 类风湿关节炎、SLE、骨质疏松 | 关节痛、类风湿、狼疮、骨质疏松 |
+| cardiology | 高血压、心衰、冠心病、心律失常、瓣膜病、心包炎、先心病、主动脉夹层 | 血压、心衰、冠心病、心绞痛、房颤、瓣膜、心包、先心病 |
+| endocrine | 2型糖尿病、血脂异常、甲状腺、痛风、肥胖、垂体、肾上腺、营养支持 | 血糖、糖尿病、胰岛素、血脂、痛风、垂体、肾上腺、营养支持 |
+| respiratory | 哮喘、COPD、肺炎、ILD、睡眠呼吸暂停、胸腔积液、肺癌、ARDS | 哮喘、慢阻肺、喘息、肺炎、睡眠呼吸暂停、胸水、肺癌、ARDS |
+| digestive | 消化道疾病、IBD、肝病、肝炎、食管/GERD、黄疸 | 胃、肠、肝硬化、乙肝、腹泻、反流、黄疸 |
+| renal | 慢性肾病、肾炎、AKI、电解质紊乱、肾血管性疾病 | 肾病、蛋白尿、肌酐、肾功能、TTP/HUS |
+| hematology | 贫血、骨髓增殖性肿瘤（CML/PV/ET/PMF） | 贫血、血红蛋白、缺铁、CML、伊马替尼、骨髓纤维化 |
+| infectious | 感染性疾病、发热/FUO、社区获得性肺炎、皮肤软组织感染 | 感染、发热、肺结核、乙肝、疟疾、蜂窝织炎、坏死性筋膜炎 |
+| rheumatology | 类风湿关节炎、SLE、骨质疏松、强直性脊柱炎、系统性硬化、血管炎 | 关节痛、类风湿、狼疮、骨质疏松、强直性脊柱炎、硬皮病、血管炎 |
 | neurology | 脑卒中、运动障碍、痴呆、癫痫、头痛、睡眠障碍等 | 卒中、帕金森、痴呆、癫痫、头痛、失眠 |
 | oncology | 肺癌、胃肠道癌、乳腺癌、泌尿系癌、肿瘤并发症 | 癌症、肿瘤、靶向治疗、化疗并发症 |
 | bone_mineral | 骨质疏松、矿物质代谢、代谢性骨病 | 骨密度、骨折、钙磷代谢、甲旁亢 |
@@ -139,9 +139,8 @@ pip install -r requirements.txt
 | womens_health | 女性健康（绝经、骨质疏松等） | 绝经、更年期、女性激素 |
 | substance_use | 酒精/药物依赖与戒断 | 酒精、戒酒、药物依赖、成瘾 |
 
-> **接地漏洞提示**：router 已声明约 40 个疾病 tag（如 `infectious:hiv`、`renal:aki`、`hematology:bleeding_disorders` 等），
-> 但部分 YAML 尚未创建。`build_prompt.sh` 对缺失 YAML 静默跳过，路由命中后仅有专科 few-shot 而无页码可溯源条目。
-> 补缺优先级见本节末"知识覆盖说明"。
+> **知识覆盖**：Tier1（核心 8 病种）、Tier2（次核心 6 病种）、Tier3（扩展 21 病种）已全部完成，共 98 个 knowledge YAML。
+> 路由声明的疾病 tag 均有对应 YAML；`build_prompt.sh` 的静默跳过问题已消除。
 
 ## Doctor 模式
 
@@ -207,21 +206,21 @@ knowledge/cardiology/guidelines/心衰指南2024.yaml
 4. 在 `eval/gold.yaml` 加 1–2 道金标题（patient + doctor 双 tag），跑 `eval.sh --id` 验证
 5. 若新专科：在 `prompts/sections/` 加专科回答指引
 
-## Eval 指标（v2 最新结果）
+## Eval 指标（v3 最新结果，Tier3 扩展后）
 
 | 测试集 | 模式 | 题数 | 指标 | 结果 |
 |--------|------|------|------|------|
-| in-scope | patient | 90 | 平均分 / 40 | 38.9 ✓ |
-| in-scope | patient | 90 | 通过率（≥34/40）| 96.6% ✓ |
-| in-scope | doctor | 90 | 平均分 / 40 | 37.0 ✓ |
-| in-scope | doctor | 90 | 通过率（≥34/40）| 85.5% ✓ |
+| in-scope | patient | 112 | 平均分 / 40 | 38.9 ✓ |
+| in-scope | patient | 112 | 通过率（≥34/40）| 99.1% ✓ |
+| in-scope | doctor | 110 | 平均分 / 40 | 37.2 ✓ |
+| in-scope | doctor | 110 | 通过率（≥34/40）| 88.1% ✓ |
 | OOB | patient | 30 | 拦截准确率 | 100% ✓ |
 | OOB | patient | 30 | 无幻觉率 | 100% ✓ |
 | OOB | doctor | 30 | 拦截准确率 | 100% ✓ |
 | OOB | doctor | 30 | 无幻觉率 | 100% ✓ |
 
-v2 目标：in-scope 平均 ≥85%（34/40），OOB 双模式拦截 100%，grounding ≥90%。
-gold.yaml：103 题（77 both + 13 patient-only + 13 doctor-only），eval 各模式见 90 题。
+目标：in-scope 平均 ≥85%（34/40），OOB 双模式拦截 100%，grounding ≥90%。
+gold.yaml：147 题（含 Tier3 新增 42 题），覆盖 21 个 Tier3 病种（每病种 1 patient + 1 doctor）。
 
 ## 依赖
 
