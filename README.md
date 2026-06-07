@@ -53,7 +53,7 @@ pip install -r requirements.txt
 │   ├── eval_oob.sh         # 越界专项 eval（确定性评分），支持 --mode doctor
 │   ├── ingest.py           # PDF → source/chapters/<专科>/<疾病>.md（含页码标注）
 │   └── extract.py          # 章节 md → knowledge YAML（DeepSeek 结构化提取）
-├── knowledge/              # 98 个 YAML，覆盖 Tier1/2/3 全部病种
+├── knowledge/              # 97 个 YAML，覆盖 Tier1/2/3 全部病种
 │   ├── cardiology/         # hypertension / heart_failure / cad / arrhythmia
 │   │   │                   # valve_disease / pericardial / congenital_hd / other_cardiac
 │   │   └── guidelines/     # 高血压防治指南2024.yaml 等指南叠加层
@@ -71,7 +71,7 @@ pip install -r requirements.txt
 │   │                       # sleep_disorders / mood_behavior / 等
 │   ├── oncology/           # lung_cancer / gi_cancer / breast_cancer / gu_cancer
 │   │                       # tumor_complications / tumor_treatment_principles / 等
-│   ├── bone_mineral/       # osteoporosis / mineral_disorders / metabolic_bone
+│   ├── bone_mineral/       # bone_physiology / mineral_disorders / metabolic_bone（骨质疏松统一在 rheumatology）
 │   ├── geriatrics/         # elderly_care
 │   ├── palliative/         # palliative_care
 │   ├── perioperative/      # periop_management
@@ -135,7 +135,7 @@ pip install -r requirements.txt
 | rheumatology | 类风湿关节炎、SLE、骨质疏松、强直性脊柱炎、系统性硬化、血管炎 | 关节痛、类风湿、狼疮、骨质疏松、强直性脊柱炎、硬皮病、血管炎 |
 | neurology | 脑卒中、运动障碍、痴呆、癫痫、头痛、睡眠障碍等 | 卒中、帕金森、痴呆、癫痫、头痛、失眠 |
 | oncology | 肺癌、胃肠道癌、乳腺癌、泌尿系癌、肿瘤并发症 | 癌症、肿瘤、靶向治疗、化疗并发症 |
-| bone_mineral | 骨质疏松、矿物质代谢、代谢性骨病 | 骨密度、骨折、钙磷代谢、甲旁亢 |
+| bone_mineral | 矿物质代谢、代谢性骨病、骨生理（骨质疏松统一归 rheumatology） | 钙磷代谢、甲旁亢、佝偻病、骨软化 |
 | geriatrics | 老年综合评估、衰弱、多病共存 | 老年人、衰弱、跌倒、多重用药 |
 | palliative | 姑息治疗、安宁疗护、疼痛管理 | 姑息、安宁、疼痛控制、临终 |
 | perioperative | 围手术期内科管理 | 术前评估、围手术期、手术风险 |
