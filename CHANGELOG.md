@@ -2,6 +2,42 @@
 
 本项目所有重要变更记录于此。格式参考 [Keep a Changelog](https://keepachangelog.com/zh-CN/)。
 
+## [v3.1] - 2026-06-07 — 执行速度优化 + eval judge 修复
+
+### 指标（2026-06-07 重跑，修复后真实数字）
+
+| 测试集 | 模式 | 题数 | 通过率（≥34/40） | 平均分 |
+|--------|------|------|------------------|--------|
+| in-scope | patient | 112 | **88.4%** | 38.0/40 |
+| in-scope | doctor  | 110 | **88.2%** | 38.0/40 |
+| OOB | patient/doctor | — | 拦截 100% | — |
+
+eval 耗时：**~13 min**（并发 8，原串行 ~30–50 min）
+
+### 新增 (Added)
+
+- **`bin/eval_worker.sh`** — 单题并发 worker：每题 3 次 python3（原 ~15），
+  并发安全（写独立文件），`--no-cache` 默认保证新鲜度
+- **`bin/eval_deep_worker.sh`** — deep eval worker variant（含 verify_claims + reroll）
+- **`bin/call_deepseek_stream.sh`** — SSE 流式调用；与非流式共享缓存 key
+
+### 变更 (Changed)
+
+- **`bin/eval.sh` / `bin/eval_deep.sh`**：串行循环 → `xargs -P 8` 并发扇出；
+  删 `sleep 1`；O(n²) 结果累加 → 末尾一次聚合；新增 `--concurrency N` / `--cache` 参数
+- **`bin/call_deepseek.sh`**：加内容寻址磁盘缓存（`.cache/deepseek/sha256.txt`）；
+  命中 ~0.02s，默认开，`NO_CACHE=1` / `--no-cache` 绕过
+- **`bin/ask.sh`**：加 `--stream` opt-in 旗标（默认关）
+
+### 修复 (Fixed)
+
+- judge `max_tokens` 600 → 4000：v4-flash reasoning model 在 600/1500 token 预算下
+  全部 token 用于 chain-of-thought，content JSON 截断 / 为空
+- eval worker JSON 解析：judge 输出中字符串值含字面量换行符（`Expecting ',' delimiter`）
+  → 解析前 `.replace('\n', ' ')` 消除
+
+---
+
 ## [v3.0] - 2026-06-07 — Tier3 全覆盖 + 契约审计
 
 本次发布完成知识库 Tier3 扩展，消除全部「路由声明但无 YAML」的接地缺口，
