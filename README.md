@@ -53,20 +53,24 @@ pip install -r requirements.txt
 │   ├── eval_oob.sh         # 越界专项 eval（确定性评分），支持 --mode doctor
 │   ├── ingest.py           # PDF → source/chapters/<专科>/<疾病>.md（含页码标注）
 │   └── extract.py          # 章节 md → knowledge YAML（DeepSeek 结构化提取）
-├── knowledge/
+├── knowledge/              # 98 个 YAML，覆盖 Tier1/2/3 全部病种
 │   ├── cardiology/         # hypertension / heart_failure / cad / arrhythmia
+│   │   │                   # valve_disease / pericardial / congenital_hd / other_cardiac
 │   │   └── guidelines/     # 高血压防治指南2024.yaml 等指南叠加层
 │   ├── endocrine/          # diabetes_t2 / dyslipidemia / thyroid / gout / obesity
-│   ├── respiratory/        # asthma / copd / pneumonia
-│   ├── digestive/          # gi / ibd / liver
-│   ├── renal/              # ckd / nephritis
-│   ├── hematology/         # anemia
-│   ├── infectious/         # general
-│   ├── rheumatology/       # ra / sle / osteoporosis
+│   │                       # pituitary / adrenal / nutrition
+│   ├── respiratory/        # asthma / copd / pneumonia / ild
+│   │                       # sleep_breathing / pleural / lung_tumor / critical_care
+│   ├── digestive/          # gi / ibd / liver / hepatitis / esophagus / jaundice
+│   ├── renal/              # ckd / nephritis / aki / electrolytes / renal_vascular
+│   ├── hematology/         # anemia / bleeding_disorders / thrombosis / lymphocyte / myeloid_clonal
+│   ├── infectious/         # general / hiv / uti / sepsis / cns_infection
+│   │                       # fever / lower_resp_infection / skin_soft_tissue
+│   ├── rheumatology/       # ra / sle / osteoporosis / oa / spa / systemic_sclerosis / vasculitis
 │   ├── neurology/          # stroke / movement_disorders / dementia / epilepsy / headache_pain
-│   │                       # sleep_disorders / mood_behavior / dizziness / consciousness / 等 20 个
+│   │                       # sleep_disorders / mood_behavior / 等
 │   ├── oncology/           # lung_cancer / gi_cancer / breast_cancer / gu_cancer
-│   │                       # tumor_complications / tumor_treatment_principles / 等 9 个
+│   │                       # tumor_complications / tumor_treatment_principles / 等
 │   ├── bone_mineral/       # osteoporosis / mineral_disorders / metabolic_bone
 │   ├── geriatrics/         # elderly_care
 │   ├── palliative/         # palliative_care
@@ -98,7 +102,7 @@ pip install -r requirements.txt
 ## 运行 Eval
 
 ```bash
-# in-scope 全量 eval（patient 模式，约 15 分钟）
+# in-scope 全量 eval（patient 模式，约 50 分钟，147 题）
 ./bin/eval.sh
 
 # doctor 模式 eval
