@@ -9,7 +9,7 @@ ROOT_DIR="$(dirname "$SCRIPT_DIR")"
 
 LIMIT=999
 FILTER_ID=""
-JUDGE_MODEL="deepseek-chat"
+JUDGE_MODEL="${JUDGE_MODEL:-deepseek-v4-flash}"
 EVAL_MODE="patient"
 
 while [[ $# -gt 0 ]]; do

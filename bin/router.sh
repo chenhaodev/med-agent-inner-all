@@ -272,7 +272,11 @@ fi
 # ─── DeepSeek 兜底分类 ──────────────────────────────────────
 if [[ ${#matched[@]} -eq 0 ]]; then
   if [[ -f "$ROOT_DIR/.env" ]]; then
+    # set -a：自动导出 source 进来的变量，使下方 python3 -c 子进程
+    # 能通过 os.environ 读到 DEEPSEEK_MODEL / DEEPSEEK_API_KEY
+    set -a
     source "$ROOT_DIR/.env" 2>/dev/null || true
+    set +a
   fi
 
   if [[ -n "${DEEPSEEK_API_KEY:-}" ]]; then

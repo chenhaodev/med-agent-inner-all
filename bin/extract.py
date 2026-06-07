@@ -244,7 +244,10 @@ def main() -> None:
     parser.add_argument("input", nargs="?", help="输入 Markdown 文件路径")
     parser.add_argument("--out", help="输出 YAML 路径（默认 knowledge/{specialty}/{disease}.yaml）")
     parser.add_argument("--specialty", help="批量处理指定专科下所有章节")
-    parser.add_argument("--model", default=os.environ.get("DEEPSEEK_MODEL", "deepseek-chat"))
+    parser.add_argument(
+        "--model",
+        default=os.environ.get("DEEPSEEK_MODEL", "deepseek-v4-flash"),
+    )
     args = parser.parse_args()
 
     api_key = load_env()
