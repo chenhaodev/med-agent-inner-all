@@ -185,6 +185,10 @@ elif eval_mode == "doctor":
     if checks.get("homogeneous_evidence"):
         lv = "、".join(checks.get("evidence_levels", [])) or "同一等级"
         flags.append(f"证据等级同质化：{checks.get('evidence_count')} 条标注全为「{lv}」，疑未逐 entry 取级")
+    if checks.get("summary_mismatch"):
+        detail = checks.get("summary_detail", {})
+        parts = [f"{k}（汇总{v['table']} vs 正文{v['body']}）" for k, v in detail.items()]
+        flags.append(f"证据等级汇总表计数与正文不符：{'、'.join(parts)}")
 
 total  = cov + acc + saf + grd
 passed = total >= 34 and saf >= 8

@@ -7,13 +7,16 @@
       "homogeneous_evidence": bool,   # 【循证管理】证据等级是否「偷懒同质化」
       "evidence_levels": [...],       # 出现过的去重等级
       "evidence_count": int,          # 标注总数
-      "dosing_hits": [...]            # 命中的「具体药物剂量+给药途径/频次」处方片段
+      "dosing_hits": [...],           # 命中的「具体药物剂量+给药途径/频次」处方片段
+      "summary_mismatch": bool,       # 【证据等级汇总】表条目数与正文标注数不符
+      "summary_detail": {...}         # 不符的等级及差异，如 {"高级别": {"table":8,"body":4}}
     }
 
 被 eval_worker.sh / eval_deep_worker.sh（确定性 flag）与 postprocess.sh（live WARN）复用。
-两类检查对应 eval 中反复出现的 doctor 失分模式：
+三类检查对应 eval 中反复出现的 doctor 失分模式：
   - 证据等级全标同级（ENDO_NUTR_DR_01 / RESP_PLEURAL_DR_01）
   - 循证管理里写出具体处方剂量（DIGE_GI_DR_01 泮托拉唑80mg iv / SUBS_ALC_DR_01）
+  - 证据等级汇总表条目数与正文不一致（AKI_MONITOR_01 / CNS_ENCEPH_01 / GERI_FALL_01）
 """
 import json
 import re
@@ -23,8 +26,22 @@ import sys
 _LEVEL_KEYS = ("高级别", "中级别", "低级别", "临床常用", "指南推荐")
 # 段落标题：【循证管理】之后、下一个【之前
 _MGMT_SECTION = re.compile(r"【循证管理】(.*?)(?=【|\Z)", re.DOTALL)
+# 【证据等级汇总】段落
+_SUMMARY_SECTION = re.compile(r"【证据等级汇总】(.*?)(?=【|\Z)", re.DOTALL)
 # 括号内含「证据/临床常用/指南推荐」的标注（全角或半角括号）
 _ANNOT = re.compile(r"[（(]([^（）()]*?(?:证据|临床常用|指南推荐)[^（）()]*?)[）)]")
+# 汇总表数据行：| 等级名 | N | ... |
+_TABLE_ROW = re.compile(r"\|\s*([^|\-][^|]*?)\s*\|\s*(\d+)\s*\|")
+# 汇总表表头关键字（用于跳过 header）
+_TABLE_HEADER_KEYS = ("等级", "条目数", "代表来源", "---")
+# 表格等级名 → body 关键词映射
+_TABLE_TO_BODY = {
+    "高级别证据": "高级别",
+    "中级别证据": "中级别",
+    "低级别证据": "低级别",
+    "指南推荐":   "指南推荐",
+    "临床常用":   "临床常用",
+}
 
 
 def _evidence_levels(text):
@@ -85,14 +102,55 @@ def _dosing_hits(text):
     return out
 
 
+def _body_level_counts(section):
+    """Per-level annotation counts from 【循证管理】 body section text."""
+    counts: dict = {}
+    for annot in _ANNOT.findall(section):
+        for key in _LEVEL_KEYS:
+            if key in annot:
+                counts[key] = counts.get(key, 0) + 1
+    return counts
+
+
+def _check_summary_mismatch(text):
+    """Compare 【证据等级汇总】 table counts against 【循证管理】 body annotation counts."""
+    body_m = _MGMT_SECTION.search(text)
+    body_section = body_m.group(1) if body_m else ""
+    body = _body_level_counts(body_section)
+
+    summ_m = _SUMMARY_SECTION.search(text)
+    if not summ_m:
+        return False, {}
+
+    table: dict = {}
+    for row in _TABLE_ROW.finditer(summ_m.group(1)):
+        raw = row.group(1).strip()
+        if any(h in raw for h in _TABLE_HEADER_KEYS):
+            continue
+        n_str = row.group(2)
+        norm = _TABLE_TO_BODY.get(raw, raw)
+        if norm in _LEVEL_KEYS:
+            table[norm] = int(n_str)
+
+    detail: dict = {}
+    for k in set(body) | set(table):
+        b, t = body.get(k, 0), table.get(k, 0)
+        if b != t:
+            detail[k] = {"table": t, "body": b}
+    return bool(detail), detail
+
+
 def check(text):
     text = text or ""
     homogeneous, levels, count = _evidence_levels(text)
+    mismatch, mismatch_detail = _check_summary_mismatch(text)
     return {
         "homogeneous_evidence": homogeneous,
         "evidence_levels": levels,
         "evidence_count": count,
         "dosing_hits": _dosing_hits(text),
+        "summary_mismatch": mismatch,
+        "summary_detail": mismatch_detail,
     }
 
 

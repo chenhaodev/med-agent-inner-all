@@ -139,6 +139,32 @@ print('\n'.join(lines))
 ${GL_CONTENT}" || true
       done
     fi
+
+    # 层 3：患者照护安全底线（仅 patient 模式，与教材知识物理隔离）
+    if [[ "$MODE" == "patient" ]]; then
+      FLOOR_FILE="$KNOWLEDGE_DIR/${SPECIALTY}/safety_floor/${DISEASE}.yaml"
+      if [[ -f "$FLOOR_FILE" ]]; then
+        FLOOR_CONTENT=$(python3 -c "
+import yaml, sys
+with open(sys.argv[1]) as f:
+    data = yaml.safe_load(f)
+lines = []
+lines.append(f'## 患者照护安全底线：{data.get(\"safety_floor_name\", \"\")}')
+lines.append(f'※ 非教材页码来源，系通用患者照护安全网——在「日常该怎么做」或「什么情况要就医」中酌情纳入')
+for entry in data.get('entries', []):
+    lines.append(f'')
+    lines.append(f'### {entry.get(\"title\", \"\")}')
+    for item in entry.get('items', []):
+        lines.append(f'- ⚠ 必须告知：{item}')
+print('\n'.join(lines))
+" "$FLOOR_FILE" 2>/dev/null) && \
+        SECTIONS_CONTENT="${SECTIONS_CONTENT}
+
+---
+
+${FLOOR_CONTENT}" || true
+      fi
+    fi
   done
 fi  # end NAIVE == false
 
