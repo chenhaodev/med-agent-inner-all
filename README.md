@@ -212,6 +212,8 @@ knowledge/cardiology/guidelines/心衰指南2024.yaml
 
 ## Eval 指标（v3 最新结果，Tier3 扩展后）
 
+> 版本变更与发布说明见 [CHANGELOG.md](CHANGELOG.md)。
+
 | 测试集 | 模式 | 题数 | 指标 | 结果 |
 |--------|------|------|------|------|
 | in-scope | patient | 112 | 平均分 / 40 | 38.9 ✓ |
