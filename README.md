@@ -22,7 +22,11 @@
 cp .env.example .env                            # 填入 DEEPSEEK_API_KEY
 ./bin/ask.sh "我爸有高血压，平时饮食要注意什么？"
 ./bin/ask.sh --mode doctor "高血压血压控制目标？"
+./bin/ask.sh --stream "高血压饮食建议？"        # 流式输出（--stream 默认关）
 ```
+
+重复提问走缓存（`.cache/deepseek/`），响应从 ~1.9s 降至 0.02s。
+清理缓存：`rm -rf .cache/`
 
 ---
 
@@ -55,4 +59,6 @@ docs/       分受众文档（见上表）
 - [docs/roadmap.md](docs/roadmap.md) — 下步计划与已知问题
 - [docs/quality-method.md](docs/quality-method.md) — 质量方法论（分析+研究驱动的主动缺陷发现）
 - [docs/knowledge.md](docs/knowledge.md) — 知识库维护、路由表、eval 方法、目录结构详解
-- 依赖：`bash ≥4.0` / `python3 ≥3.8` / `curl` / `pyyaml` / `pymupdf` / DeepSeek API key
+- 依赖：`bash ≥3.2` / `python3 ≥3.8` / `curl` / `pyyaml` / `pymupdf` / DeepSeek API key
+- Eval 并发：`EVAL_CONCURRENCY=8`（默认）；`./bin/eval.sh --concurrency 16 --mode both` 可调
+- Eval 缓存：生成默认 `--no-cache`（保证新鲜度）；`--cache` 开启；`NO_CACHE=1` 全局绕过

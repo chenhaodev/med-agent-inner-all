@@ -8,6 +8,7 @@
 #   --deep          原子声明 grep 核验 + 必要时回炉自纠（降低幻觉率）
 #   --mode patient|doctor  受众模式（默认 patient）
 #   --domain XXX    强制指定领域，跳过自动路由（例如 --domain cardiology:hypertension）
+#   --stream        流式输出（增量 token 实时显示，默认关）
 
 set -euo pipefail
 
@@ -17,6 +18,7 @@ ROOT_DIR="$(dirname "$SCRIPT_DIR")"
 # ─── 参数解析 ────────────────────────────────────────────────
 DEBUG=false
 DEEP=false
+STREAM=false
 MODE="patient"
 FORCE_DOMAIN=""
 QUESTION=""
@@ -29,6 +31,10 @@ while [[ $# -gt 0 ]]; do
       ;;
     --deep)
       DEEP=true
+      shift
+      ;;
+    --stream)
+      STREAM=true
       shift
       ;;
     --mode)
@@ -53,6 +59,7 @@ if [[ -z "$QUESTION" ]]; then
   echo "可选参数：" >&2
   echo "  --debug                   打印路由调试信息" >&2
   echo "  --deep                    开启原子声明核验 + 回炉自纠（降低幻觉率）" >&2
+  echo "  --stream                  流式输出（增量 token 实时显示，默认关）" >&2
   echo "  --mode patient|doctor     受众模式（默认 patient）" >&2
   echo "  --domain DOMAIN           强制使用指定领域（跳过自动路由）" >&2
   exit 1
@@ -123,12 +130,21 @@ if [[ "$DEBUG" == "true" ]]; then
 fi
 
 # ─── 3. 调用 DeepSeek API ────────────────────────────────────
-[[ "$DEBUG" == "true" ]] && echo "[DEBUG] 正在调用 DeepSeek API..." >&2
+[[ "$DEBUG" == "true" ]] && echo "[DEBUG] 正在调用 DeepSeek API (stream=${STREAM})..." >&2
 
-RESPONSE=$(echo "$PAYLOAD" | "$SCRIPT_DIR/call_deepseek.sh") || {
-  echo "错误：API 调用失败。" >&2
-  exit 1
-}
+if [[ "$STREAM" == "true" ]]; then
+  # 流式路径：增量 token 实时打到 stderr；全文从 stdout 捕获供后处理
+  echo "" >&2
+  RESPONSE=$(echo "$PAYLOAD" | "$SCRIPT_DIR/call_deepseek_stream.sh") || {
+    echo "错误：流式 API 调用失败。" >&2
+    exit 1
+  }
+else
+  RESPONSE=$(echo "$PAYLOAD" | "$SCRIPT_DIR/call_deepseek.sh") || {
+    echo "错误：API 调用失败。" >&2
+    exit 1
+  }
+fi
 
 # ─── 3b. --deep: 原子声明 grep 核验 + 必要时回炉 ────────────
 if [[ "$DEEP" == "true" ]]; then
@@ -216,8 +232,14 @@ VALIDATED=$(echo "$RESPONSE" | "$SCRIPT_DIR/postprocess.sh" --mode "$MODE") || {
 }
 
 # ─── 5. 输出结果 ─────────────────────────────────────────────
-echo ""
-echo "═══════════════════════════════════════════════════════"
-echo "$VALIDATED"
-echo "═══════════════════════════════════════════════════════"
-echo ""
+if [[ "$STREAM" == "true" ]]; then
+  # 流式模式：正文已在步骤 3 实时流出；这里只补结构校验提示
+  # （postprocess 的 ⚠️ 已通过 stderr 警告打出；无需重新输出正文）
+  :
+else
+  echo ""
+  echo "═══════════════════════════════════════════════════════"
+  echo "$VALIDATED"
+  echo "═══════════════════════════════════════════════════════"
+  echo ""
+fi

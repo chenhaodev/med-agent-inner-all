@@ -11,6 +11,9 @@ eval/results/*.json
 eval/results/*.txt
 !eval/results/.gitkeep
 
+# 响应缓存（内容寻址，可重生成）
+.cache/
+
 # Python
 __pycache__/
 *.pyc
