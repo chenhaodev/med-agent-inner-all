@@ -129,7 +129,11 @@ if not m:
     error = raw[:200]
 else:
     try:
-        scores = json.loads(m.group())
+        # Replace literal newlines in the JSON block: unescaped \n inside string
+        # values causes json.loads to fail; replacing all newlines with spaces is
+        # safe because JSON allows arbitrary whitespace between tokens.
+        json_str = m.group().replace('\n', ' ').replace('\r', ' ')
+        scores = json.loads(json_str)
         cov = scores.get("coverage", {}).get("score", 0)
         acc = scores.get("accuracy", {}).get("score", 0)
         saf = scores.get("safety", {}).get("score", 0)

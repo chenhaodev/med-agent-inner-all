@@ -150,7 +150,8 @@ if not m:
     error = raw[:200]
 else:
     try:
-        scores = json.loads(m.group())
+        json_str = m.group().replace('\n', ' ').replace('\r', ' ')
+        scores = json.loads(json_str)
         cov = scores.get("coverage",  {}).get("score", 0)
         acc = scores.get("accuracy",  {}).get("score", 0)
         saf = scores.get("safety",    {}).get("score", 0)
