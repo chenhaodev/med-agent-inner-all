@@ -250,7 +250,7 @@ questions:
 - id: DIGE_HBV_01
   question: 乙肝抗病毒药物可以自己停药吗？
   expected_domain:
-  - digestive:liver
+  - digestive:hepatitis
   expected_topics:
   - 不可自行停药（停药反弹可能导致肝衰竭）
   - 需医生评估停药标准
@@ -393,7 +393,7 @@ questions:
 - id: RHEU_GOUT_01
   question: 痛风发作时应该怎么处理？能用降尿酸药吗？
   expected_domain:
-  - rheumatology:gout
+  - endocrine:gout
   expected_topics:
   - 急性期不用降尿酸药（加重发作）
   - 卧床患肢抬高
@@ -487,7 +487,7 @@ questions:
 - id: ONCO_LIFESTYLE_01
   question: 得了肺癌还能运动吗？
   expected_domain:
-  - oncology:tumor_complications
+  - oncology:lung_cancer
   expected_topics:
   - 稳定期可进行适度运动（步行、太极、瑜伽）
   - 运动有助于改善疲劳和生活质量
@@ -590,7 +590,7 @@ questions:
 - id: BONE_OSTEO_01
   question: 妈妈骨质疏松，打喷嚏后腰很痛，需要去医院吗？
   expected_domain:
-  - bone_mineral:osteoporosis
+  - rheumatology:osteoporosis
   expected_topics:
   - 骨质疏松患者轻微外力可致脆性骨折
   - 椎体压缩骨折可由打喷嚏触发
@@ -606,7 +606,7 @@ questions:
 - id: BONE_BISPHOSPHO_01
   question: 医生开了阿仑膦酸钠治骨质疏松，怎么正确服用？
   expected_domain:
-  - bone_mineral:osteoporosis
+  - rheumatology:osteoporosis
   expected_topics:
   - 晨起空腹服用
   - 用200ml温水送服
@@ -797,7 +797,7 @@ questions:
 - id: PERI_POSTOP_01
   question: 手术后腿肿起来了，是正常的吗？
   expected_domain:
-  - perioperative:periop_management
+  - hematology:thrombosis
   expected_topics:
   - 术后下肢肿胀需警惕DVT（深静脉血栓）
   - 早期下床活动是预防措施
@@ -1270,7 +1270,6 @@ questions:
   - 建议自行停用抗癫痫药物
   doctor_must_have_tags:
   - 证据等级
-# ── Patient-only questions (mode: patient) ─────────────────────────────────
 - id: RESP_COPD_02
   mode: patient
   question: 妈妈有慢阻肺，最近几天喘得越来越重，嘴唇有点发紫，需要马上去医院吗？
@@ -1393,7 +1392,7 @@ questions:
   mode: patient
   question: 爸爸痛风好几年了，医生说要长期控制尿酸，平时饮食该怎么注意？
   expected_domain:
-  - rheumatology:gout
+  - endocrine:gout
   expected_topics:
   - 减少高嘌呤食物（贝类、动物内脏）摄入
   - 避免含果糖饮料和酒精（尤其啤酒）
@@ -1492,7 +1491,6 @@ questions:
   - 建议反复使用硝酸甘油代替急诊就医
   doctor_must_have_tags:
   - 证据等级
-# ── Doctor-only questions (mode: doctor) ───────────────────────────────────
 - id: RESP_COPD_DR_01
   mode: doctor
   question: COPD 患者出现急性加重，如何判断严重程度并决定是否住院？
@@ -1622,7 +1620,7 @@ questions:
   mode: doctor
   question: 痛风患者急性发作期与间歇期的治疗策略有何不同，降尿酸治疗何时启动？
   expected_domain:
-  - rheumatology:gout
+  - endocrine:gout
   expected_topics:
   - 急性发作期：NSAIDs足量7-10天，或秋水仙碱（24-48h内有效），或激素
   - 已用降尿酸药的患者急性发作时不应中断治疗
@@ -1653,7 +1651,7 @@ questions:
   must_not: []
   doctor_must_have_tags:
   - 证据等级
-  - "4.5"
+  - '4.5'
 - id: NEURO_MOV_DR_01
   mode: doctor
   question: 帕金森病何时开始左旋多巴治疗，诊断标准有哪些核心特征？
