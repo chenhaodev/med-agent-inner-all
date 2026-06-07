@@ -1,8 +1,23 @@
+# 源数据与生成物（本机私有，不分发）
 pdfs/
 source/
+example/
+
+# 密钥
 .env
+
+# eval 结果（可重生成的测试产物；保留目录 + 基线参考）
 eval/results/*.json
 eval/results/*.txt
-example/
+!eval/results/.gitkeep
+
+# Python
 __pycache__/
 *.pyc
+
+# 系统 / 编辑器
+.DS_Store
+
+# Claude Code 本地配置与运行时
+.claude/settings.local.json
+.claude/*.lock
