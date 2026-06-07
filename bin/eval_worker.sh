@@ -89,7 +89,7 @@ judge_input = {
 payload = {
     "model": os.environ["JUDGE_MODEL"],
     "temperature": 0,
-    "max_tokens": 1500,
+    "max_tokens": 4000,
     "messages": [
         {"role": "system", "content": os.environ["JUDGE_SYSTEM"]},
         {"role": "user", "content": json.dumps(judge_input, ensure_ascii=False)},
