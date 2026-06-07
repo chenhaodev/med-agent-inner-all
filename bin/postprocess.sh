@@ -79,6 +79,26 @@ if [[ "$IS_OOB_RESPONSE" == "false" ]]; then
   fi
 fi
 
+# ─── doctor 确定性静态检查（处方剂量泄漏 / 证据等级同质化）──
+# 仅 stderr 警告，不改变正文与退出码（不阻断 live 回答）
+if [[ "$MODE" == "doctor" ]]; then
+  DC=$(printf '%s' "$RESPONSE" | python3 "$SCRIPT_DIR/doctor_checks.py" 2>/dev/null || echo "{}")
+  DC_WARN=$(DC="$DC" python3 - <<'PYEOF' 2>/dev/null || true
+import json, os
+c = json.loads(os.environ.get("DC", "") or "{}")
+hits = c.get("dosing_hits") or []
+if hits:
+    print(f"处方剂量泄漏（doctor 应给药物类别/原则，禁具体剂量+途径/频次）：{hits[0]}")
+if c.get("homogeneous_evidence"):
+    lv = "、".join(c.get("evidence_levels", [])) or "同一等级"
+    print(f"证据等级同质化：{c.get('evidence_count')} 条标注全为「{lv}」，请逐 entry 取级")
+PYEOF
+)
+  [[ -n "$DC_WARN" ]] && while IFS= read -r _w; do
+    [[ -n "$_w" ]] && echo "⚠️  $_w" >&2
+  done <<< "$DC_WARN"
+fi
+
 # ─── 输出处理 ────────────────────────────────────────────────
 if [[ ${#MISSING[@]} -eq 0 ]]; then
   echo "$RESPONSE"

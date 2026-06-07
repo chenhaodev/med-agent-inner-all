@@ -3,10 +3,14 @@
 # 用法：./bin/ask.sh "问题文本"
 #       ./bin/ask.sh "我爸有高血压，平时饮食要注意什么？"
 #
+# 执行模式（速度 ↔ 质量，二选一；默认 Fast）：
+#   --fast          快速模式（默认）：单次生成，最低延迟
+#   --accurate      精确模式：原子声明 grep 核验 + 必要时回炉自纠（降幻觉，~2-3 倍调用）
+#   --deep          --accurate 的别名（向后兼容）
+#
 # 可选参数：
 #   --debug         打印路由和 payload 信息（写入 stderr）
-#   --deep          原子声明 grep 核验 + 必要时回炉自纠（降低幻觉率）
-#   --mode patient|doctor  受众模式（默认 patient）
+#   --mode patient|doctor  受众模式（默认 patient；与执行模式正交）
 #   --domain XXX    强制指定领域，跳过自动路由（例如 --domain cardiology:hypertension）
 #   --stream        流式输出（增量 token 实时显示，默认关）
 
@@ -29,8 +33,12 @@ while [[ $# -gt 0 ]]; do
       DEBUG=true
       shift
       ;;
-    --deep)
+    --deep|--accurate)
       DEEP=true
+      shift
+      ;;
+    --fast)
+      DEEP=false
       shift
       ;;
     --stream)
@@ -56,9 +64,12 @@ if [[ -z "$QUESTION" ]]; then
   echo "用法：./bin/ask.sh \"问题文本\"" >&2
   echo "示例：./bin/ask.sh \"我爸有高血压，平时饮食要注意什么？\"" >&2
   echo "" >&2
+  echo "执行模式（默认 Fast）：" >&2
+  echo "  --fast                    快速模式（默认）：单次生成，最低延迟" >&2
+  echo "  --accurate                精确模式：原子声明核验 + 回炉自纠（降幻觉，更慢）" >&2
+  echo "" >&2
   echo "可选参数：" >&2
   echo "  --debug                   打印路由调试信息" >&2
-  echo "  --deep                    开启原子声明核验 + 回炉自纠（降低幻觉率）" >&2
   echo "  --stream                  流式输出（增量 token 实时显示，默认关）" >&2
   echo "  --mode patient|doctor     受众模式（默认 patient）" >&2
   echo "  --domain DOMAIN           强制使用指定领域（跳过自动路由）" >&2

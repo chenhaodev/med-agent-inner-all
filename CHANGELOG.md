@@ -2,6 +2,49 @@
 
 本项目所有重要变更记录于此。格式参考 [Keep a Changelog](https://keepachangelog.com/zh-CN/)。
 
+## [v3.2] - 2026-06-07 — 算法质量修复 + Fast/Accurate 双模式
+
+### 指标（2026-06-07 全量重跑）
+
+| 测试集 | 模式 | 题数 | 通过率（≥34/40） | 平均分 | 溯源性 | error |
+|--------|------|------|------------------|--------|--------|-------|
+| in-scope | patient | 112 | **92.0%** | 38.3/40 | 10.0 | 0 (←1) |
+| in-scope | doctor  | 110 | **90.9%** | 38.1/40 | 9.8  | 0 (←1) |
+| OOB | patient/doctor | — | 拦截 100% | — | — | — |
+
+两模式平均分均提升（37.9→38.3 / 38.1），doctor 通过率 89.1%→90.9%，
+判官解析失败导致的 0/40 已清零（error 1→0）。
+
+### 新增 (Added)
+
+- **`bin/parse_judge.py`** — 健壮解析判官打分：括号配平提取 → 轻量修复 → 逐维正则兜底；
+  解析不可信时调用方以 `--no-cache` 重跑判官。修复 `ONCO_LIFESTYLE_01` 因判官 JSON
+  含未转义引号而被判 0/40 的工具链 bug（两 eval worker 复用）
+- **`bin/doctor_checks.py`** — doctor 回答确定性静态检查（零 API）：证据等级同质化、
+  处方剂量泄漏识别；被两 eval worker（flag）与 `postprocess.sh`（live WARN）复用
+
+### 变更 (Changed)
+
+- **`bin/ask.sh`**：新增 `--fast`（默认，单次生成）/ `--accurate`（核验+回炉，别名 `--deep`）
+  双执行模式；与 `--mode patient|doctor` 正交
+- **`prompts/output_schema_doctor.md`**：删除诱导模型把「计数核对…✓」算术写进正文的
+  few-shot 与指令（修 `DIGE_HBV`/`PALL_COMFORT`/`ENDO_NUTR` 的 acc=0）；强化禁止同质化；
+  处方红线加正/反例；红旗段加「禁忌药/急症处理必须纳入」安全底线
+- **`prompts/output_schema.md`**：patient 红旗段加「注入已写明的用药禁忌必须点名提醒」
+- **`bin/router.sh`**：癌痛/晚期肿瘤疼痛由 `oncology:tumor_complications`（无镇痛条目）
+  改投 `palliative:palliative_care`（镇痛阶梯+阿片安全，源页 1224）→ `ONCO_CANCER_PAIN_01`
+  接地 0→10、通过
+- **`bin/eval_worker.sh` / `bin/eval_deep_worker.sh`**：判分解析改用 `parse_judge.py`；
+  doctor 分支加 `doctor_checks.py` 的同质化 / 剂量提示（flag-only，安全分仍由判官裁定）
+
+### 已知 / 长尾 (Known)
+
+- OOB「推荐治疗音乐」类无关请求未被拦截（既有缺口，本次未触及 OOB 逻辑）
+- patient/doctor 覆盖度长尾（must_warn / expected_topics 缺漏，如 `RHEU_OSTEO` / `CARD_CHD`）
+  属既有知识深度缺口，按 roadmap 长尾延后
+
+---
+
 ## [v3.1] - 2026-06-07 — 执行速度优化 + eval judge 修复
 
 ### 指标（2026-06-07 全量重跑，含 generation max_tokens + P2 修复）
