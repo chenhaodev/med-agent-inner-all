@@ -40,7 +40,7 @@ QUESTION="$2"
 if [[ -f "$ROOT_DIR/.env" ]]; then
   source "$ROOT_DIR/.env" 2>/dev/null || true
 fi
-DEEPSEEK_MODEL="${DEEPSEEK_MODEL:-deepseek-chat}"
+DEEPSEEK_MODEL="${DEEPSEEK_MODEL:-deepseek-v4-flash}"
 
 # ─── 读取基础 prompt 文件（按 mode 选择）─────────────────────
 if [[ "$MODE" == "doctor" ]]; then

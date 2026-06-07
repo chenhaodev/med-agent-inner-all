@@ -13,7 +13,7 @@ if [[ -f "$ROOT_DIR/.env" ]]; then
 fi
 
 DEEPSEEK_API_KEY="${DEEPSEEK_API_KEY:-}"
-DEEPSEEK_MODEL="${DEEPSEEK_MODEL:-deepseek-chat}"
+DEEPSEEK_MODEL="${DEEPSEEK_MODEL:-deepseek-v4-flash}"
 DEEPSEEK_TIMEOUT="${DEEPSEEK_TIMEOUT:-60}"
 DEEPSEEK_MAX_RETRIES="${DEEPSEEK_MAX_RETRIES:-3}"
 API_URL="https://api.deepseek.com/v1/chat/completions"
