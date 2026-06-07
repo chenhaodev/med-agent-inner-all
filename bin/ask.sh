@@ -211,7 +211,7 @@ for c in d.get('claims', []):
 fi
 
 # ─── 4. 后处理：校验结构 ─────────────────────────────────────
-VALIDATED=$(echo "$RESPONSE" | "$SCRIPT_DIR/postprocess.sh") || {
+VALIDATED=$(echo "$RESPONSE" | "$SCRIPT_DIR/postprocess.sh" --mode "$MODE") || {
   VALIDATED="$RESPONSE"
 }
 

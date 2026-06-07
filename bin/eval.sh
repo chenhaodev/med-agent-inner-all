@@ -1,6 +1,16 @@
 #!/usr/bin/env bash
 # eval.sh — 全量评估脚本
 # 用法：./bin/eval.sh [--limit N] [--id QUESTION_ID] [--judge-model M]
+#
+# 注意：eval 测的是子管线（build_prompt | call_deepseek | judge）的模型质量，
+# 不是出厂产品。运行前必须通过三道静态门禁 + E2E 冒烟：
+#
+#   python3 bin/audit_routing.py   # 路由可达性
+#   python3 bin/audit_grounding.py # 证据接地可靠性
+#   python3 bin/audit_schema.py    # 契约一致性 + 横切传播完整性
+#   ./bin/smoke.sh                 # E2E 冒烟（ask.sh 双模式）
+#
+# 四者全 exit 0 后方可运行本脚本。
 
 set -euo pipefail
 

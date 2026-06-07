@@ -88,6 +88,54 @@ YAML 内容薄或空，导致模型回答缺乏具体临床细节，或根本没
 
 ---
 
+## 测试分层 doctrine
+
+**eval ≠ 出厂确认。** eval 测的是子管线（`build_prompt | call_deepseek | judge`）的模型质量，
+不是用户真正运行的 `ask.sh` 端到端行为。完整的质量保证分四层：
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  层 1：静态契约门禁（<2s，零 LLM，挂 CI/pre-commit）          │
+│  audit_routing.py + audit_grounding.py + audit_schema.py       │
+│  捕获：契约漂移 / 路由死链 / 横切维度传播缺口                  │
+├─────────────────────────────────────────────────────────────────┤
+│  层 2：E2E 冒烟（bin/smoke.sh）                                │
+│  直接跑 ask.sh，覆盖被 eval 跳过的 wrapper 层                  │
+│  断言：退出码 0；stderr 无 ⚠️；5 段名全出现；边框在            │
+│  输入取自 README 快速上手，使文档不能腐烂                       │
+├─────────────────────────────────────────────────────────────────┤
+│  层 3：eval（eval.sh，~30min，LLM judge）                      │
+│  度量子管线的模型质量（覆盖 / 准确 / 安全 / 溯源）             │
+│  注意：eval 绿灯 ≠ ask.sh 正常工作                             │
+├─────────────────────────────────────────────────────────────────┤
+│  层 4：人工抽检（按需）                                        │
+│  对高风险输出 / 新病种 / 重要变更后的人眼验证                   │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+**强制执行顺序**（层 1 通过 → 层 2 通过 → 才可运行层 3）：
+
+```bash
+python3 bin/audit_routing.py   # 路由可达性（已建）
+python3 bin/audit_grounding.py # 证据接地可靠性（已建）
+python3 bin/audit_schema.py    # 契约一致性 + 横切传播（已建）
+./bin/smoke.sh                 # E2E 冒烟（已建）
+# 四者全 exit 0 → 方可运行 eval.sh
+```
+
+## 横切维度变更协议
+
+**任何新增或修改横切维度（mode / model / locale / …）或共享契约（段式 schema）时：**
+
+1. **枚举全部消费者**：grep 仓库找到所有引用该维度/契约的文件
+2. **一次性全部更新**：不允许"应该都改到了"——未更新 = FAIL
+3. **写静态完整性检查**：把消费者清单固化为 `audit_schema.py` [S2] 或类似检查
+4. **E2E 冒烟验证**：变更后跑 `smoke.sh`，确认 ask.sh 端到端无 ⚠️
+
+**前车之鉴**：
+- `deepseek-chat → v4-flash` 迁移：改了 3 文件，漏了 `.env.example` / `eval.sh` / `eval_deep.sh` / `extract.py`（同类 4 处）
+- doctor 模式添加：postprocess.sh 未跟上（5/6 槽更新，1 处孤儿）—— `audit_schema.py` [S1] 会在提交期拦截此类漂移
+
 ## 两引擎 + eval 重定位
 
 ```
@@ -96,18 +144,19 @@ YAML 内容薄或空，导致模型回答缺乏具体临床细节，或根本没
                          + PubMed MCP)
 
 · 零 LLM               · 每病种推导应有           · 仅测残差
-· <30s 全库扫完          核心事实集                · 通过三门禁
+· <30s 全库扫完          核心事实集                · 通过四门禁
 · 挂 CI/pre-commit      · diff 出内容缺口          后才运行
 · 捕获 I/III 类         · 捕获 II 类              · 度量而非发现
 ```
 
-**eval 前强制门禁（目标态）**：
+**eval 前强制门禁（当前态）**：
 
 ```bash
 python3 bin/audit_routing.py   # 路由可达性（已建）
-python3 bin/audit_grounding.py # 证据接地可靠性（本次建）
-python3 bin/audit_coverage.py  # 知识面完整性（队列 D）
-# 三者全 exit 0 → 方可运行 eval.sh
+python3 bin/audit_grounding.py # 证据接地可靠性（已建）
+python3 bin/audit_schema.py    # 契约一致性 + 横切传播（已建）
+./bin/smoke.sh                 # E2E 冒烟（已建）
+# 四者全 exit 0 → 方可运行 eval.sh
 ```
 
 ---

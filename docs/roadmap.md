@@ -26,8 +26,11 @@ README / CHANGELOG 公布的 v3 指标（patient 38.9·99.1% / doctor 37.2·88.1
 ## P0 — 重跑 eval，刷新真实 v3 指标
 
 ```bash
-python3 bin/audit_routing.py        # 门禁：0 ERROR / 0 WARN 才继续
-./bin/eval.sh --mode both           # ~30 min
+python3 bin/audit_routing.py   # 门禁：0 ERROR / 0 WARN 才继续
+python3 bin/audit_grounding.py # 门禁：G1/G2 PASS
+python3 bin/audit_schema.py    # 门禁：S1/S2 PASS
+./bin/smoke.sh                 # E2E 冒烟：patient + doctor + OOB 全 PASS
+./bin/eval.sh --mode both      # ~30 min
 ```
 
 完成后用真实数字更新 README「性能指标」表与 CHANGELOG v3「指标」表。
