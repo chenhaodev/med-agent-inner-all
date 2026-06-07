@@ -1581,7 +1581,7 @@ questions:
   must_not: []
   doctor_must_have_tags:
   - 证据等级
-  - 转铁蛋白
+  - 铁蛋白
 - id: RHEU_RA_DR_01
   mode: doctor
   question: 类风湿关节炎的治疗策略是什么，甲氨蝶呤在 RA 治疗中处于什么地位？
@@ -1653,7 +1653,7 @@ questions:
   must_not: []
   doctor_must_have_tags:
   - 证据等级
-  - 具体时间窗数值
+  - "4.5"
 - id: NEURO_MOV_DR_01
   mode: doctor
   question: 帕金森病何时开始左旋多巴治疗，诊断标准有哪些核心特征？
@@ -1671,7 +1671,7 @@ questions:
   must_not: []
   doctor_must_have_tags:
   - 证据等级
-  - 诊断标准
+  - 运动迟缓
 - id: NEURO_DEM_DR_01
   mode: doctor
   question: 阿尔茨海默病的诊断标准是什么，胆碱酯酶抑制剂的适应证和疗效如何？
@@ -1707,7 +1707,7 @@ questions:
   must_not: []
   doctor_must_have_tags:
   - 证据等级
-  - 具体用药方案
+  - 苯二氮䓬
 - id: CARD_CAD_DR_01
   mode: doctor
   question: 稳定性心绞痛患者的抗心绞痛药物有哪些选择，硝酸甘油、β受体阻滞剂和钙通道阻滞剂各有何机制？
@@ -1725,7 +1725,7 @@ questions:
   must_not: []
   doctor_must_have_tags:
   - 证据等级
-  - 药物选择依据
+  - β受体阻滞剂
 - id: DIGE_HEPATITIS_01
   mode: patient
   question: 家人确诊慢性乙肝，日常生活中家属如何防护，患者本人需要注意什么？
