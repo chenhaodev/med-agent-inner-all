@@ -73,21 +73,12 @@ python3 bin/audit_schema.py              # 门禁：S1/S2 PASS
 
 ---
 
-## P3 — 仓库整理（低风险）
+## ✓ P3 完成 — 仓库整理
 
-5 个一次性脚手架脚本，无任何运行时/文档引用，~50KB：
-
-| 脚本 | 用途（历史） |
-|------|------|
-| `bin/apply_gap_entries.py` (27KB) | 批量补知识缺口条目 |
-| `bin/fill_gaps.py` (14KB) | 知识缺口填充 |
-| `bin/remap_source_page.py` | source_page 批量重映射 |
-| `bin/audit_eval_gold.py` | gold 集旧版审计（已被 audit_routing 取代？） |
-| `bin/build_mode_gold.py` | 双模式 gold 生成 |
-
-> `bin/build_chapter_map.py` 被 `ingest.py` 引用，**保留**。
-
-建议归档到 `scripts/archive/`（保留可复现性）或直接删除（git 历史已留存）。
+5 个一次性脚手架脚本（~62KB，无运行时引用）已归档到 `scripts/archive/`
+（见该目录 README）：`apply_gap_entries` / `fill_gaps` / `remap_source_page` /
+`audit_eval_gold` / `build_mode_gold`。`bin/build_chapter_map.py` 被 `ingest.py`
+引用，保留在 bin/。
 
 ---
 
