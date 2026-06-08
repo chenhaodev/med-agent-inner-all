@@ -34,11 +34,25 @@ canonical run：`eval/results/2026-06-08_11-36-07_patient.json` /
     医生版（`must_warn: []`）——书外患教警告强塞 doctor 输出 = 制造幻觉且违反 doctor schema 禁患教规则
   - **B3-patient**：`HIV_DAILY_01` 改 `mode: patient`，去 `doctor_must_have_tags`，配套层3 安全底线
 
+### 收口补丁（同日 2026-06-08，headline 指标不变）
+
+- **`NEURO_DEM_DR_01` 持续失败已解**（三跑皆 S=7 → 本跑 40/40，S 7→10、grounding 仍 10）：
+  非幻觉而是覆盖漏说——按 triage 修。(1) gold must_warn 去掉书外示例「甲状腺功能减退」，
+  改锚定教材实写的「血清电解质/维生素B12/颅脑影像排除可治疗病因」（dementia.yaml 156–157 行）；
+  (2) `output_schema_doctor.md` 加受控护栏 (f)：**仅当注入片段写明**「确诊前需排除可逆/可治疗病因」
+  时强制点名该排除步骤（命中面仅 dementia/anemia 2 病种）。连带 `HEMA_ANEMIA_DR_01` 33→38。
+- **`bin/audit_routing.py` 新增 `[MUSTWARN]` shift-left 检查**：每条 gold `must_warn` 在
+  「实际路由 ∪ expected_domain」的层1病种 YAML + 层3 安全底线语料中找接地（疾病特异 2-字 CJK
+  片段或字母数字 token，通用照护连接词不计）；全不命中 → WARN（候选 B2 回填 / B3 放宽或落安全底线）。
+  把「gold 强求书外警告 = 诱发幻觉」这一失败类前移为零 API 静态信号，仅 WARN 不改退出码。
+  当前残留 3 条（「不可自行停药」无层3 floor，待裁）。
+
 ### 已知 / 长尾 (Known)
 
-- doctor 通过率含 LLM 判官噪声（每跑约 6–10 题在 `S≥8/total≥34` 临界翻转，**平均分稳定 ~38.4**）；
-  目标已重定为「0 可复现幻觉 + 平均 ≥38」，不追逐二元通过率的临界题
-- `NEURO_DEM_DR_01`（S=7）为唯一三跑皆失的持续 doctor 失败，留待下轮 triage
+- doctor 通过率含 LLM 判官噪声（每跑约 6–10 题在 `S≥8/total≥34` 临界翻转，**平均分稳定 ~38.2–38.4**）；
+  目标已重定为「0 可复现幻觉 + 平均 ≥38」，不追逐二元通过率的临界题。补丁跑（17:08）92.7%/38.2
+  为单跑噪声（7 道翻转均在改动盲区外、含 1 例判官解析 A=0），不据此回调 headline
+- 残留 doctor 失败多为判官噪声临界题（AKI_MONITOR/CARD_PERI 等满分题大幅摆动）
 - OOB「推荐治疗音乐」类无关请求拦截见 v3.3（已修）
 
 ---
