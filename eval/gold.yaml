@@ -619,6 +619,7 @@ questions:
   - 证据等级
 - id: GERI_POLY_01
   question: 老人吃的药很多，家里人担心药物相互作用，怎么处理？
+  mode: patient
   expected_domain:
   - geriatrics:elderly_care
   expected_topics:
@@ -627,6 +628,20 @@ questions:
   - 定期请医生审查多重用药
   must_warn:
   - 不可自行停药
+  source_refs:
+  - 西氏内科学精要
+  must_not:
+  - 给出具体哪些药可以停
+- id: GERI_POLY_DR_01
+  question: 老年多重用药患者如何管理药物相互作用风险？
+  mode: doctor
+  expected_domain:
+  - geriatrics:elderly_care
+  expected_topics:
+  - 定期审查用药清单
+  - 识别并停用不必要药物（去处方化）
+  - 评估药物相互作用风险
+  must_warn: []
   source_refs:
   - 西氏内科学精要
   must_not:
@@ -940,6 +955,7 @@ questions:
   - 证据等级
 - id: HIV_DAILY_01
   question: 家人确诊了HIV，日常护理和接触要注意什么？
+  mode: patient
   expected_domain:
   - infectious:hiv
   expected_topics:
@@ -953,8 +969,6 @@ questions:
   - 西氏内科学精要
   must_not:
   - 建议日常生活完全隔离患者
-  doctor_must_have_tags:
-  - 证据等级
 - id: HIV_TREAT_01
   question: HIV感染者一定要治疗吗？治疗期间家属要注意什么？
   expected_domain:

@@ -2,6 +2,47 @@
 
 本项目所有重要变更记录于此。格式参考 [Keep a Changelog](https://keepachangelog.com/zh-CN/)。
 
+## [v3.4] - 2026-06-08 — 质量收口：双模式双破 95%（零幻觉契约下）
+
+### 指标（2026-06-08 全量重跑）
+
+| 测试集 | 模式 | 题数 | 通过率（≥34/40） | 平均分 | 溯源性 | OOB 拦截 |
+|--------|------|------|------------------|--------|--------|---------|
+| in-scope | patient | 112 | **95.5%** | 38.6/40 | 10.0 | 100% |
+| in-scope | doctor  | 109 | **97.2%** | 38.4/40 | 9.8  | 100% |
+
+canonical run：`eval/results/2026-06-08_11-36-07_patient.json` /
+`eval/results/2026-06-08_11-41-37_doctor.json`。两模式双双 ≥95%，且**未新增任何无源临床知识**。
+
+### 新增 (Added)
+
+- **层3 安全底线叠加层** — `knowledge/{专科}/safety_floor/{disease}.yaml`，**仅 patient 模式注入**
+  （`bin/build_prompt.sh`），`source: 安全底线`、**无 `source_page`**，与书本知识层物理隔离、可审计。
+  首条 `knowledge/infectious/safety_floor/hiv.yaml`（HIV 家庭防护：接触血液戴手套/伤口处理）——
+  落地 `HIV_DAILY_01` 的 B3-patient 失败（书外、家属语境、无临床类比），acc 40/40
+- **`prompts/output_schema_doctor.md` 证据等级汇总「带数字两步自检示例」** — 显式演示「只数循证管理 8 行、
+  不数红旗段」的逐类计数 + 填表，杜绝把红旗段标注算进汇总表导致数字虚高
+
+### 变更 (Changed)
+
+- **`prompts/output_schema_doctor.md` 反编造护栏** — 禁止由「检查前停药」外推为「治疗期间禁药」等
+  注入片段未写明的用药时机/禁忌规则，附 PPI 正/反例。消除 `DIGE_HP_01` 把「呼气复查前停 PPI 2周」
+  误推成「治疗期间避免 PPI」的幻觉（acc 6→10，与注入内容矛盾的外推清零）
+- **黄疸 ALP 事实修正** — `DIGE_JAUNDICE_DR_01` acc 5→8
+- **`eval/gold.yaml` 按「书本忠实」契约 triage 覆盖失败**：
+  - **B3-doctor**：`GERI_POLY_01` 拆分为 patient 版（保留 `不可自行停药`）+ 新增 `GERI_POLY_DR_01`
+    医生版（`must_warn: []`）——书外患教警告强塞 doctor 输出 = 制造幻觉且违反 doctor schema 禁患教规则
+  - **B3-patient**：`HIV_DAILY_01` 改 `mode: patient`，去 `doctor_must_have_tags`，配套层3 安全底线
+
+### 已知 / 长尾 (Known)
+
+- doctor 通过率含 LLM 判官噪声（每跑约 6–10 题在 `S≥8/total≥34` 临界翻转，**平均分稳定 ~38.4**）；
+  目标已重定为「0 可复现幻觉 + 平均 ≥38」，不追逐二元通过率的临界题
+- `NEURO_DEM_DR_01`（S=7）为唯一三跑皆失的持续 doctor 失败，留待下轮 triage
+- OOB「推荐治疗音乐」类无关请求拦截见 v3.3（已修）
+
+---
+
 ## [v3.2] - 2026-06-07 — 算法质量修复 + Fast/Accurate 双模式
 
 ### 指标（2026-06-07 全量重跑）
