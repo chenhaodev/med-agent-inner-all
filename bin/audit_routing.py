@@ -122,11 +122,16 @@ def mustwarn_grounded(warning: str, corpus: str) -> bool:
 def audit_mustwarn(questions):
     """返回 warns：gold must_warn 在**实际路由 ∪ expected_domain** 的层1+层3 语料中**完全**找不到接地。
     输出 WARN（非 ERROR）——可能是 B2（书中有但 YAML 漏录，应按页码回填）或
-    B3（书中也无，doctor 应放宽 / patient 应落入安全底线）。人工对 PDF 终判。
-    语料取实际路由域与 gold expected_domain 的并集：实际路由是真正注入的知识（gold 可能陈旧，
-    如癌痛已由 router 改投 palliative），并集可避免 gold 标注过时导致的误报。"""
+    B3-doctor（书中也无，doctor 应拆分/放宽，否则强求书外患教 = 诱发幻觉且违反 doctor schema）。
+
+    **只查 doctor 可达题**（mode∈both/doctor）：patient 模式的书外安全底线警告（如「不可自行停药」
+    「接触血液戴手套」）是照护安全网的**刻意设计**（层3 safety_floor 的存在前提），并非违约——故
+    `mode: patient` 的题豁免本检查。真正的契约风险只在 doctor 输出里出现书外患教。
+    语料取实际路由域与 expected_domain 的并集，避免 gold 标注陈旧（如癌痛已改投 palliative）误报。"""
     warns = []
     for q in questions:
+        if q.get("mode") == "patient":   # patient 安全网书外警告属设计内豁免
+            continue
         warnings = q.get("must_warn", []) or []
         if not warnings:
             continue

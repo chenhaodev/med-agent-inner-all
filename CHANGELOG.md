@@ -45,7 +45,14 @@ canonical run：`eval/results/2026-06-08_11-36-07_patient.json` /
   「实际路由 ∪ expected_domain」的层1病种 YAML + 层3 安全底线语料中找接地（疾病特异 2-字 CJK
   片段或字母数字 token，通用照护连接词不计）；全不命中 → WARN（候选 B2 回填 / B3 放宽或落安全底线）。
   把「gold 强求书外警告 = 诱发幻觉」这一失败类前移为零 API 静态信号，仅 WARN 不改退出码。
-  当前残留 3 条（「不可自行停药」无层3 floor，待裁）。
+- **残留 3 条 MUSTWARN 全部裁定 + 检查按受众收敛**：3 条均为「不可自行停药」类书外安全网警告。
+  契约洞见——patient 模式的书外安全底线警告是照护安全网的**刻意设计**（层3 safety_floor 的存在前提），
+  并非违约；真正的契约风险只在 **doctor 输出**里出现书外患教。故：
+  (1) `INFEC_ATB_01`/`RHEU_RA_01`（患者口语问句，doctor 覆盖已由 `RHEU_RA_DR_01` 等专门题承担）
+  改 `mode: patient`；`GERI_POLY_01` 本会话已拆分为 patient；
+  (2) `[MUSTWARN]` 检查豁免 `mode: patient` 题，只查 doctor 可达题（both/doctor）。
+  (3) 顺手修 `ONCO_CANCER_PAIN_01` 陈旧 `expected_domain`（癌痛 v3.2 已改投 palliative）。
+  结果：`audit_routing.py` 三检查全绿（0 ROUTE ERROR/WARN、TAG 通过、0 MUSTWARN）。
 
 ### 已知 / 长尾 (Known)
 

@@ -344,6 +344,7 @@ questions:
   - 证据等级
 - id: INFEC_ATB_01
   question: 抗生素可以用几天感觉好了就停吗？
+  mode: patient
   expected_domain:
   - infectious:general
   expected_topics:
@@ -354,10 +355,9 @@ questions:
   source_refs:
   - 西氏内科学精要
   must_not: []
-  doctor_must_have_tags:
-  - 证据等级
 - id: RHEU_RA_01
   question: 类风湿关节炎缓解了还需要继续吃药吗？
+  mode: patient
   expected_domain:
   - rheumatology:ra
   expected_topics:
@@ -370,8 +370,6 @@ questions:
   - 西氏内科学精要
   must_not:
   - 建议可以自行停药
-  doctor_must_have_tags:
-  - 证据等级
 - id: RHEU_OSTEO_01
   question: 骨质疏松补钙要注意什么？
   expected_domain:
@@ -468,7 +466,7 @@ questions:
 - id: ONCO_CANCER_PAIN_01
   question: 妈妈晚期癌症疼痛很厉害，止痛药可以多吃一点吗？
   expected_domain:
-  - oncology:tumor_complications
+  - palliative:palliative_care
   expected_topics:
   - 按时服药（不是按需）是正确方式
   - 疼痛控制目标说明
