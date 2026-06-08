@@ -20,6 +20,8 @@ import re
 import sys
 
 DIMS = ("coverage", "accuracy", "safety", "grounding")
+# 判官 score 的常见键名（schema 规定为 "score"，此处容忍同义/本地化变体）
+_SCORE_KEYS = ("score", "得分", "分数", "评分", "rating", "value")
 
 
 def _extract_balanced(text):
@@ -68,14 +70,39 @@ def _strict_parse(obj_str):
     return None
 
 
-def _score_of(data, dim):
-    """从结构化 dict 取某维 score；兼容 {"score":N} 与裸数字两种形态。"""
-    v = data.get(dim)
-    if isinstance(v, dict):
-        return int(v.get("score", 0) or 0)
+def _coerce_score(v, depth=2):
+    """把一个值强制解析为整数分数。**取不到时返回 None（区别于真实的 0）**。
+
+    容忍：裸数字、数字字符串（"10"/"10/10"）、嵌套 dict（按 _SCORE_KEYS 找，或下钻一层）。
+    刻意只经 score 键名下钻，不抓 dict 里任意数字，避免把 rationale 里的数字/权重误当分数。
+    """
+    if isinstance(v, bool):           # True/False 不是分数
+        return None
     if isinstance(v, (int, float)):
         return int(v)
-    return 0
+    if isinstance(v, str):
+        m = re.search(r"-?\d+", v)
+        return int(m.group()) if m else None
+    if isinstance(v, dict) and depth > 0:
+        for k in _SCORE_KEYS:
+            if k in v:
+                s = _coerce_score(v[k], depth - 1)
+                if s is not None:
+                    return s
+        for val in v.values():        # 仅下钻嵌套 dict 找 score 键
+            if isinstance(val, dict):
+                s = _coerce_score(val, depth - 1)
+                if s is not None:
+                    return s
+    return None
+
+
+def _score_of(data, dim):
+    """从结构化 dict 取某维 score；**取不到返回 None**（None=提取失败→应兜底/重跑，
+    与判官真实给 0 严格区分）。兼容 {"score":N}、裸数字、数字字符串、同义键、单层嵌套。"""
+    if not isinstance(data, dict) or dim not in data:
+        return None
+    return _coerce_score(data[dim])
 
 
 def _regex_scores(raw):
@@ -118,17 +145,19 @@ def parse(raw):
         normalized = obj_str.replace("\n", " ").replace("\r", " ")
         data = _strict_parse(normalized)
         if data is not None:
-            return {
-                "coverage": _score_of(data, "coverage"),
-                "accuracy": _score_of(data, "accuracy"),
-                "safety": _score_of(data, "safety"),
-                "grounding": _score_of(data, "grounding"),
-                "flags": list(data.get("flags", []) or []),
-                "ok": True,
-                "error": None,
-            }, True
+            strict = {d: _score_of(data, d) for d in DIMS}
+            # 仅当四维分数**全部成功提取**才采信严格解析结果。
+            # 任一维取不到（None：score 为 null/占位符/同义键失配/嵌套异常）→ 不静默填 0，
+            # 落正则兜底；兜底仍凑不齐则 ok=False，由调用方重跑判官（修 ILD_BREATHLESS 类 A=0 假失败）。
+            if all(s is not None for s in strict.values()):
+                return {
+                    **strict,
+                    "flags": list(data.get("flags", []) or []),
+                    "ok": True,
+                    "error": None,
+                }, True
 
-    # 严格解析失败 → 逐维正则兜底（作用于原始文本）
+    # 严格解析失败 / 有维度取不到分 → 逐维正则兜底（作用于原始文本）
     scores, hits = _regex_scores(raw)
     if hits >= len(DIMS):  # 四维全部命中 → 视为已恢复，可信
         return {

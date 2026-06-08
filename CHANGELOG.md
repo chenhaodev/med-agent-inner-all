@@ -53,6 +53,12 @@ canonical run：`eval/results/2026-06-08_11-36-07_patient.json` /
   (2) `[MUSTWARN]` 检查豁免 `mode: patient` 题，只查 doctor 可达题（both/doctor）。
   (3) 顺手修 `ONCO_CANCER_PAIN_01` 陈旧 `expected_domain`（癌痛 v3.2 已改投 palliative）。
   结果：`audit_routing.py` 三检查全绿（0 ROUTE ERROR/WARN、TAG 通过、0 MUSTWARN）。
+- **`parse_judge.py` 修「静默 0」假失败**（ILD_BREATHLESS_01 类 C6 **A0** S10 G10 假阴性根因）：
+  判官某维 score 为 `null`/占位符/同义键/字符串/异常嵌套时，旧 `_score_of` 静默填 0 且 `ok=True`，
+  不触发重跑，伪造一次 −11 分失败。改为：取分失败返回 `None`（与判官真实给 0 严格区分），严格解析
+  需**四维全部成功提取**才采信，否则落正则兜底、仍不足则 `ok=False`（exit 3）由 worker 重跑判官；
+  并容忍同义键（评分/得分）、数字字符串、单层嵌套以减少无谓重跑。新增 `bin/test_parse_judge.py`
+  自测 10 例（含「真实 0 须保留」不变量）。消除每跑约 1–2 道判官解析噪声，提升通过率可信度。
 
 ### 已知 / 长尾 (Known)
 
